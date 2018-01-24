@@ -1,7 +1,8 @@
 default_view:
   view: yes
+  name: Trastvägen
   icon: mdi:home
   entities:
     - switch.kitchen_lights
-    - switch.kitchen_lights
+    - switch.livingroom_lamp
     - light.bedroom
