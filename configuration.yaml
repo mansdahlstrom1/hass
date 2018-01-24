@@ -25,7 +25,7 @@ config:
 http:
   api_password: !secret http_password
   # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
-  # base_url: example.duckdns.org:8123
+  base_url: ubuntu.mansdahlstrom.se:8123
 
 # Checks for available updates
 # Note: This component will send some information about your system to
@@ -64,6 +64,8 @@ tts:
 
 # Cloud
 cloud:
+
+tellduslive:
 
 group: !include groups.yaml
 automation: !include automations.yaml

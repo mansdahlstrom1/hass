@@ -1,0 +1,7 @@
+default_view:
+  view: yes
+  icon: mdi:home
+  entities:
+    - switch.kitchen_lights
+    - switch.kitchen_lights
+    - light.bedroom
