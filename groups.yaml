@@ -6,4 +6,5 @@ default_view:
     - switch.kitchen_lights
     - switch.livingroom_lamp
     - light.bedroom
-    - light.tradfri_bulb_e27_cws_opal_600lm
+    - light.bedroom_2
+    - light.studio
