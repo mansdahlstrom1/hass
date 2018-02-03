@@ -8,3 +8,4 @@ default_view:
     - light.bedroom
     - light.bedroom_2
     - light.studio
+    - light.livingroom_lamp
