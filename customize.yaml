@@ -1,18 +1,18 @@
-switch.kitchen_lights:
-  friendly_name: 'Kitchen Spotlights'
-  icon: 'mdi:spotlight-beam'
-switch.livingroom_lamp:
-  friendly_name: 'Makeup Mirror'
-  icon: 'mdi:lamp'
-light.bedroom:
-  friendly_name: 'Bedside Lamp (Måns)'
-  icon: 'mdi:lamp'
-light.bedroom_2:
-  friendly_name: 'Night light'
-  icon: 'mdi:lava-lamp'
-light.studio:
-  friendly_name: 'Studio Lamp'
-  icon: 'mdi:lamp'
-light.livingroom_lamp:
-  friendly_name: 'Livingroom Lamp'
-  icon: 'mdi:lamp'
+# switch.kitchen_lights:
+#   friendly_name: 'Kitchen Spotlights'
+#   icon: 'mdi:spotlight-beam'
+# switch.livingroom_lamp:
+#   friendly_name: 'Makeup Mirror'
+#   icon: 'mdi:lamp'
+# light.bedroom:
+#   friendly_name: 'Bedside Lamp (Måns)'
+#   icon: 'mdi:lamp'
+# light.bedroom_2:
+#   friendly_name: 'Night light'
+#   icon: 'mdi:lava-lamp'
+# light.studio:
+#   friendly_name: 'Studio Lamp'
+#   icon: 'mdi:lamp'
+# light.livingroom_lamp:
+#   friendly_name: 'Livingroom Lamp'
+#   icon: 'mdi:lamp'
