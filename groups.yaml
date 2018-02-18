@@ -2,12 +2,10 @@ lights:
   name: Lights
   entities:
     - switch.kitchen_lights
-    - switch.livingroom_lamp
     - light.bedroom
     - light.bedroom_2
     - light.studio
     - light.livingroom_lamp
-    
 
 default_view:
   view: yes
@@ -15,4 +13,6 @@ default_view:
   icon: mdi:home
   entities:
     - group.lights
+    - switch.livingroom_lamp
+
     
