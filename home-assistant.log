@@ -1,1 +1,624 @@
-2018-02-18 13:40:27 WARNING (MainThread) [homeassistant.components.updater] Running on 'dev', only analytics will be submitted
+2018-03-11 18:01:43 WARNING (MainThread) [homeassistant.components.updater] Running on 'dev', only analytics will be submitted
+2018-03-13 22:07:18 WARNING (MainThread) [homeassistant.helpers.entity] Updating state for light.bedroom_2 (<class 'homeassistant.components.light.tellduslive.TelldusLiveLight'>) took 0.619 seconds. Please report platform to the developers at https://goo.gl/Nvioub
+2018-03-14 00:16:43 WARNING (SyncWorker_12) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/devices/list?supportedMethods=915&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc888b4f98>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-14 00:17:03 WARNING (SyncWorker_12) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/sensors/list?includeValues=1&includeScale=1&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc70041898>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-14 00:17:03 WARNING (SyncWorker_12) [homeassistant.components.tellduslive] Failed request
+2018-03-14 00:18:24 WARNING (SyncWorker_18) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/devices/list?supportedMethods=915&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc607e0b38>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-14 00:18:44 WARNING (SyncWorker_18) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/sensors/list?includeValues=1&includeScale=1&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc607912b0>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-14 00:18:44 WARNING (SyncWorker_18) [homeassistant.components.tellduslive] Failed request
+2018-03-15 01:40:06 WARNING (SyncWorker_17) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Read timed out. (read timeout=10)
+2018-03-15 01:40:06 WARNING (SyncWorker_17) [homeassistant.components.tellduslive] Failed request
+2018-03-18 03:16:19 WARNING (SyncWorker_7) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/devices/list?supportedMethods=915&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efca9995b38>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-18 03:16:39 WARNING (SyncWorker_7) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/sensors/list?includeValues=1&includeScale=1&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc70035898>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-18 03:16:39 WARNING (SyncWorker_7) [homeassistant.components.tellduslive] Failed request
+2018-03-19 13:41:53 WARNING (SyncWorker_12) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/devices/list?supportedMethods=915&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc70035a90>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 13:42:13 WARNING (SyncWorker_12) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/sensors/list?includeValues=1&includeScale=1&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc88181eb8>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 13:42:13 WARNING (SyncWorker_12) [homeassistant.components.tellduslive] Failed request
+2018-03-19 13:43:34 WARNING (SyncWorker_11) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/devices/list?supportedMethods=915&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc607583c8>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 13:43:54 WARNING (SyncWorker_11) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/sensors/list?includeValues=1&includeScale=1&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc60758f28>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 13:43:54 WARNING (SyncWorker_11) [homeassistant.components.tellduslive] Failed request
+2018-03-19 13:45:15 WARNING (SyncWorker_6) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/devices/list?supportedMethods=915&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc6060c7b8>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 13:45:35 WARNING (SyncWorker_6) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/sensors/list?includeValues=1&includeScale=1&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc70022d68>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 13:45:35 WARNING (SyncWorker_6) [homeassistant.components.tellduslive] Failed request
+2018-03-19 13:46:56 WARNING (SyncWorker_3) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/devices/list?supportedMethods=915&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc6060c278>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 13:47:16 WARNING (SyncWorker_3) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/sensors/list?includeValues=1&includeScale=1&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc6060c240>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 13:47:16 WARNING (SyncWorker_3) [homeassistant.components.tellduslive] Failed request
+2018-03-19 13:48:37 WARNING (SyncWorker_5) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/devices/list?supportedMethods=915&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc60529198>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 13:48:57 WARNING (SyncWorker_5) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/sensors/list?includeValues=1&includeScale=1&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc605292e8>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 13:48:57 WARNING (SyncWorker_5) [homeassistant.components.tellduslive] Failed request
+2018-03-19 13:50:18 WARNING (SyncWorker_14) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/devices/list?supportedMethods=915&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc6052c940>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 13:50:38 WARNING (SyncWorker_14) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/sensors/list?includeValues=1&includeScale=1&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc6052c160>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 13:50:38 WARNING (SyncWorker_14) [homeassistant.components.tellduslive] Failed request
+2018-03-19 13:51:59 WARNING (SyncWorker_4) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/devices/list?supportedMethods=915&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc7004ada0>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 13:52:19 WARNING (SyncWorker_4) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/sensors/list?includeValues=1&includeScale=1&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc7004a160>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 13:52:19 WARNING (SyncWorker_4) [homeassistant.components.tellduslive] Failed request
+2018-03-19 13:53:40 WARNING (SyncWorker_16) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/devices/list?supportedMethods=915&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc607a9eb8>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 13:54:00 WARNING (SyncWorker_16) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/sensors/list?includeValues=1&includeScale=1&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc607a9908>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 13:54:00 WARNING (SyncWorker_16) [homeassistant.components.tellduslive] Failed request
+2018-03-19 13:55:21 WARNING (SyncWorker_2) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/devices/list?supportedMethods=915&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc6048a8d0>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 13:55:41 WARNING (SyncWorker_2) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/sensors/list?includeValues=1&includeScale=1&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc7002b400>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 13:55:41 WARNING (SyncWorker_2) [homeassistant.components.tellduslive] Failed request
+2018-03-19 13:57:02 WARNING (SyncWorker_18) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/devices/list?supportedMethods=915&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc607b5f28>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 13:57:22 WARNING (SyncWorker_18) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/sensors/list?includeValues=1&includeScale=1&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc700c90b8>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 13:57:22 WARNING (SyncWorker_18) [homeassistant.components.tellduslive] Failed request
+2018-03-19 13:58:43 WARNING (SyncWorker_8) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/devices/list?supportedMethods=915&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc7002b828>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 13:59:03 WARNING (SyncWorker_8) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/sensors/list?includeValues=1&includeScale=1&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc604cc4a8>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 13:59:03 WARNING (SyncWorker_8) [homeassistant.components.tellduslive] Failed request
+2018-03-19 14:00:24 WARNING (SyncWorker_7) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/devices/list?supportedMethods=915&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc604cc048>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 14:00:44 WARNING (SyncWorker_7) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/sensors/list?includeValues=1&includeScale=1&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc604412e8>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 14:00:44 WARNING (SyncWorker_7) [homeassistant.components.tellduslive] Failed request
+2018-03-19 14:02:05 WARNING (SyncWorker_0) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/devices/list?supportedMethods=915&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc607da438>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 14:02:25 WARNING (SyncWorker_0) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/sensors/list?includeValues=1&includeScale=1&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc607da390>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 14:02:25 WARNING (SyncWorker_0) [homeassistant.components.tellduslive] Failed request
+2018-03-19 14:03:46 WARNING (SyncWorker_10) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/devices/list?supportedMethods=915&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc607daba8>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 14:04:06 WARNING (SyncWorker_10) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/sensors/list?includeValues=1&includeScale=1&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc7004afd0>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 14:04:06 WARNING (SyncWorker_10) [homeassistant.components.tellduslive] Failed request
+2018-03-19 14:05:27 WARNING (SyncWorker_15) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/devices/list?supportedMethods=915&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc7004a400>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 14:05:47 WARNING (SyncWorker_15) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/sensors/list?includeValues=1&includeScale=1&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc607e0ac8>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 14:05:47 WARNING (SyncWorker_15) [homeassistant.components.tellduslive] Failed request
+2018-03-19 14:07:08 WARNING (SyncWorker_12) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/devices/list?supportedMethods=915&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc605957b8>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 14:07:28 WARNING (SyncWorker_12) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/sensors/list?includeValues=1&includeScale=1&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc605c51d0>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 14:07:28 WARNING (SyncWorker_12) [homeassistant.components.tellduslive] Failed request
+2018-03-19 14:08:49 WARNING (SyncWorker_11) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/devices/list?supportedMethods=915&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc605c5978>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 14:09:09 WARNING (SyncWorker_11) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/sensors/list?includeValues=1&includeScale=1&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc606f2c50>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 14:09:09 WARNING (SyncWorker_11) [homeassistant.components.tellduslive] Failed request
+2018-03-19 14:10:30 WARNING (SyncWorker_1) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/devices/list?supportedMethods=915&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc6060cfd0>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 14:10:50 WARNING (SyncWorker_1) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/sensors/list?includeValues=1&includeScale=1&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc891659e8>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 14:10:50 WARNING (SyncWorker_1) [homeassistant.components.tellduslive] Failed request
+2018-03-19 14:12:11 WARNING (SyncWorker_3) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/devices/list?supportedMethods=915&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc88181eb8>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 14:12:31 WARNING (SyncWorker_3) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/sensors/list?includeValues=1&includeScale=1&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc607589e8>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 14:12:31 WARNING (SyncWorker_3) [homeassistant.components.tellduslive] Failed request
+2018-03-19 14:13:52 WARNING (SyncWorker_5) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/devices/list?supportedMethods=915&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc60758f28>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 14:14:12 WARNING (SyncWorker_5) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/sensors/list?includeValues=1&includeScale=1&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc60758dd8>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 14:14:12 WARNING (SyncWorker_5) [homeassistant.components.tellduslive] Failed request
+2018-03-19 14:15:33 WARNING (SyncWorker_17) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/devices/list?supportedMethods=915&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc6060c780>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 14:15:53 WARNING (SyncWorker_17) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/sensors/list?includeValues=1&includeScale=1&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc70022278>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-19 14:15:53 WARNING (SyncWorker_17) [homeassistant.components.tellduslive] Failed request
+2018-03-20 01:46:10 WARNING (SyncWorker_4) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Read timed out. (read timeout=10)
+2018-03-20 01:46:20 WARNING (SyncWorker_4) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/sensors/list?includeValues=1&includeScale=1&includeIgnored=0 (Caused by ConnectTimeoutError(<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc607bafd0>, 'Connection to api.telldus.com timed out. (connect timeout=10)'))
+2018-03-20 01:46:20 WARNING (SyncWorker_4) [homeassistant.components.tellduslive] Failed request
+2018-03-20 01:59:43 WARNING (SyncWorker_3) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Read timed out. (read timeout=10)
+2018-03-20 01:59:54 WARNING (SyncWorker_3) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Read timed out. (read timeout=10)
+2018-03-20 01:59:54 WARNING (SyncWorker_3) [homeassistant.components.tellduslive] Failed request
+2018-03-20 08:23:59 ERROR (MainThread) [homeassistant.core] Error doing job: Fatal error on transport TCPTransport (error status in uv_stream_t.read callback)
+TimeoutError: [Errno 110] Connection timed out
+2018-03-21 14:10:58 ERROR (MainThread) [homeassistant.core] Error doing job: Future exception was never retrieved
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/app/homeassistant/components/tellduslive.py", line 227, in update
+    self._sync()
+  File "/usr/src/app/homeassistant/components/tellduslive.py", line 234, in _sync
+    if not self._client.update():
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 324, in update
+    devices = self._request_devices()
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 301, in _request_devices
+    includeIgnored=0)
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 283, in _request
+    response.json())
+  File "/usr/local/lib/python3.6/site-packages/requests/models.py", line 892, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/__init__.py", line 518, in loads
+    return _default_decoder.decode(s)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 370, in decode
+    obj, end = self.raw_decode(s)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 400, in raw_decode
+    return self.scan_once(s, idx=_w(s, idx).end())
+simplejson.errors.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2018-03-21 17:25:42 WARNING (SyncWorker_19) [tellduslive] Failed request: 502 Server Error: Bad Gateway for url: https://api.telldus.com/json/devices/list?supportedMethods=915&includeIgnored=0
+2018-03-21 17:25:46 WARNING (SyncWorker_19) [homeassistant.components.tellduslive] Failed request
+2018-03-21 17:30:55 WARNING (SyncWorker_12) [tellduslive] Failed request: 502 Server Error: Bad Gateway for url: https://api.telldus.com/json/devices/list?supportedMethods=915&includeIgnored=0
+2018-03-21 17:30:58 WARNING (SyncWorker_12) [homeassistant.components.tellduslive] Failed request
+2018-03-21 17:59:33 WARNING (SyncWorker_15) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Read timed out. (read timeout=10)
+2018-03-21 17:59:33 WARNING (SyncWorker_15) [homeassistant.components.tellduslive] Failed request
+2018-03-21 18:30:18 WARNING (SyncWorker_11) [tellduslive] Failed request: 502 Server Error: Bad Gateway for url: https://api.telldus.com/json/devices/list?supportedMethods=915&includeIgnored=0
+2018-03-21 18:30:19 WARNING (SyncWorker_11) [tellduslive] Failed request: 502 Server Error: Bad Gateway for url: https://api.telldus.com/json/sensors/list?includeValues=1&includeScale=1&includeIgnored=0
+2018-03-21 18:30:19 WARNING (SyncWorker_11) [homeassistant.components.tellduslive] Failed request
+2018-03-21 18:35:49 WARNING (SyncWorker_19) [tellduslive] Failed request: 502 Server Error: Bad Gateway for url: https://api.telldus.com/json/sensors/list?includeValues=1&includeScale=1&includeIgnored=0
+2018-03-21 18:35:49 WARNING (SyncWorker_19) [homeassistant.components.tellduslive] Failed request
+2018-03-21 18:41:20 WARNING (SyncWorker_12) [tellduslive] Failed request: 502 Server Error: Bad Gateway for url: https://api.telldus.com/json/devices/list?supportedMethods=915&includeIgnored=0
+2018-03-21 18:41:23 WARNING (SyncWorker_12) [homeassistant.components.tellduslive] Failed request
+2018-03-21 18:45:45 WARNING (SyncWorker_18) [tellduslive] Failed request: 502 Server Error: Bad Gateway for url: https://api.telldus.com/json/sensors/list?includeValues=1&includeScale=1&includeIgnored=0
+2018-03-21 18:45:45 WARNING (SyncWorker_18) [homeassistant.components.tellduslive] Failed request
+2018-03-21 18:51:13 WARNING (SyncWorker_8) [tellduslive] Failed request: 502 Server Error: Bad Gateway for url: https://api.telldus.com/json/sensors/list?includeValues=1&includeScale=1&includeIgnored=0
+2018-03-21 18:51:13 WARNING (SyncWorker_8) [homeassistant.components.tellduslive] Failed request
+2018-03-21 18:52:13 WARNING (SyncWorker_15) [tellduslive] Failed request: 502 Server Error: Bad Gateway for url: https://api.telldus.com/json/devices/list?supportedMethods=915&includeIgnored=0
+2018-03-21 18:52:13 WARNING (SyncWorker_15) [tellduslive] Failed request: 502 Server Error: Bad Gateway for url: https://api.telldus.com/json/sensors/list?includeValues=1&includeScale=1&includeIgnored=0
+2018-03-21 18:52:13 WARNING (SyncWorker_15) [homeassistant.components.tellduslive] Failed request
+2018-03-21 19:01:48 ERROR (MainThread) [homeassistant.components.updater] Could not contact Home Assistant Update to check for updates
+2018-03-21 19:20:11 WARNING (SyncWorker_18) [tellduslive] Failed request: 502 Server Error: Bad Gateway for url: https://api.telldus.com/json/devices/list?supportedMethods=915&includeIgnored=0
+2018-03-21 19:20:14 WARNING (SyncWorker_18) [homeassistant.components.tellduslive] Failed request
+2018-03-21 19:23:23 WARNING (SyncWorker_11) [tellduslive] Failed request: 502 Server Error: Bad Gateway for url: https://api.telldus.com/json/devices/list?supportedMethods=915&includeIgnored=0
+2018-03-21 19:23:23 WARNING (SyncWorker_11) [tellduslive] Failed request: 502 Server Error: Bad Gateway for url: https://api.telldus.com/json/sensors/list?includeValues=1&includeScale=1&includeIgnored=0
+2018-03-21 19:23:23 WARNING (SyncWorker_11) [homeassistant.components.tellduslive] Failed request
+2018-03-21 19:27:36 WARNING (SyncWorker_1) [tellduslive] Failed request: 502 Server Error: Bad Gateway for url: https://api.telldus.com/json/devices/list?supportedMethods=915&includeIgnored=0
+2018-03-21 19:27:36 WARNING (SyncWorker_1) [tellduslive] Failed request: 502 Server Error: Bad Gateway for url: https://api.telldus.com/json/sensors/list?includeValues=1&includeScale=1&includeIgnored=0
+2018-03-21 19:27:36 WARNING (SyncWorker_1) [homeassistant.components.tellduslive] Failed request
+2018-03-21 19:34:00 WARNING (SyncWorker_17) [tellduslive] Failed request: 502 Server Error: Bad Gateway for url: https://api.telldus.com/json/devices/list?supportedMethods=915&includeIgnored=0
+2018-03-21 19:34:04 WARNING (SyncWorker_17) [homeassistant.components.tellduslive] Failed request
+2018-03-21 19:36:06 WARNING (SyncWorker_16) [tellduslive] Failed request: 502 Server Error: Bad Gateway for url: https://api.telldus.com/json/devices/list?supportedMethods=915&includeIgnored=0
+2018-03-21 19:36:06 WARNING (SyncWorker_16) [tellduslive] Failed request: 502 Server Error: Bad Gateway for url: https://api.telldus.com/json/sensors/list?includeValues=1&includeScale=1&includeIgnored=0
+2018-03-21 19:36:06 WARNING (SyncWorker_16) [homeassistant.components.tellduslive] Failed request
+2018-03-21 19:40:15 WARNING (SyncWorker_14) [tellduslive] Failed request: 502 Server Error: Bad Gateway for url: https://api.telldus.com/json/devices/list?supportedMethods=915&includeIgnored=0
+2018-03-21 19:40:19 WARNING (SyncWorker_14) [homeassistant.components.tellduslive] Failed request
+2018-03-21 19:49:29 ERROR (MainThread) [homeassistant.core] Timer got out of sync. Resetting
+2018-03-21 19:49:31 WARNING (MainThread) [homeassistant.helpers.entity] Updating state for switch.kitchen_lights (<class 'homeassistant.components.switch.tellduslive.TelldusLiveSwitch'>) took 1.992 seconds. Please report platform to the developers at https://goo.gl/Nvioub
+2018-03-21 19:49:35 ERROR (MainThread) [homeassistant.core] Timer got out of sync. Resetting
+2018-03-21 19:52:52 WARNING (SyncWorker_9) [tellduslive] Failed request: 502 Server Error: Bad Gateway for url: https://api.telldus.com/json/devices/list?supportedMethods=915&includeIgnored=0
+2018-03-21 19:52:55 WARNING (SyncWorker_9) [homeassistant.components.tellduslive] Failed request
+2018-03-21 20:42:47 WARNING (SyncWorker_6) [tellduslive] Failed request: 502 Server Error: Bad Gateway for url: https://api.telldus.com/json/devices/list?supportedMethods=915&includeIgnored=0
+2018-03-21 20:42:49 WARNING (SyncWorker_6) [homeassistant.components.tellduslive] Failed request
+2018-03-21 20:51:19 WARNING (SyncWorker_5) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Read timed out. (read timeout=10)
+2018-03-21 20:51:22 WARNING (SyncWorker_5) [homeassistant.components.tellduslive] Failed request
+2018-03-21 20:56:27 ERROR (MainThread) [homeassistant.core] Error doing job: Future exception was never retrieved
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/app/homeassistant/components/tellduslive.py", line 227, in update
+    self._sync()
+  File "/usr/src/app/homeassistant/components/tellduslive.py", line 234, in _sync
+    if not self._client.update():
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 324, in update
+    devices = self._request_devices()
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 301, in _request_devices
+    includeIgnored=0)
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 283, in _request
+    response.json())
+  File "/usr/local/lib/python3.6/site-packages/requests/models.py", line 892, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/__init__.py", line 518, in loads
+    return _default_decoder.decode(s)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 370, in decode
+    obj, end = self.raw_decode(s)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 400, in raw_decode
+    return self.scan_once(s, idx=_w(s, idx).end())
+simplejson.errors.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2018-03-21 20:57:28 ERROR (MainThread) [homeassistant.core] Error doing job: Future exception was never retrieved
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/app/homeassistant/components/tellduslive.py", line 227, in update
+    self._sync()
+  File "/usr/src/app/homeassistant/components/tellduslive.py", line 234, in _sync
+    if not self._client.update():
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 324, in update
+    devices = self._request_devices()
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 301, in _request_devices
+    includeIgnored=0)
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 283, in _request
+    response.json())
+  File "/usr/local/lib/python3.6/site-packages/requests/models.py", line 892, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/__init__.py", line 518, in loads
+    return _default_decoder.decode(s)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 370, in decode
+    obj, end = self.raw_decode(s)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 400, in raw_decode
+    return self.scan_once(s, idx=_w(s, idx).end())
+simplejson.errors.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2018-03-21 20:58:29 ERROR (MainThread) [homeassistant.core] Error doing job: Future exception was never retrieved
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/app/homeassistant/components/tellduslive.py", line 227, in update
+    self._sync()
+  File "/usr/src/app/homeassistant/components/tellduslive.py", line 234, in _sync
+    if not self._client.update():
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 324, in update
+    devices = self._request_devices()
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 301, in _request_devices
+    includeIgnored=0)
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 283, in _request
+    response.json())
+  File "/usr/local/lib/python3.6/site-packages/requests/models.py", line 892, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/__init__.py", line 518, in loads
+    return _default_decoder.decode(s)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 370, in decode
+    obj, end = self.raw_decode(s)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 400, in raw_decode
+    return self.scan_once(s, idx=_w(s, idx).end())
+simplejson.errors.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2018-03-21 20:59:30 ERROR (MainThread) [homeassistant.core] Error doing job: Future exception was never retrieved
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/app/homeassistant/components/tellduslive.py", line 227, in update
+    self._sync()
+  File "/usr/src/app/homeassistant/components/tellduslive.py", line 234, in _sync
+    if not self._client.update():
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 324, in update
+    devices = self._request_devices()
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 301, in _request_devices
+    includeIgnored=0)
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 283, in _request
+    response.json())
+  File "/usr/local/lib/python3.6/site-packages/requests/models.py", line 892, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/__init__.py", line 518, in loads
+    return _default_decoder.decode(s)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 370, in decode
+    obj, end = self.raw_decode(s)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 400, in raw_decode
+    return self.scan_once(s, idx=_w(s, idx).end())
+simplejson.errors.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2018-03-21 21:00:31 WARNING (SyncWorker_4) [tellduslive] Failed request: 502 Server Error: Bad Gateway for url: https://api.telldus.com/json/devices/list?supportedMethods=915&includeIgnored=0
+2018-03-21 21:00:31 WARNING (SyncWorker_4) [tellduslive] Failed request: 502 Server Error: Bad Gateway for url: https://api.telldus.com/json/sensors/list?includeValues=1&includeScale=1&includeIgnored=0
+2018-03-21 21:00:31 WARNING (SyncWorker_4) [homeassistant.components.tellduslive] Failed request
+2018-03-21 21:01:32 ERROR (MainThread) [homeassistant.core] Error doing job: Future exception was never retrieved
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/app/homeassistant/components/tellduslive.py", line 227, in update
+    self._sync()
+  File "/usr/src/app/homeassistant/components/tellduslive.py", line 234, in _sync
+    if not self._client.update():
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 324, in update
+    devices = self._request_devices()
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 301, in _request_devices
+    includeIgnored=0)
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 283, in _request
+    response.json())
+  File "/usr/local/lib/python3.6/site-packages/requests/models.py", line 892, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/__init__.py", line 518, in loads
+    return _default_decoder.decode(s)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 370, in decode
+    obj, end = self.raw_decode(s)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 400, in raw_decode
+    return self.scan_once(s, idx=_w(s, idx).end())
+simplejson.errors.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2018-03-21 21:02:33 ERROR (MainThread) [homeassistant.core] Error doing job: Future exception was never retrieved
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/app/homeassistant/components/tellduslive.py", line 227, in update
+    self._sync()
+  File "/usr/src/app/homeassistant/components/tellduslive.py", line 234, in _sync
+    if not self._client.update():
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 324, in update
+    devices = self._request_devices()
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 301, in _request_devices
+    includeIgnored=0)
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 283, in _request
+    response.json())
+  File "/usr/local/lib/python3.6/site-packages/requests/models.py", line 892, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/__init__.py", line 518, in loads
+    return _default_decoder.decode(s)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 370, in decode
+    obj, end = self.raw_decode(s)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 400, in raw_decode
+    return self.scan_once(s, idx=_w(s, idx).end())
+simplejson.errors.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2018-03-21 21:03:34 ERROR (MainThread) [homeassistant.core] Error doing job: Future exception was never retrieved
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/app/homeassistant/components/tellduslive.py", line 227, in update
+    self._sync()
+  File "/usr/src/app/homeassistant/components/tellduslive.py", line 234, in _sync
+    if not self._client.update():
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 324, in update
+    devices = self._request_devices()
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 301, in _request_devices
+    includeIgnored=0)
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 283, in _request
+    response.json())
+  File "/usr/local/lib/python3.6/site-packages/requests/models.py", line 892, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/__init__.py", line 518, in loads
+    return _default_decoder.decode(s)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 370, in decode
+    obj, end = self.raw_decode(s)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 400, in raw_decode
+    return self.scan_once(s, idx=_w(s, idx).end())
+simplejson.errors.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2018-03-21 21:04:35 ERROR (MainThread) [homeassistant.core] Error doing job: Future exception was never retrieved
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/app/homeassistant/components/tellduslive.py", line 227, in update
+    self._sync()
+  File "/usr/src/app/homeassistant/components/tellduslive.py", line 234, in _sync
+    if not self._client.update():
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 324, in update
+    devices = self._request_devices()
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 301, in _request_devices
+    includeIgnored=0)
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 283, in _request
+    response.json())
+  File "/usr/local/lib/python3.6/site-packages/requests/models.py", line 892, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/__init__.py", line 518, in loads
+    return _default_decoder.decode(s)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 370, in decode
+    obj, end = self.raw_decode(s)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 400, in raw_decode
+    return self.scan_once(s, idx=_w(s, idx).end())
+simplejson.errors.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2018-03-21 21:05:36 ERROR (MainThread) [homeassistant.core] Error doing job: Future exception was never retrieved
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/app/homeassistant/components/tellduslive.py", line 227, in update
+    self._sync()
+  File "/usr/src/app/homeassistant/components/tellduslive.py", line 234, in _sync
+    if not self._client.update():
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 324, in update
+    devices = self._request_devices()
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 301, in _request_devices
+    includeIgnored=0)
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 283, in _request
+    response.json())
+  File "/usr/local/lib/python3.6/site-packages/requests/models.py", line 892, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/__init__.py", line 518, in loads
+    return _default_decoder.decode(s)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 370, in decode
+    obj, end = self.raw_decode(s)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 400, in raw_decode
+    return self.scan_once(s, idx=_w(s, idx).end())
+simplejson.errors.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2018-03-21 21:06:42 ERROR (MainThread) [homeassistant.core] Error doing job: Future exception was never retrieved
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/app/homeassistant/components/tellduslive.py", line 227, in update
+    self._sync()
+  File "/usr/src/app/homeassistant/components/tellduslive.py", line 234, in _sync
+    if not self._client.update():
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 324, in update
+    devices = self._request_devices()
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 301, in _request_devices
+    includeIgnored=0)
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 283, in _request
+    response.json())
+  File "/usr/local/lib/python3.6/site-packages/requests/models.py", line 892, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/__init__.py", line 518, in loads
+    return _default_decoder.decode(s)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 370, in decode
+    obj, end = self.raw_decode(s)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 400, in raw_decode
+    return self.scan_once(s, idx=_w(s, idx).end())
+simplejson.errors.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2018-03-21 21:07:43 ERROR (MainThread) [homeassistant.core] Error doing job: Future exception was never retrieved
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/app/homeassistant/components/tellduslive.py", line 227, in update
+    self._sync()
+  File "/usr/src/app/homeassistant/components/tellduslive.py", line 234, in _sync
+    if not self._client.update():
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 324, in update
+    devices = self._request_devices()
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 301, in _request_devices
+    includeIgnored=0)
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 283, in _request
+    response.json())
+  File "/usr/local/lib/python3.6/site-packages/requests/models.py", line 892, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/__init__.py", line 518, in loads
+    return _default_decoder.decode(s)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 370, in decode
+    obj, end = self.raw_decode(s)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 400, in raw_decode
+    return self.scan_once(s, idx=_w(s, idx).end())
+simplejson.errors.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2018-03-21 21:08:44 ERROR (MainThread) [homeassistant.core] Error doing job: Future exception was never retrieved
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/app/homeassistant/components/tellduslive.py", line 227, in update
+    self._sync()
+  File "/usr/src/app/homeassistant/components/tellduslive.py", line 234, in _sync
+    if not self._client.update():
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 324, in update
+    devices = self._request_devices()
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 301, in _request_devices
+    includeIgnored=0)
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 283, in _request
+    response.json())
+  File "/usr/local/lib/python3.6/site-packages/requests/models.py", line 892, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/__init__.py", line 518, in loads
+    return _default_decoder.decode(s)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 370, in decode
+    obj, end = self.raw_decode(s)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 400, in raw_decode
+    return self.scan_once(s, idx=_w(s, idx).end())
+simplejson.errors.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2018-03-21 21:09:45 ERROR (MainThread) [homeassistant.core] Error doing job: Future exception was never retrieved
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/app/homeassistant/components/tellduslive.py", line 227, in update
+    self._sync()
+  File "/usr/src/app/homeassistant/components/tellduslive.py", line 234, in _sync
+    if not self._client.update():
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 324, in update
+    devices = self._request_devices()
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 301, in _request_devices
+    includeIgnored=0)
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 283, in _request
+    response.json())
+  File "/usr/local/lib/python3.6/site-packages/requests/models.py", line 892, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/__init__.py", line 518, in loads
+    return _default_decoder.decode(s)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 370, in decode
+    obj, end = self.raw_decode(s)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 400, in raw_decode
+    return self.scan_once(s, idx=_w(s, idx).end())
+simplejson.errors.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2018-03-21 21:10:46 ERROR (MainThread) [homeassistant.core] Error doing job: Future exception was never retrieved
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/app/homeassistant/components/tellduslive.py", line 227, in update
+    self._sync()
+  File "/usr/src/app/homeassistant/components/tellduslive.py", line 234, in _sync
+    if not self._client.update():
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 324, in update
+    devices = self._request_devices()
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 301, in _request_devices
+    includeIgnored=0)
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 283, in _request
+    response.json())
+  File "/usr/local/lib/python3.6/site-packages/requests/models.py", line 892, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/__init__.py", line 518, in loads
+    return _default_decoder.decode(s)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 370, in decode
+    obj, end = self.raw_decode(s)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 400, in raw_decode
+    return self.scan_once(s, idx=_w(s, idx).end())
+simplejson.errors.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2018-03-21 21:11:47 ERROR (MainThread) [homeassistant.core] Error doing job: Future exception was never retrieved
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/app/homeassistant/components/tellduslive.py", line 227, in update
+    self._sync()
+  File "/usr/src/app/homeassistant/components/tellduslive.py", line 234, in _sync
+    if not self._client.update():
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 324, in update
+    devices = self._request_devices()
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 301, in _request_devices
+    includeIgnored=0)
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 283, in _request
+    response.json())
+  File "/usr/local/lib/python3.6/site-packages/requests/models.py", line 892, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/__init__.py", line 518, in loads
+    return _default_decoder.decode(s)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 370, in decode
+    obj, end = self.raw_decode(s)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 400, in raw_decode
+    return self.scan_once(s, idx=_w(s, idx).end())
+simplejson.errors.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2018-03-21 21:12:48 ERROR (MainThread) [homeassistant.core] Error doing job: Future exception was never retrieved
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/app/homeassistant/components/tellduslive.py", line 227, in update
+    self._sync()
+  File "/usr/src/app/homeassistant/components/tellduslive.py", line 234, in _sync
+    if not self._client.update():
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 324, in update
+    devices = self._request_devices()
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 301, in _request_devices
+    includeIgnored=0)
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 283, in _request
+    response.json())
+  File "/usr/local/lib/python3.6/site-packages/requests/models.py", line 892, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/__init__.py", line 518, in loads
+    return _default_decoder.decode(s)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 370, in decode
+    obj, end = self.raw_decode(s)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 400, in raw_decode
+    return self.scan_once(s, idx=_w(s, idx).end())
+simplejson.errors.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2018-03-21 21:13:49 ERROR (MainThread) [homeassistant.core] Error doing job: Future exception was never retrieved
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/app/homeassistant/components/tellduslive.py", line 227, in update
+    self._sync()
+  File "/usr/src/app/homeassistant/components/tellduslive.py", line 234, in _sync
+    if not self._client.update():
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 324, in update
+    devices = self._request_devices()
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 301, in _request_devices
+    includeIgnored=0)
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 283, in _request
+    response.json())
+  File "/usr/local/lib/python3.6/site-packages/requests/models.py", line 892, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/__init__.py", line 518, in loads
+    return _default_decoder.decode(s)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 370, in decode
+    obj, end = self.raw_decode(s)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 400, in raw_decode
+    return self.scan_once(s, idx=_w(s, idx).end())
+simplejson.errors.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2018-03-21 21:14:50 ERROR (MainThread) [homeassistant.core] Error doing job: Future exception was never retrieved
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/app/homeassistant/components/tellduslive.py", line 227, in update
+    self._sync()
+  File "/usr/src/app/homeassistant/components/tellduslive.py", line 234, in _sync
+    if not self._client.update():
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 324, in update
+    devices = self._request_devices()
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 301, in _request_devices
+    includeIgnored=0)
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 283, in _request
+    response.json())
+  File "/usr/local/lib/python3.6/site-packages/requests/models.py", line 892, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/__init__.py", line 518, in loads
+    return _default_decoder.decode(s)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 370, in decode
+    obj, end = self.raw_decode(s)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 400, in raw_decode
+    return self.scan_once(s, idx=_w(s, idx).end())
+simplejson.errors.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2018-03-21 21:15:52 ERROR (MainThread) [homeassistant.core] Error doing job: Future exception was never retrieved
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/concurrent/futures/thread.py", line 56, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/usr/src/app/homeassistant/components/tellduslive.py", line 227, in update
+    self._sync()
+  File "/usr/src/app/homeassistant/components/tellduslive.py", line 234, in _sync
+    if not self._client.update():
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 324, in update
+    devices = self._request_devices()
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 301, in _request_devices
+    includeIgnored=0)
+  File "/usr/local/lib/python3.6/site-packages/tellduslive.py", line 283, in _request
+    response.json())
+  File "/usr/local/lib/python3.6/site-packages/requests/models.py", line 892, in json
+    return complexjson.loads(self.text, **kwargs)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/__init__.py", line 518, in loads
+    return _default_decoder.decode(s)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 370, in decode
+    obj, end = self.raw_decode(s)
+  File "/usr/local/lib/python3.6/site-packages/simplejson/decoder.py", line 400, in raw_decode
+    return self.scan_once(s, idx=_w(s, idx).end())
+simplejson.errors.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+2018-03-21 21:16:53 WARNING (SyncWorker_6) [tellduslive] Failed request: 502 Server Error: Bad Gateway for url: https://api.telldus.com/json/devices/list?supportedMethods=915&includeIgnored=0
+2018-03-21 21:16:55 WARNING (SyncWorker_6) [homeassistant.components.tellduslive] Failed request
+2018-03-21 21:19:03 WARNING (SyncWorker_12) [tellduslive] Failed request: 502 Server Error: Bad Gateway for url: https://api.telldus.com/json/sensors/list?includeValues=1&includeScale=1&includeIgnored=0
+2018-03-21 21:19:03 WARNING (SyncWorker_12) [homeassistant.components.tellduslive] Failed request
+2018-03-22 10:50:50 WARNING (SyncWorker_6) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Read timed out. (read timeout=10)
+2018-03-22 10:50:51 WARNING (SyncWorker_6) [homeassistant.components.tellduslive] Failed request
+2018-03-22 12:13:28 WARNING (SyncWorker_4) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Read timed out. (read timeout=10)
+2018-03-22 12:13:28 WARNING (SyncWorker_4) [homeassistant.components.tellduslive] Failed request
+2018-03-25 04:16:30 WARNING (SyncWorker_19) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/devices/list?supportedMethods=915&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc60561a90>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-25 04:16:50 WARNING (SyncWorker_19) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/sensors/list?includeValues=1&includeScale=1&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efca98c3710>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-03-25 04:16:50 WARNING (SyncWorker_19) [homeassistant.components.tellduslive] Failed request
+2018-03-31 17:39:58 ERROR (MainThread) [aiohttp.server] Error handling request
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/aiohttp/web_protocol.py", line 271, in data_received
+    messages, upgraded, tail = self._request_parser.feed_data(data)
+  File "aiohttp/_http_parser.pyx", line 295, in aiohttp._http_parser.HttpParser.feed_data
+aiohttp.http_exceptions.BadStatusLine: invalid HTTP method
+2018-03-31 17:40:52 ERROR (MainThread) [aiohttp.server] Error handling request
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/aiohttp/web_protocol.py", line 271, in data_received
+    messages, upgraded, tail = self._request_parser.feed_data(data)
+  File "aiohttp/_http_parser.pyx", line 295, in aiohttp._http_parser.HttpParser.feed_data
+aiohttp.http_exceptions.BadStatusLine: invalid HTTP method
+2018-04-01 04:16:44 WARNING (SyncWorker_2) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/devices/list?supportedMethods=915&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efca9985a90>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-04-01 04:17:04 WARNING (SyncWorker_2) [tellduslive] Failed request: HTTPSConnectionPool(host='api.telldus.com', port=443): Max retries exceeded with url: /json/sensors/list?includeValues=1&includeScale=1&includeIgnored=0 (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x7efc8812bcf8>: Failed to establish a new connection: [Errno -2] Name or service not known',))
+2018-04-01 04:17:04 WARNING (SyncWorker_2) [homeassistant.components.tellduslive] Failed request
+2018-04-01 09:54:40 ERROR (MainThread) [aiohttp.server] Error handling request
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/site-packages/aiohttp/web_protocol.py", line 271, in data_received
+    messages, upgraded, tail = self._request_parser.feed_data(data)
+  File "aiohttp/_http_parser.pyx", line 295, in aiohttp._http_parser.HttpParser.feed_data
+aiohttp.http_exceptions.BadStatusLine: invalid HTTP method
