@@ -1,9 +1,0 @@
-
-mnss_iphone:
-  hide_if_away: false
-  icon:
-  mac:
-  name: mnss iphone
-  picture:
-  track: true
-  vendor:
