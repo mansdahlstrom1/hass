@@ -13,28 +13,21 @@ homeassistant:
   # Customization file
   customize: !include customize.yaml
 
-# Show links to resources in log and frontend
-# introduction:
-
-# Enables the frontend
-frontend:
-
-# Enables configuration UI
-config:
+updater:
+  include_used_components: true
 
 http:
   api_password: !secret http_password
-  # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
   base_url: ubuntu.mansdahlstrom.se:8123
 
-# Checks for available updates
-# Note: This component will send some information about your system to
-# the developers to assist with development of Home Assistant.
-# For more information, please see:
-# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
-updater:
-  # Optional, allows Home Assistant developers to focus on popular components.
-  # include_used_components: true
+# ########################################
+# ###             FRONTEND             ###
+# ########################################
+frontend:
+  javascript_version: latest
+
+# Enables configuration UI
+config:
 
 # Discover some devices automatically
 discovery:
@@ -73,6 +66,6 @@ tradfri:
 ios:
 
 group: !include groups.yaml
-automation: !include automations.yaml
+automation: !include_dir_list automations
 script: !include scripts.yaml
 
