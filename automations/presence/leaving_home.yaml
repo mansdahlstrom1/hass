@@ -1,4 +1,4 @@
-alias: Coming Home
+alias: Leaving Home
 trigger:
   platform: state
   entity_id: group.all_devices
