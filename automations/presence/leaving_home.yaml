@@ -1,0 +1,9 @@
+alias: Coming Home
+trigger:
+  platform: state
+  entity_id: group.all_devices
+  to: 'not_home'
+action:
+  service: light.turn_off
+  entity_id: light.studio
+  # entity_id: group.all_lights
