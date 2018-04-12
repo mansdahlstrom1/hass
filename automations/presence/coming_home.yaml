@@ -5,5 +5,4 @@ trigger:
   to: 'home'
 action:
   service: light.turn_on
-  entity_id: light.studio
-  # entity_id: group.all_lights
+  entity_id: group.all_lights
