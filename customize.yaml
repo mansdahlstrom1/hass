@@ -1,4 +1,4 @@
-switch.kitchen_lights:
+light.light_1:
   friendly_name: 'Kitchen Spotlights'
   icon: 'mdi:spotlight-beam'
 switch.livingroom_lamp:
