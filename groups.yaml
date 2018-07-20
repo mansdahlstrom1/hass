@@ -1,19 +1,11 @@
-# lights:
-#   name: Lights
-#   entities:
-#     - light.kitchen
-#     - light.bedroom
-#     - light.bedroom_2
-#     - light.studio
-#     - light.livingroom_lamp
-#     - light.light
-
-# default_view:
-#   view: yes
-#   name: Trastvägen
-#   icon: mdi:home
-#   entities:
-#     - group.lights
-#     - switch.livingroom_lamp
+lights:
+  name: Lights
+  entities:
+    - light.kitchen
+    - light.bedroom
+    - light.bedroom_2
+    - light.studio
+    - light.livingroom_lamp
+    - light.light
 
     
