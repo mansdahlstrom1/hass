@@ -25,6 +25,9 @@ http:
 # ########################################
 frontend:
   javascript_version: latest
+  themes:
+    dark-mode:
+      primary-color: gray
 
 # Enables configuration UI
 config:
@@ -50,6 +53,25 @@ sun:
 # Weather prediction
 sensor:
   - platform: yr
+    name: Weather
+    forecast: 168
+    monitored_conditions:
+      - temperature
+      - symbol
+      - precipitation
+      - windSpeed
+      - pressure
+      - windDirection
+      - humidity
+      - fog
+      - cloudiness
+      - lowClouds
+      - mediumClouds
+      - highClouds
+      - dewpointTemperature
+
+weather:
+  - platform: yweather
 
 # Text to speech
 tts:
