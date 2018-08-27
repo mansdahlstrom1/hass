@@ -62,5 +62,3 @@ views:
         filter:
           include:
             - domain: light
-      - type: custom:test-card
-        entity: light.kitchen
