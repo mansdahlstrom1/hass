@@ -1,3 +1,4 @@
+id: coming_home
 alias: Coming Home
 trigger:
   platform: state

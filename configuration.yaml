@@ -17,8 +17,18 @@ updater:
   include_used_components: true
 
 http:
-  api_password: !secret http_password
-  base_url: ubuntu.mansdahlstrom.se:8123
+  # api_password: !secret http_password
+  base_url: !secret base_url
+  ssl_certificate: !secret ssl_certificate
+  ssl_key: !secret ssl_key
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 127.0.0.1
+    - ::1
+  trusted_networks:
+    - 127.0.0.1
+    - ::1
+    - 192.168.1.0/24
 
 # ########################################
 # ###             FRONTEND             ###
@@ -31,65 +41,60 @@ frontend:
 
 # Enables configuration UI
 config:
-
 # Discover some devices automatically
 discovery:
-
 # Allows you to issue voice commands from the frontend in enabled browsers
 conversation:
-
 # Enables support for tracking state changes over time
 history:
-
 # View all events in a logbook
 logbook:
-
 # Enables a map showing the location of tracked devices
 map:
-
 # Track the sun
 sun:
+# Enable hass api
+api:
 
 # Weather prediction
 sensor:
   - platform: yr
     name: Weather
-    forecast: 168
-    monitored_conditions:
-      - temperature
-      - symbol
-      - precipitation
-      - windSpeed
-      - pressure
-      - windDirection
-      - humidity
-      - fog
-      - cloudiness
-      - lowClouds
-      - mediumClouds
-      - highClouds
-      - dewpointTemperature
-
 weather:
-  - platform: yweather
+- platform: yweather
 
-# Text to speech
+person:
+  - name: Måns
+    id: mans
+    user_id: ffc5a3ce02354791998885bfff55e2f3
+    device_trackers:
+      - device_tracker.mnss_iphone
+
+  - name: Agnes
+    id: agge
+    user_id: b19b2e4df4724681b6b3e8cced80d925
+    device_trackers:
+      - device_tracker.agnes_iphone
+
+
 tts:
   - platform: google
-
-# Cloud
 cloud:
+ios:
 
+
+# Smart devices
 tellduslive:
 
 tradfri:
   host: 192.168.1.18
 
-# Example configuration.yaml entry
 deconz:
   host: 0.0.0.0
 
-ios:
+binary_sensor:
+  - platform: flic
+
 
 group: !include groups.yaml
 automation: !include_dir_list automations

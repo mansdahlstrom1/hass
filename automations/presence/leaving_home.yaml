@@ -1,8 +1,9 @@
+id: leaving_home
 alias: Leaving Home
 trigger:
-  platform: state
+- platform: state
   entity_id: group.all_devices
   to: 'not_home'
 action:
-  service: light.turn_off
+- service: light.turn_off
   entity_id: group.all_lights
