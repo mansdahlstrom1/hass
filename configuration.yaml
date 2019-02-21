@@ -1,90 +1,23 @@
-homeassistant:
-  # Name of the location where Home Assistant is running
-  name: Home
-  # Location required to calculate the time the sun rises and sets
-  latitude: !secret latitude
-  longitude: !secret longitude
-  # Impacts weather/sunrise data (altitude above sea level in meters)
-  elevation: 43
-  # metric for Metric, imperial for Imperial
-  unit_system: metric
-  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-  time_zone: Europe/Stockholm
-  # Customization file
-  customize: !include customize.yaml
+homeassistant: !include src/homeassistant.yaml
+http: !include src/http.yaml
+person: !include src/persons.yaml
+group: !include src/groups.yaml
+automation: !include_dir_list src/automations
+script: !include src/scripts.yaml
 
-updater:
-  include_used_components: true
-
-http:
-  # api_password: !secret http_password
-  base_url: !secret base_url
-  ssl_certificate: !secret ssl_certificate
-  ssl_key: !secret ssl_key
-  use_x_forwarded_for: true
-  trusted_proxies:
-    - 127.0.0.1
-    - ::1
-  trusted_networks:
-    - 127.0.0.1
-    - ::1
-    - 192.168.1.0/24
-
-# ########################################
-# ###             FRONTEND             ###
-# ########################################
-frontend:
-  javascript_version: latest
-  themes:
-    dark-mode:
-      primary-color: gray
-
-# Enables configuration UI
 config:
-# Discover some devices automatically
 discovery:
-# Allows you to issue voice commands from the frontend in enabled browsers
-conversation:
-# Enables support for tracking state changes over time
 history:
-# View all events in a logbook
 logbook:
-# Enables a map showing the location of tracked devices
 map:
-# Track the sun
 sun:
-# Enable hass api
 api:
-
-# Weather prediction
-sensor:
-  - platform: yr
-    name: Weather
-weather:
-- platform: yweather
-
-person:
-  - name: Måns
-    id: mans
-    user_id: ffc5a3ce02354791998885bfff55e2f3
-    device_trackers:
-      - device_tracker.mnss_iphone
-
-  - name: Agnes
-    id: agge
-    user_id: b19b2e4df4724681b6b3e8cced80d925
-    device_trackers:
-      - device_tracker.agnes_iphone
-
-
-tts:
-  - platform: google
 cloud:
 ios:
-
-
-# Smart devices
 tellduslive:
+
+weather:
+- platform: yweather
 
 tradfri:
   host: 192.168.1.18
@@ -95,8 +28,15 @@ deconz:
 binary_sensor:
   - platform: flic
 
+updater:
+  include_used_components: true
+frontend:
+  javascript_version: latest
+  themes:
+    dark-mode:
+      primary-color: gray
 
-group: !include groups.yaml
-automation: !include_dir_list automations
-script: !include scripts.yaml
+lovelace:
+  mode: yaml
+
 
