@@ -36,5 +36,10 @@ views:
           - light.studio
           - type: divider
           - light.night_light
-          - switch.makeup_mirror
           - switch.painting_lamp
+
+      - type: entity-button
+        icon: mdi:wall-sconce-flat
+        entity: switch.makeup_mirror
+        tap_action: 
+          action: toggle
