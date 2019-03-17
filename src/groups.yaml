@@ -1,0 +1,16 @@
+livingroom:
+  name: Livingroom
+  entities:
+    - light.studio
+    - light.bedroom
+
+bedroom:
+  name: Bedroom
+  entities:
+    - light.mans_bedside_lamp
+    - light.agnes_bedside_lamp
+
+studio:
+  name: Studio
+  entities:
+    - light.living_room
