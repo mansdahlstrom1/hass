@@ -1,0 +1,12 @@
+id: mans_bedside_flic_toggle
+alias: "Måns Bedside Flic toggle"
+trigger:
+  - platform: event
+    event_type: flic_click
+    event_data:
+      button_name: flic_80e4da74d499
+      click_type: double
+action:
+  - service: light.toggle
+    data_template:
+      entity_id: light.mans_bedside_lamp 

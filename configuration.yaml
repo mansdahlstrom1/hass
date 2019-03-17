@@ -16,6 +16,8 @@ cloud:
 ios:
 tellduslive:
 
+alexa: !include src/alexa.yaml
+
 weather:
 - platform: yweather
 
