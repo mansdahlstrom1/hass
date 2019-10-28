@@ -1,5 +1,4 @@
-title: My Awesome Home
-# Exclude entities from "Unused entities" view
+title: Trastvägen 10
 
 resources:
   - url: /local/custom_ui/monster-card.js?v=1
@@ -10,57 +9,44 @@ resources:
 excluded_entities:
   - weblink.router
 views:
-    # View tab title.
   - title: Home
-    # Optional unique id for direct access /lovelace/${id}
-    id: example
-    # Each view can have a different theme applied.
-    theme: dark-mode
-    # The cards to show on this view.
+    path: home
+    type: horizontal-stack
     cards:
-        # The picture entity card will represent an entity with a picture
-      - type: picture-entity
-        image: https://scontent-amt2-1.xx.fbcdn.net/v/t1.0-9/19396935_10154460981912522_4229028277024821748_n.jpg?_nc_cat=0&oh=78b9f6d26da93711941d930d62209521&oe=5BC7D58C
-        entity: device_tracker.agnes_iphone
-        name: Agnes 2
+      - type: horizontal-stack
+        cards:
+          - type: picture-entity
+            image: /local/assets/agnes.jpg
+            entity: person.agnes
+            name: Agnes
 
-      - type: custom:test-card
-        entity: weather.yweather
-
-      - type: picture-entity
-        image: https://avatars0.githubusercontent.com/u/16196900?s=400&u=d6ed87eed932cbc9cffc15641b96b0325b91a1c1&v=4
-        entity: device_tracker.mnss_iphone
-        name: Måns
-
-    # Specify a tab icon if you want the view tab to be an icon.
-  - icon: mdi:home-assistant
-    # Title of the view. Will be used as the tooltip for tab icon
-    title: All lights
-    cards:
-        # Entities card will take a list of entities and show their state.
+          - type: picture-entity
+            image: /local/assets/mans.jpg
+            entity: person.mans
+            name: Måns
+      
       - type: entities
-        # Title of the entities card
-        title: Example
-        # The entities here will be shown in the same order as specified.
-        # Each entry is an entity ID or a map with extra options.
+        title: Rooms
+        show_header_toggle: true
         entities:
-          - entity: light.kitchen
-            name: Kitchen spotlights
-        
-          - entity: light.night_light
-            name: 'Night Light'
+          - group.bedroom
+          - group.livingroom
+          - group.studio
 
-        # The markdown card will render markdown text.
-      - type: markdown
-        title: Lovelace
-        content: >
-          Welcome to your **Lovelace UI**.
-      - type: custom:monster-card
-        card:
-          type: glance
-          title: Monster
-        filter:
-          include:
-            - domain: light
-      - type: custom:test-card
-        entity: light.kitchen
+      - type: entities
+        title: Lights
+        show_header_toggle: true
+        entities:
+          - light.living_room
+          - light.mans_bedside_lamp
+          - light.agnes_bedside_lamp
+          - light.bedroom
+          - light.studio
+
+      - type: entities
+        title: Switches
+        show_header_toggle: true
+        entities:
+          - switch.switch_1
+          - light.night_light
+          - switch.painting_lamp
