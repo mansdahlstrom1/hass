@@ -23,6 +23,10 @@ alexa: !include src/alexa.yaml
 weather:
 - platform: yweather
 
+tradfri:
+  host: 192.168.1.18
+
+
 deconz:
   host: 0.0.0.0
 
