@@ -1,0 +1,11 @@
+id: sunrise
+alias: Waking up
+trigger:
+  platform: time
+  at: "06:30:00"
+action:
+  - service: light.turn_on
+    data:
+      entity_id: group.bedroom
+      transition: 1800 # 30 min
+      brightness: 150

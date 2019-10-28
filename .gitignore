@@ -30,3 +30,5 @@ production_auth.json
 *.save
 .storage/
 entity_registry.yaml
+.homekit.state
+.home-assistant.swp
