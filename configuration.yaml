@@ -7,6 +7,8 @@ script: !include src/scripts.yaml
 
 config:
 discovery:
+  ignore:
+    - apple_tv
 history:
 logbook:
 map:
@@ -23,6 +25,7 @@ weather:
 
 tradfri:
   host: 192.168.1.18
+
 
 deconz:
   host: 0.0.0.0

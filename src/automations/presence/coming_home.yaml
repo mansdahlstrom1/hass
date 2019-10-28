@@ -5,5 +5,10 @@ trigger:
   entity_id: group.all_devices
   to: 'home'
 action:
-  service: light.turn_on
-  entity_id: group.all_lights
+  - service: homeassistant.turn_on
+    entity_id: group.bedroom
+  - service: homeassistant.turn_on
+    entity_id: group.studio
+  - service: homeassistant.turn_on
+    entity_id: group.livingroom
+
