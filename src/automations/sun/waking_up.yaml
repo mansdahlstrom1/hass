@@ -1,4 +1,4 @@
-id: sunrise
+id: wakeup
 alias: Waking up
 trigger:
   platform: time
@@ -8,4 +8,4 @@ action:
     data:
       entity_id: group.bedroom
       transition: 1800 # 30 min
-      brightness: 150
+      brightness: 100

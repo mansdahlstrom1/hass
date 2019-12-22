@@ -14,3 +14,17 @@ studio:
   name: Studio
   entities:
     - light.living_room
+
+my_lights_groups:
+  name: My Lights
+  entities:
+    - group.livingroom
+    - group.bedroom
+    - group.studio
+
+allpersons:
+  name: All Persons
+  entities:
+    - person.mans
+    - person.agnes
+

@@ -21,15 +21,15 @@ views:
         # The picture entity card will represent an entity with a picture
       - type: picture-entity
         image: https://scontent-amt2-1.xx.fbcdn.net/v/t1.0-9/19396935_10154460981912522_4229028277024821748_n.jpg?_nc_cat=0&oh=78b9f6d26da93711941d930d62209521&oe=5BC7D58C
-        entity: device_tracker.agnes_iphone
-        name: Agnes 2
+        entity: device_tracker.agnes_iphone_2
+        name: Agnes
 
       - type: custom:test-card
         entity: weather.yweather
 
       - type: picture-entity
         image: https://avatars0.githubusercontent.com/u/16196900?s=400&u=d6ed87eed932cbc9cffc15641b96b0325b91a1c1&v=4
-        entity: device_tracker.mnss_iphone
+        entity: device_tracker.mans_iphone_x
         name: Måns
 
     # Specify a tab icon if you want the view tab to be an icon.

@@ -2,7 +2,7 @@ id: coming_home
 alias: Coming Home
 trigger:
   platform: state
-  entity_id: group.all_devices
+  entity_id: group.allpersons
   to: 'home'
 action:
   - service: homeassistant.turn_on
@@ -11,4 +11,6 @@ action:
     entity_id: group.studio
   - service: homeassistant.turn_on
     entity_id: group.livingroom
+  - service: homeassistant.turn_on
+    entity_id: switch.painting_lamp_2
 
