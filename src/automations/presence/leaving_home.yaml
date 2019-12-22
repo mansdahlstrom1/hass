@@ -2,11 +2,15 @@ id: leaving_home
 alias: Leaving Home
 trigger:
 - platform: state
-  entity_id: group.all_devices
+  entity_id: group.allpersons
   to: 'not_home'
 action:
   - service: homeassistant.turn_off
-    entity_id: group.all_lights
+    entity_id: group.my_lights_groups
   - service: homeassistant.turn_off
-    entity_id: group.all_switches
+    entity_id: switch.switch_1
+  - service: homeassistant.turn_off
+    entity_id: switch.painting_lamp_2
+  - service: homeassistant.turn_off
+    entity_id: switch.night_light
 

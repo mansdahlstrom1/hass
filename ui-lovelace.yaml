@@ -48,5 +48,7 @@ views:
         show_header_toggle: true
         entities:
           - switch.switch_1
-          - light.night_light
-          - switch.painting_lamp
+          - switch.painting_lamp_2
+          - switch.christmas_star
+          - switch.night_light
+          - switch.balcony
