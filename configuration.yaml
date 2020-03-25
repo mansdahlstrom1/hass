@@ -7,8 +7,6 @@ script: !include src/scripts.yaml
 
 config:
 discovery:
-  ignore:
-    - apple_tv
 history:
 logbook:
 map:
@@ -17,6 +15,7 @@ api:
 cloud:
 ios:
 mobile_app:
+system_health:
 
 alexa: !include src/alexa.yaml
 
@@ -24,7 +23,7 @@ weather:
 - platform: yweather
 
 deconz:
-  host: 0.0.0.0
+  host: 192.168.1.141
 
 binary_sensor:
   - platform: flic
@@ -32,12 +31,8 @@ binary_sensor:
 updater:
   include_used_components: true
 frontend:
-  javascript_version: latest
-  themes:
-    dark-mode:
-      primary-color: gray
+  themes: !include_dir_merge_named themes
 
 lovelace:
   mode: yaml
-
 

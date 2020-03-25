@@ -1,0 +1,14 @@
+id: hass_start
+alias: 'Set theme at startup'
+trigger:
+  - platform: homeassistant
+    event: start
+action:
+  service: frontend.set_theme
+  data_template:
+    name: >
+      {% if is_state('sun.sun', 'below_horizon') %}
+        my-dark-green
+      {% else %}
+        my-light-green
+      {% endif %}

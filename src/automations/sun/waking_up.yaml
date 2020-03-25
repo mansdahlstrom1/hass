@@ -9,3 +9,6 @@ action:
       entity_id: group.bedroom
       transition: 1800 # 30 min
       brightness: 100
+  - service: frontend.set_theme
+    data:
+      name: my-dark-green
