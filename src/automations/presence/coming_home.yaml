@@ -5,6 +5,6 @@ trigger:
   entity_id: group.allpersons
   to: 'home'
 action:
-  service: homeassistant.turn_on
-  entity_id: my_lights_groups
+  - service: homeassistant.turn_on
+    entity_id: group.my_lights_groups
 
