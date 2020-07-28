@@ -3,16 +3,26 @@ title: Trastvägen 10
 background: var(--background-image)
 
 custom_header:
-  background: 'rgba(155, 155, 155, 0.25)'
+  background: 'rgba(155, 155, 155, 0.2)'
   compact_mode: true
   button_text:
     options: '{{ hours24 }}:{{ minutesLZ }}'
 
 resources:
-    - url: /hacsfiles/custom-header/custom-header.js
-      type: module
-    - url: /hacsfiles/lovelace-xiaomi-vacuum-card/xiaomi-vacuum-card.js
-      type: module
+  - url: /hacsfiles/custom-header/custom-header.js
+    type: module
+  - url: /hacsfiles/lovelace-xiaomi-vacuum-card/xiaomi-vacuum-card.js
+    type: module
+  - url: /hacsfiles/group-card/group-card.js
+    type: module
+  - url: /local/custom-ui/room-card.js
+    type: module
+  - url: /hacsfiles/upcoming-media-card/upcoming-media-card.js
+    type: module
+  - url: /community_plugin/lovelace-xiaomi-vacuum-card/xiaomi-vacuum-card.js
+    type: module
+  - url: /hacsfiles/mini-media-player/mini-media-player-bundle.js
+    type: module
  
 
 excluded_entities:
@@ -40,20 +50,51 @@ views:
         entities:
           - group.bedroom
           - group.livingroom
-          - group.studio
+          - group.studio_lights
+          - group.bathroom
 
-      - type: entities
-        title: Lights
-        show_header_toggle: true
-        entities:
-          # - light.living_room
-          - light.mans_bedside_lamp
-          - light.agnes_bedside_lamp
-          - light.bedroom
-          - light.studio
+      - type: custom:group-card
+        card:
+          type: entities
+          title: Bedroom
+        group: group.bedroom
 
-      - type: entities
-        title: Switches
-        show_header_toggle: true
-        entities:
-          - switch.painting_lamp_2
+      - type: custom:group-card
+        card:
+          type: entities
+          title: Living Room
+        group: group.livingroom
+
+      - type: custom:group-card
+        card:
+          type: entities
+          title: Bathroom
+        group: group.bathroom
+
+      - type: custom:room-card
+        card:
+          type: entities
+          title: Studio
+        group: group.studio
+        area: Studio
+
+      - type: custom:upcoming-media-card
+        entity: sensor.plex_recently_added
+        title: Recently Downloaded
+
+      - type: custom:xiaomi-vacuum-card
+        entity: vacuum.xiaomi_vacuum_cleaner
+        name: Dusty
+        vendor: xiaomi
+        image: /local/assets/vacuum_dimmed.png
+      
+      - type: custom:mini-media-player
+        entity: media_player.kitchen_speaker
+        artwork: cover
+
+
+      - type: custom:mini-media-player
+        entity: media_player.echo
+        artwork: cover
+  
+  - title: Development

@@ -1,8 +1,9 @@
 livingroom:
   name: Livingroom
   entities:
-    - light.studio
-    - light.bedroom
+    - light.living_room_lamp_1
+    - light.living_room_lamp_2
+    - switch.sideboard_lamp
 
 bedroom:
   name: Bedroom
@@ -10,17 +11,35 @@ bedroom:
     - light.mans_bedside_lamp
     - light.agnes_bedside_lamp
 
+bathroom:
+  name: Bathroom
+  entities:
+    - switch.bathroom_light
+
 studio:
   name: Studio
   entities:
-    - light.living_room
+    - sensor.studio_temp
+    - sensor.studio_humidity
+    - sensor.studio_air_pressure
+    - sensor.studio_battery
+    - light.studio_lamp
+    - switch.basket_lamp
+    - switch.makeup_mirror
+
+studio_lights:
+  name: Studio Lights
+  entities:
+    - light.studio_lamp
+    - switch.basket_lamp
 
 my_lights_groups:
   name: My Lights
   entities:
     - group.livingroom
     - group.bedroom
-    - group.studio
+    - group.studio_lights
+    - group.bathroom
 
 allpersons:
   name: All Persons
