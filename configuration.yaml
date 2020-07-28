@@ -16,7 +16,7 @@ cloud:
 ios:
 mobile_app:
 system_health:
-
+vacuum: !include src/dusty.yaml
 alexa: !include src/alexa.yaml
 
 weather:
@@ -27,6 +27,12 @@ deconz:
 
 binary_sensor:
   - platform: flic
+
+sensor:
+- platform: plex_recently_added
+  token: 8tBxCzZfe1aFex9umGqp
+  host: 192.168.1.36
+  port: 32400
 
 updater:
   include_used_components: true
