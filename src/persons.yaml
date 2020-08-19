@@ -2,10 +2,10 @@
   id: mans
   user_id: ffc5a3ce02354791998885bfff55e2f3
   device_trackers:
-    - device_tracker.mans_iphone_x
+    - device_tracker.mans_iphone_x_2
 
 - name: Agnes
   id: agge
   user_id: b19b2e4df4724681b6b3e8cced80d925
   device_trackers:
-    - device_tracker.agnes_iphone_2
+    - device_tracker.agnes_iphone_3
