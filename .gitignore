@@ -33,3 +33,4 @@ entity_registry.yaml
 .homekit.state
 .home-assistant.swp
 alexa_*.html
+alexa_media*
