@@ -4,12 +4,14 @@ livingroom:
     - light.living_room_lamp_1
     - light.living_room_lamp_2
     - switch.sideboard_lamp
+    - light.living_room_celling
 
 bedroom:
   name: Bedroom
   entities:
     - light.mans_bedside_lamp
     - light.agnes_bedside_lamp
+    - light.bedroom_celling
 
 bathroom:
   name: Bathroom
@@ -26,12 +28,30 @@ studio:
     - light.studio_lamp
     - switch.basket_lamp
     - switch.makeup_mirror
+    - light.studio_celling
 
 studio_lights:
   name: Studio Lights
   entities:
     - light.studio_lamp
     - switch.basket_lamp
+
+allpersons:
+  name: All Persons
+  entities:
+    - person.mans
+    - person.agnes
+
+kitchen:
+  name: Kitchen
+  entities:
+    - light.kitchen_celling
+
+hallway:
+  name: Hallway Lights
+  entities:
+    - light.hallway_celling_1
+    - light.hallway_celling_2
 
 my_lights_groups:
   name: My Lights
@@ -40,10 +60,5 @@ my_lights_groups:
     - group.bedroom
     - group.studio_lights
     - group.bathroom
-
-allpersons:
-  name: All Persons
-  entities:
-    - person.mans
-    - person.agnes
-
+    - group.hallway
+    - group.kitchen

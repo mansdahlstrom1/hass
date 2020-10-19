@@ -52,6 +52,8 @@ views:
           - group.livingroom
           - group.studio_lights
           - group.bathroom
+          - group.hallway
+          - group.kitchen
 
       - type: custom:group-card
         card:
@@ -77,6 +79,20 @@ views:
           title: Studio
         group: group.studio
         area: Studio
+
+      - type: custom:room-card
+        card:
+          type: entities
+          title: Hallway
+        group: group.hallway
+        area: Hallway
+
+      - type: custom:room-card
+        card:
+          type: entities
+          title: Kitchen
+        group: group.kitchen
+        area: Kitchen
 
       - type: custom:upcoming-media-card
         entity: sensor.plex_recently_added

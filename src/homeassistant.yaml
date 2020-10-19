@@ -9,5 +9,5 @@ auth_providers:
   - type: homeassistant
   - type: trusted_networks
     trusted_networks:
-      - 192.168.0.0/24
+      - 192.168.1.0/24
       - fd00::/8
