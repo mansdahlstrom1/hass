@@ -48,12 +48,13 @@ views:
         title: Rooms
         show_header_toggle: true
         entities:
-          - group.bedroom
-          - group.livingroom
-          - group.studio_lights
+          - group.living_room
+          - group.studio
           - group.bathroom
-          - group.hallway
-          - group.kitchen
+          - light.bedroom_lights
+          - light.hallway_lights
+          - light.kitchen_lights
+          - light.dimmable_lights
 
       - type: custom:group-card
         card:
@@ -65,7 +66,7 @@ views:
         card:
           type: entities
           title: Living Room
-        group: group.livingroom
+        group: group.living_room
 
       - type: custom:group-card
         card:

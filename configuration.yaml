@@ -17,18 +17,9 @@ mobile_app:
 system_health:
 vacuum: !include src/dusty.yaml
 alexa: !include src/alexa.yaml
-homekit:
-- filter:
-    include_domains:
-      - light
-      - sensor
-      - switch
-    exclude_entities:
-      # switches
-      - switch.echo_do_not_disturb_switch
-      - switch.echo_repeat_switch
-      - switch.echo_shuffle_switch
-      - switch.this_device_do_not_disturb_switch
+homekit: !include src/homekit.yaml
+light: !include src/light_groups.yaml
+
 
 weather:
 - platform: yweather
