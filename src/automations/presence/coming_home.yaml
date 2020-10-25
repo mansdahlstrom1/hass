@@ -2,9 +2,14 @@ id: coming_home
 alias: Coming Home
 trigger:
   platform: state
-  entity_id: group.allpersons
+  entity_id: group.all_persons
   to: 'home'
 action:
   - service: homeassistant.turn_on
-    entity_id: group.my_lights_groups
-
+    entity_id:
+      - light.dimmable_lights
+      ## All switches except Makeup Mirror
+      - switch.bathroom_light
+      - switch.basket_lamp
+      # - switch.makeup_mirror
+      - switch.sideboard_lamp
