@@ -6,6 +6,7 @@ living_room:
     - light.living_room_lamp_2
     - light.living_room_celling
     - switch.sideboard_lamp
+    - switch.christmas_tree
     - media_player.echo
 
 ## Studio
@@ -42,6 +43,7 @@ kitchen:
   name: Kitchen
   entities:
     - light.kitchen_celling
+    - switch.christmas_star
     - media_player.kitchen_speaker
 
 ## Bathroom

@@ -6,9 +6,11 @@ trigger:
 action:
   - service: light.turn_on
     data:
-      entity_id: group.bedroom
+      entity_id: light.mans_bedside_lamp
       transition: 1800 # 30 min
-      brightness: 100
-  - service: frontend.set_theme
+      brightness: 70
+  - service: light.turn_on
     data:
-      name: my-dark-green
+      entity_id: light.agnes_bedside_lamp
+      transition: 1800 # 30 min
+      brightness: 70

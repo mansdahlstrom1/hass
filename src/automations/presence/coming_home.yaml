@@ -13,3 +13,5 @@ action:
       - switch.basket_lamp
       # - switch.makeup_mirror
       - switch.sideboard_lamp
+      - switch.christmas_star
+      - switch.christmas_tree
