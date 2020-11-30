@@ -2,15 +2,13 @@ title: Trastvägen 10
 
 background: var(--background-image)
 
-custom_header:
-  background: 'rgba(155, 155, 155, 0.2)'
-  compact_mode: true
-  button_text:
-    options: '{{ hours24 }}:{{ minutesLZ }}'
+# custom_header:
+#   background: 'rgba(155, 155, 155, 0.2)'
+#   compact_mode: true
+#   button_text:
+#     options: '{{ hours24 }}:{{ minutesLZ }}'
 
 resources:
-  - url: /hacsfiles/custom-header/custom-header.js
-    type: module
   - url: /hacsfiles/lovelace-xiaomi-vacuum-card/xiaomi-vacuum-card.js
     type: module
   - url: /hacsfiles/group-card/group-card.js
@@ -108,7 +106,6 @@ views:
       - type: custom:mini-media-player
         entity: media_player.kitchen_speaker
         artwork: cover
-
 
       - type: custom:mini-media-player
         entity: media_player.echo
