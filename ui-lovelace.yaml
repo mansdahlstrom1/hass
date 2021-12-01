@@ -1,16 +1,12 @@
 title: Trastvägen 10
 
-background: var(--background-image)
-
-custom_header:
-  background: 'rgba(155, 155, 155, 0.2)'
-  compact_mode: true
-  button_text:
-    options: '{{ hours24 }}:{{ minutesLZ }}'
+# custom_header:
+#   background: 'rgba(155, 155, 155, 0.2)'
+#   compact_mode: true
+#   button_text:
+#     options: '{{ hours24 }}:{{ minutesLZ }}'
 
 resources:
-  - url: /hacsfiles/custom-header/custom-header.js
-    type: module
   - url: /hacsfiles/lovelace-xiaomi-vacuum-card/xiaomi-vacuum-card.js
     type: module
   - url: /hacsfiles/group-card/group-card.js
@@ -23,6 +19,47 @@ resources:
     type: module
   - url: /hacsfiles/mini-media-player/mini-media-player-bundle.js
     type: module
+  - url: /hacsfiles/vertical-stack-in-card/vertical-stack-in-card.js
+    type: module
+  - url: /hacsfiles/button-card/button-card.js
+    type: module
+
+
+button_card_templates:
+  sensor_button:
+    show_state: true
+
+    styles:
+      card:
+        - height: 80px
+        - border-radius: 8px
+      grid:
+
+        - padding: 8px
+        - position: relative
+
+      icon:
+        - position: absolute
+        - left: -8px
+        - bottom: 0
+        - color: var(--primary-color)
+        - font-size: 42px
+        - opacity: 0.5
+
+      name:
+        - position: absolute
+        - bottom: 40px
+        - right: 0px
+        - color: var(--primary-color)
+        - text-align: right
+
+      state:
+        - position: absolute
+        - bottom: 10px
+        - right: 0px
+        - font-weight: bold
+        - font-size: 24px
+        - color: var(--text-primary-color)
  
 
 excluded_entities:
@@ -30,7 +67,6 @@ excluded_entities:
 views:
   - title: Home
     path: home
-    type: horizontal-stack
     cards:
       - type: horizontal-stack
         cards:
@@ -48,39 +84,91 @@ views:
         title: Rooms
         show_header_toggle: true
         entities:
-          - group.bedroom
-          - group.livingroom
-          - group.studio_lights
+          - group.living_room
+          - group.studio
           - group.bathroom
 
-      - type: custom:group-card
+      - type: entities
+        title: Light groups
+        show_header_toggle: true
+        entities:
+          - light.bedroom_lights
+          - light.hallway_lights
+          - light.kitchen_lights
+          - light.living_room_lights
+          - light.dimmable_lights
+
+
+      - type: weather-forecast
+        entity: weather.openweathermap
+        show_forecast: true
+  
+      - type: custom:room-card
         card:
           type: entities
           title: Bedroom
         group: group.bedroom
 
-      - type: custom:group-card
+      - type: custom:room-card
         card:
           type: entities
           title: Living Room
-        group: group.livingroom
+        group: group.living_room
 
-      - type: custom:group-card
+      - type: custom:room-card
         card:
           type: entities
           title: Bathroom
         group: group.bathroom
 
+      - type: custom:vertical-stack-in-card
+        title: Studio
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                template: sensor_button
+                icon: mdi:thermometer
+                entity: sensor.studio_temp
+
+              - type: custom:button-card
+                template: sensor_button
+                icon: mdi:water-percent
+                entity: sensor.studio_humidity
+                color: rgb(255,255, 255)
+
+              - type: custom:button-card
+                template: sensor_button
+                icon: mdi:battery
+                entity: sensor.studio_battery
+                color: rgb(255,255, 255)
+
+          - type: entities
+            entities:
+            - light.studio_lamp
+            - switch.basket_lamp
+            - switch.makeup_mirror
+            - light.studio_celling
+
       - type: custom:room-card
         card:
           type: entities
-          title: Studio
-        group: group.studio
-        area: Studio
+          title: Hallway
+        group: group.hallway
+        area: Hallway
 
-      - type: custom:upcoming-media-card
-        entity: sensor.plex_recently_added
-        title: Recently Downloaded
+      - type: custom:room-card
+        card:
+          type: entities
+          title: Christmas
+        group: group.christmas
+
+      - type: custom:room-card
+        card:
+          type: entities
+          title: Kitchen
+        group: group.kitchen
+        area: Kitchen
 
       - type: custom:xiaomi-vacuum-card
         entity: vacuum.xiaomi_vacuum_cleaner
@@ -91,7 +179,6 @@ views:
       - type: custom:mini-media-player
         entity: media_player.kitchen_speaker
         artwork: cover
-
 
       - type: custom:mini-media-player
         entity: media_player.echo
