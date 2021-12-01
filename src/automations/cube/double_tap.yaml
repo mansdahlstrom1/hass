@@ -1,0 +1,17 @@
+id: double_tap
+alias: 'Cube double tap'
+initial_state: 'on'
+trigger:
+  platform: event
+  event_type: deconz_event
+  event_data:
+    id: mi_magic_cube
+condition:
+  condition: template
+  value_template: >
+    {% set valid_events = [1001, 2002, 3003, 4004, 5005, 6006] %}
+    {{ trigger.event.data.event in valid_events }}
+action:
+  - service: automation.trigger
+    data:
+      entity_id: automation.movie_time
