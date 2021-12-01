@@ -26,11 +26,23 @@ nest.conf
 .uuid
 ipchange.yaml
 production_auth.json
+
 .vscode/
+
 *.save
 .storage/
+
 entity_registry.yaml
 .homekit.state
 .home-assistant.swp
 alexa_*.html
 alexa_media*
+
+
+blueprints
+# HACS
+custom_components
+
+# community
+www/community
+www/custom-lovelace
