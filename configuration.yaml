@@ -19,8 +19,6 @@ vacuum: !include src/dusty.yaml
 alexa: !include src/alexa.yaml
 homekit: !include src/homekit.yaml
 light: !include src/light_groups.yaml
-weather:
-
 
 deconz:
   host: 192.168.1.141
