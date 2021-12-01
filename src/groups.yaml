@@ -65,5 +65,12 @@ my_switches:
     - switch.basket_lamp
     - switch.makeup_mirror
     - switch.sideboard_lamp
+    - switch.christmas_start
+    - switch.christmas_tree
 
-
+## Christmas
+christmas:
+  name: Christmas
+  entities:
+    - switch.christmas_star
+    - switch.christmas_tree
