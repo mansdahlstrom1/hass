@@ -17,9 +17,10 @@ mobile_app:
 system_health:
 vacuum: !include src/dusty.yaml
 alexa: !include src/alexa.yaml
+homekit: !include src/homekit.yaml
+light: !include src/light_groups.yaml
+weather:  
 
-weather:
-- platform: yweather
 
 deconz:
   host: 192.168.1.141
@@ -35,8 +36,10 @@ sensor:
 
 updater:
   include_used_components: true
+
 frontend:
   themes: !include_dir_merge_named themes
+  # /config/themes/dark_themes/dark_themes.yaml
 
 lovelace:
   mode: yaml

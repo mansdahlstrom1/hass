@@ -5,13 +5,4 @@ smart_home:
       - switch
       - light
       - group
-  entity_config:
-    group.living_room:
-      name: Livingroom Lights
-      description: Livingrooms lights
-      display_categories: LIGHT
-    group.studio:
-      name: Studio Lights
-      description: Studio lights
-      display_categories: LIGHT
       
