@@ -37,7 +37,6 @@ hallway:
     - light.hallway_celling_1
     - light.hallway_celling_2
 
-
 ## Kitchen
 kitchen:
   name: Kitchen

@@ -6,6 +6,12 @@
 !.gitignore
 !*.md
 
+# custom folders
+!src
+!themes/**/*
+!www/assets/*
+!www/custom-ui
+
 # Ignore folders.
 .storage
 .cloud
