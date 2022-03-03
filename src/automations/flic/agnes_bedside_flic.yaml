@@ -1,0 +1,22 @@
+id: agnes_bedside_flic
+alias: "Agnes Bedside Flic"
+trigger:
+  - platform: event
+    event_type: flic_click
+    event_data:
+      button_name: flic_80e4da74ecfc
+      click_type: single
+action:
+  - service: light.turn_on
+    data_template:
+      entity_id: light.agnes_bedside_lamp 
+      transition: '1'
+      brightness: >
+        {% set brightness = states.light.agnes_bedside_lamp.attributes.brightness %}
+
+        {% if brightness < 85 %} 85
+        {% elif brightness < 170 %} 170
+        {% elif brightness < 255 %} 255
+        {% else %} 0
+        {% endif %}
+        

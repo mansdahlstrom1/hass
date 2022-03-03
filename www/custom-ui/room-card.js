@@ -2,7 +2,6 @@ class RoomCard extends HTMLElement {
 
   setConfig(config) {
     console.log('set config');
-
     if (!config.group) {
       throw new Error('Please specify a group');
     }

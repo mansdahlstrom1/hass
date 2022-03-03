@@ -12,8 +12,6 @@ action:
       ## All switches except Makeup Mirror
       - switch.bathroom_light
       - switch.basket_lamp
-
-
       # - switch.makeup_mirror
       - switch.sideboard_lamp
       # - switch.christmas_star
