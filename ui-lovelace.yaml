@@ -60,7 +60,7 @@ button_card_templates:
         - font-weight: bold
         - font-size: 24px
         - color: var(--text-primary-color)
-
+ 
 
 excluded_entities:
   - weblink.router
@@ -79,7 +79,7 @@ views:
             image: /local/assets/mans.jpg
             entity: person.mans
             name: Måns
-
+      
       - type: entities
         title: Rooms
         show_header_toggle: true
@@ -87,10 +87,6 @@ views:
           - group.living_room
           - group.studio
           - group.bathroom
-          - light.bedroom_lights
-          - light.hallway_lights
-          - light.kitchen_lights
-          - light.dimmable_lights
 
       - type: entities
         title: Light groups
@@ -106,7 +102,7 @@ views:
       - type: weather-forecast
         entity: weather.openweathermap
         show_forecast: true
-
+  
       - type: custom:room-card
         card:
           type: entities
@@ -179,7 +175,7 @@ views:
         name: Dusty
         vendor: xiaomi
         image: /local/assets/vacuum_dimmed.png
-
+      
       - type: custom:mini-media-player
         entity: media_player.kitchen_speaker
         artwork: cover
@@ -187,5 +183,5 @@ views:
       - type: custom:mini-media-player
         entity: media_player.echo
         artwork: cover
-
+  
   - title: Development

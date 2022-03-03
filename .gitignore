@@ -9,13 +9,22 @@
 
 # src folders
 !src/
-!src/*.yaml
-!src/**/*.yaml
 !src/automations/
 !src/automations/presence
+!src/automations/cube
+!src/automations/flic
+!src/automations/ios_actions
+!src/automations/scenes
+!src/automations/sun
+!src/scripts
+!src/scripts/*
 
 # themes
 !themes/
+!themes/caule-themes-pack-1
+!themes/caule-themes-pack-1/*
+!themes/dark_themes
+!themes/my-themes
 
 # www folder
 !www
@@ -25,7 +34,7 @@
 !www/custom-ui/*
 
 # Ignore folders.
-.storagegs
+.storage
 .cloud
 .google.token
 

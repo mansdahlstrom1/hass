@@ -1,0 +1,15 @@
+id: sunrise
+alias: Sunrise
+trigger:
+  platform: sun
+  event: sunset
+  offset: "+00:00:00"
+action:
+  - service: homeassistant.turn_on
+    entity_id: switch.christmas_star
+  - service: homeassistant.turn_on
+    entity_id: switch.christmas_tree
+
+
+## 6 => 9 tree on
+## 4 => 11 tree on

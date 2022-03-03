@@ -1,0 +1,10 @@
+id: movie_time
+alias: 'Movie Time'
+trigger:
+  - platform: event
+    event_type: ios.action_fired
+    event_data:
+      actionName: 'random'
+action:
+  - service: switch.toggle
+    entity_id: switch.makeup_mirror
