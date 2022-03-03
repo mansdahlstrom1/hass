@@ -3,7 +3,10 @@ latitude: !secret latitude
 longitude: !secret longitude
 elevation: 43
 unit_system: metric
+currency: SEK
 time_zone: Europe/Stockholm
+external_url: "https://ubuntu.mansdahlstrom.se"
+internal_url: "http://homeassistant.local:8123"
 customize: !include customize.yaml
 auth_providers:
   - type: homeassistant
