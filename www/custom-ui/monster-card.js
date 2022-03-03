@@ -16,6 +16,7 @@ class MonsterCard extends HTMLElement {
       const regEx = new RegExp(`^${pattern.replace(/\*/g, '.*')}$`, 'i');
       return compareEntity.search(regEx) === 0;
     }
+
     // Allows '< 300' in b
     function _complexCompare(a, b) {
       const _compare = {

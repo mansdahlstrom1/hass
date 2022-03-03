@@ -4,6 +4,7 @@ trigger:
   platform: state
   entity_id: group.all_persons
   to: 'home'
+
 action:
   - service: homeassistant.turn_on
     entity_id:
@@ -11,7 +12,9 @@ action:
       ## All switches except Makeup Mirror
       - switch.bathroom_light
       - switch.basket_lamp
+
+
       # - switch.makeup_mirror
       - switch.sideboard_lamp
-      - switch.christmas_star
-      - switch.christmas_tree
+      # - switch.christmas_star
+      # - switch.christmas_tree
