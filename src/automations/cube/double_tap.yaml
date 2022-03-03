@@ -1,6 +1,6 @@
 id: double_tap
 alias: 'Cube double tap'
-initial_state: 'on'
+initial_state: true
 trigger:
   platform: event
   event_type: deconz_event
