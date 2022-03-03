@@ -1,36 +1,44 @@
-*.pid
-*.xml
-*.csr
-*.crt
-*.key
-*.conf
-*.pickle
+# Example .gitignore file for your config dir.
+# An * ensures that everything will be ignored.
+*
+
+# You can whitelist files/folders with !, these will not be ignored.
+!*.yaml
+!.gitignore
+!*.md
+
+# src folders
+!src/
+!src/automations/
+!src/automations/presence
+!src/automations/cube
+!src/automations/flic
+!src/automations/ios_actions
+!src/automations/scenes
+!src/automations/sun
+!src/scripts
+!src/scripts/*
+
+# themes
+!themes/
+!themes/caule-themes-pack-1
+!themes/caule-themes-pack-1/*
+!themes/dark_themes
+!themes/my-themes
+
+# www folder
+!www
+!www/assets/
+!www/assets/*
+!www/custom-ui/
+!www/custom-ui/*
+
+# Ignore folders.
+.storage
 .cloud
-OZW_Log.txt
-home-assistant.log
-home-assistant_v2.db
-*.db-journal
-*.db-shm
-*.db-wal
-*.sqlite
-deps
-__pycache__
-tts
+.google.token
+
+# Ensure these YAML files are ignored, otherwise your secret data/credentials will leak.
+ip_bans.yaml
 secrets.yaml
-secrets
 known_devices.yaml
-phue.conf
-ios.conf
-pyozw.sqlite
-nest.conf
-.uuid
-ipchange.yaml
-production_auth.json
-.vscode/
-*.save
-.storage/
-entity_registry.yaml
-.homekit.state
-.home-assistant.swp
-alexa_*.html
-alexa_media*
