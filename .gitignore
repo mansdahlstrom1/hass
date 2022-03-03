@@ -7,14 +7,25 @@
 !.gitignore
 !*.md
 
-# custom folders
-!src
-!themes
-!www/assets
-!www/custom-ui
+# src folders
+!src/
+!src/*.yaml
+!src/**/*.yaml
+!src/automations/
+!src/automations/presence
+
+# themes
+!themes/
+
+# www folder
+!www
+!www/assets/
+!www/assets/*
+!www/custom-ui/
+!www/custom-ui/*
 
 # Ignore folders.
-.storage
+.storagegs
 .cloud
 .google.token
 
