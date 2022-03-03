@@ -20,10 +20,6 @@ alexa: !include src/alexa.yaml
 homekit: !include src/homekit.yaml
 light: !include src/light_groups.yaml
 
-
-weather:
-- platform: yweather
-
 deconz:
   host: 192.168.1.141
 
@@ -36,12 +32,9 @@ sensor:
   host: 192.168.1.36
   port: 32400
 
-updater:
-  include_used_components: true
 frontend:
   themes: !include_dir_merge_named themes
   # /config/themes/dark_themes/dark_themes.yaml
 
 lovelace:
   mode: yaml
-

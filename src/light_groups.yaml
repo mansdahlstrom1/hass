@@ -4,6 +4,7 @@
   entities:
     - light.living_room_lamp_1
     - light.living_room_lamp_2
+    - light.living_room_celling
 
     - light.studio_lamp
     - light.studio_celling
@@ -23,6 +24,7 @@
   entities:
     - light.living_room_lamp_1
     - light.living_room_lamp_2
+    - light.living_room_celling
 
 ## Studio
 - platform: group
