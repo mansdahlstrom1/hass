@@ -3,6 +3,19 @@ alias: Waking up
 trigger:
   platform: time
   at: "06:30:00"
+condition:
+  condition: and
+  conditions:
+    - condition: state
+      entity_id: group.all_persons
+      state: "home"
+    - condition: time
+      weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
 action:
   - service: light.turn_on
     data:

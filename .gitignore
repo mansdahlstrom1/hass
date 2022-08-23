@@ -16,6 +16,7 @@
 !src/automations/ios_actions
 !src/automations/scenes
 !src/automations/sun
+!src/automations/time
 !src/scripts
 !src/scripts/*
 
