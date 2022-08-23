@@ -53,3 +53,14 @@
   name: "Kitchen Lights"
   entities:
     - light.kitchen_celling
+
+## Celling lights
+- platform: group
+  name: "Celling lights"
+  entities:
+    - light.kitchen_celling
+    - light.hallway_celling_1
+    - light.hallway_celling_2
+    - light.bedroom_celling
+    - light.living_room_celling
+    - light.studio_celling

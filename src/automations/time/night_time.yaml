@@ -1,0 +1,27 @@
+id: night_time
+alias: Night
+trigger:
+  platform: time
+  at: "21:00:00"
+condition:
+  condition: and
+  conditions:
+    - condition: state
+      entity_id: group.all_persons
+      state: "home"
+    - condition: time
+      weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+action:
+  - service: light.turn_off
+    data:
+      entities:
+        - light.kitchen_celling
+        - light.hallway_celling_1
+        - light.hallway_celling_2
+        - light.bedroom_celling
+        - light.living_room_celling
+        - light.studio_celling
