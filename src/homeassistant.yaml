@@ -1,4 +1,5 @@
 name: Home
+country: SE
 latitude: !secret latitude
 longitude: !secret longitude
 elevation: 43
