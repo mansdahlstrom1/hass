@@ -18,7 +18,7 @@ condition:
 action:
   - service: light.turn_off
     data:
-      entities:
+      entity_id:
         - light.kitchen_celling
         - light.hallway_celling_1
         - light.hallway_celling_2
