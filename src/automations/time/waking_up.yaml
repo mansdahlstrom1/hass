@@ -2,7 +2,7 @@ id: wakeup
 alias: Waking up
 trigger:
   platform: time
-  at: "06:30:00"
+  at: "07:30:00"
 condition:
   condition: and
   conditions:
@@ -17,13 +17,30 @@ condition:
         - thu
         - fri
 action:
-  - service: light.turn_on
+  - alias: "Transition Måns Bedside Lamp from 0 => 70"
+    service: light.turn_on
     data:
       entity_id: light.mans_bedside_lamp
       transition: 1800 # 30 min
       brightness: 70
-  - service: light.turn_on
+
+  - alias: "Transition Agnes Bedside Lamp from 0 => 70"
+    service: light.turn_on
     data:
       entity_id: light.agnes_bedside_lamp
       transition: 1800 # 30 min
       brightness: 70
+
+  - alias: Set volume to 10%
+    service: media_player.volume_set
+    data_template:
+      entity_id:
+        - media_player.kitchen_speaker
+      volume_level: 0.1
+
+  - alias: Start P1
+    service: media_player.play_media
+    data_template:
+      entity_id: media_player.kitchen_speaker
+      media_content_id: http://http-live.sr.se/p1-aac-192
+      media_content_type: "audio/mp4"
