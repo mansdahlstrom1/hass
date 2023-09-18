@@ -3,7 +3,7 @@ alias: Coming Home
 trigger:
   platform: state
   entity_id: group.all_persons
-  to: 'home'
+  to: "home"
 
 action:
   - service: homeassistant.turn_on
@@ -15,4 +15,4 @@ action:
       # - switch.makeup_mirror
       - switch.sideboard_lamp
       # - switch.christmas_star
-      # - switch.christmas_tree
+      # - switch.raspotify
