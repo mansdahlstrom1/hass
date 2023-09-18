@@ -22,9 +22,6 @@
 
 # themes
 !themes/
-!themes/caule-themes-pack-1
-!themes/caule-themes-pack-1/*
-!themes/dark_themes
 !themes/my-themes
 
 # www folder
