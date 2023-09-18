@@ -2,13 +2,10 @@ id: wakeup
 alias: Waking up
 trigger:
   platform: time
-  at: "07:30:00"
+  at: "06:30:00"
 condition:
   condition: and
   conditions:
-    - condition: state
-      entity_id: group.all_persons
-      state: "home"
     - condition: time
       weekday:
         - mon
@@ -16,6 +13,14 @@ condition:
         - wed
         - thu
         - fri
+    - condition: or
+      conditions:
+        - condition: state
+          entity_id: person.mans
+          state: "home"
+        - condition: state
+          entity_id: person.agnes
+          state: "home"
 action:
   - alias: "Transition Måns Bedside Lamp from 0 => 70"
     service: light.turn_on
@@ -31,12 +36,12 @@ action:
       transition: 1800 # 30 min
       brightness: 70
 
-  - alias: Set volume to 10%
+  - alias: Set volume to 20%
     service: media_player.volume_set
     data_template:
       entity_id:
         - media_player.kitchen_speaker
-      volume_level: 0.1
+      volume_level: 0.2
 
   - alias: Start P1
     service: media_player.play_media

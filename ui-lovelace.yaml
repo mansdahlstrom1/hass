@@ -24,7 +24,6 @@ resources:
   - url: /hacsfiles/button-card/button-card.js
     type: module
 
-
 button_card_templates:
   sensor_button:
     show_state: true
@@ -34,7 +33,6 @@ button_card_templates:
         - height: 80px
         - border-radius: 8px
       grid:
-
         - padding: 8px
         - position: relative
 
@@ -60,7 +58,6 @@ button_card_templates:
         - font-weight: bold
         - font-size: 24px
         - color: var(--text-primary-color)
- 
 
 excluded_entities:
   - weblink.router
@@ -79,7 +76,7 @@ views:
             image: /local/assets/mans.jpg
             entity: person.mans
             name: Måns
-      
+
       - type: entities
         title: Rooms
         show_header_toggle: true
@@ -98,11 +95,10 @@ views:
           - light.living_room_lights
           - light.dimmable_lights
 
-
       - type: weather-forecast
         entity: weather.openweathermap
         show_forecast: true
-  
+
       - type: custom:room-card
         card:
           type: entities
@@ -145,10 +141,10 @@ views:
 
           - type: entities
             entities:
-            - light.studio_lamp
-            - switch.basket_lamp
-            - switch.makeup_mirror
-            - light.studio_celling
+              - light.studio_lamp
+              - switch.basket_lamp
+              - switch.makeup_mirror
+              - light.studio_ceiling
 
       - type: custom:room-card
         card:
@@ -156,12 +152,6 @@ views:
           title: Hallway
         group: group.hallway
         area: Hallway
-
-      - type: custom:room-card
-        card:
-          type: entities
-          title: Christmas
-        group: group.christmas
 
       - type: custom:room-card
         card:
@@ -175,7 +165,7 @@ views:
         name: Dusty
         vendor: xiaomi
         image: /local/assets/vacuum_dimmed.png
-      
+
       - type: custom:mini-media-player
         entity: media_player.kitchen_speaker
         artwork: cover
@@ -183,5 +173,5 @@ views:
       - type: custom:mini-media-player
         entity: media_player.echo
         artwork: cover
-  
+
   - title: Development

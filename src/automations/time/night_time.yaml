@@ -1,5 +1,5 @@
 id: night_time
-alias: Night
+alias: Night before work
 trigger:
   platform: time
   at: "21:00:00"
@@ -11,17 +11,19 @@ condition:
       state: "home"
     - condition: time
       weekday:
+        - sun
         - mon
         - tue
         - wed
         - thu
 action:
-  - service: light.turn_off
+  - alias: Turn of all ceiling lights
+    service: light.turn_off
     data:
       entity_id:
-        - light.kitchen_celling
-        - light.hallway_celling_1
-        - light.hallway_celling_2
-        - light.bedroom_celling
-        - light.living_room_celling
-        - light.studio_celling
+        - light.kitchen_ceiling
+        - light.hallway_ceiling_1
+        - light.hallway_ceiling_2
+        - light.bedroom_ceiling
+        - light.living_room_ceiling
+        - light.studio_ceiling
