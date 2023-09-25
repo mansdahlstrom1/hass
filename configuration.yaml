@@ -17,7 +17,7 @@ system_health:
 alexa: !include src/alexa.yaml
 homekit: !include src/homekit.yaml
 light: !include src/light_groups.yaml
-
+ios: !include_dir_list src/ios_actions
 # Xiaomi CLoud Mapo Extractor
 camera: !include src/dusty_map_extractor.yaml
 
