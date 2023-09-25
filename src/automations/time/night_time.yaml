@@ -4,11 +4,9 @@ trigger:
   platform: time
   at: "21:00:00"
 condition:
+  alias: "Atleast one of us is home AND time is 21.00"
   condition: and
   conditions:
-    - condition: state
-      entity_id: group.all_persons
-      state: "home"
     - condition: time
       weekday:
         - sun
@@ -16,6 +14,15 @@ condition:
         - tue
         - wed
         - thu
+    - condition: or
+      alias: "Atleast one of us is home"
+      conditions:
+        - condition: state
+          entity_id: person.mans
+          state: "home"
+        - condition: state
+          entity_id: person.agnes
+          state: "home"
 action:
   - alias: Turn of all ceiling lights
     service: light.turn_off

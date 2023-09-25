@@ -4,9 +4,7 @@ trigger:
   - platform: event
     event_type: ios.action_fired
     event_data:
-      actionName: 'toggle_bathroom'
+      actionName: "toggle_bathroom"
 action:
   - service: switch.toggle
-    entity_id: switch.painting_lamp_2
-
-
+    entity_id: switch.bathroom_light
