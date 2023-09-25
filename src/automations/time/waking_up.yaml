@@ -1,9 +1,10 @@
 id: wakeup
 alias: Waking up
 trigger:
-  platform: time
-  at: "06:30:00"
+  platform: template
+  value_template: "{{ states('input_text.alarm_time') == states('sensor.time') }}"
 condition:
+  alias: "Atleast one of us is home AND time is set alarm time"
   condition: and
   conditions:
     - condition: time
@@ -14,6 +15,7 @@ condition:
         - thu
         - fri
     - condition: or
+      alias: "Atleast one of us is home"
       conditions:
         - condition: state
           entity_id: person.mans
@@ -36,12 +38,12 @@ action:
       transition: 1800 # 30 min
       brightness: 70
 
-  - alias: Set volume to 20%
+  - alias: Set volume to 15%
     service: media_player.volume_set
     data_template:
       entity_id:
         - media_player.kitchen_speaker
-      volume_level: 0.2
+      volume_level: 0.15
 
   - alias: Start P1
     service: media_player.play_media
