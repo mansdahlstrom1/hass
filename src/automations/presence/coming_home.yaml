@@ -12,3 +12,4 @@ action:
       - switch.bathroom_light
       - switch.basket_lamp
       - switch.sideboard_lamp
+      - switch.christmas_star
