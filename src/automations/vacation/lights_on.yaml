@@ -1,0 +1,18 @@
+id: vacation_lights_on
+alias: Vacation Script - Turn on the lights to look like we are home
+trigger:
+  platform: time
+  at: "17:00:00"
+action:
+  - alias: Turn of all the lights to make it look like we are home
+    service: light.turn_on
+    data:
+      entity_id:
+        - light.agnes_bedside_lamp
+        - light.mans_bedside_lamp
+        - light.living_room_lamp_1
+        - light.living_room_lamp_2
+        - light.studio_lamp
+        - switch.basket_lamp
+        - switch.sideboard_lamp
+        - light.kitchen_ceiling
