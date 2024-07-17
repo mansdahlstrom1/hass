@@ -5,7 +5,7 @@ trigger:
   platform: event
   event_type: deconz_event
   event_data:
-    id: mi_magic_cube
+    id: mi_magic_cube_2
 condition:
   condition: template
   value_template: >
@@ -14,4 +14,12 @@ condition:
 action:
   - service: automation.trigger
     data:
-      entity_id: automation.movie_time
+      entity_id: >
+        {% if is_state('input_boolean.is_cube_double_tapped', 'on') %}
+          automation.leaving_home
+        {% else %}
+          automation.coming_home
+        {% endif %}
+  - service: input_boolean.toggle
+    target:
+      entity_id: input_boolean.is_cube_double_tapped
