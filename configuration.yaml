@@ -36,10 +36,8 @@ sensor:
       - "time_utc"
       - "beat"
 
-input_text:
-  alarm_time:
-    name: Alarm Time
-    pattern: "[0-2]{1}[0-9]{1}:[0-5]{1}[0-9]{1}"
+input_text: !include src/inputs/text.yaml
+input_boolean: !include src/inputs/boolean.yaml
 
 frontend:
   themes: !include_dir_merge_named themes

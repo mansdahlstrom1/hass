@@ -20,6 +20,8 @@
 !src/automations/vacation
 !src/scripts
 !src/scripts/*
+!src/inputs
+
 
 # themes
 !themes/

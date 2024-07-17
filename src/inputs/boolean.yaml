@@ -1,0 +1,4 @@
+# Example configuration.yaml entry
+is_cube_double_tapped:
+  name: Changes whenever Cube is double tapped
+  icon: mdi:bool
