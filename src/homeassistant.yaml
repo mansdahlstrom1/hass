@@ -2,7 +2,7 @@ name: Home
 country: SE
 latitude: !secret latitude
 longitude: !secret longitude
-elevation: 43
+elevation: !secret elevation
 unit_system: metric
 currency: SEK
 time_zone: Europe/Stockholm
