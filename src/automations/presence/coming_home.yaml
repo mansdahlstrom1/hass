@@ -9,7 +9,4 @@ action:
   - service: homeassistant.turn_on
     entity_id:
       - light.dimmable_lights
-      - switch.bathroom_light
-      - switch.basket_lamp
-      - switch.sideboard_lamp
-      - switch.christmas_star
+      - group.my_switches
