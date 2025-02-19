@@ -6,7 +6,6 @@ trigger:
   to: 'not_home'
 action:
   - service: homeassistant.turn_off
-    entity_id: light.dimmable_lights
-  - service: homeassistant.turn_off
-    entity_id: group.my_switches
-
+    entity_id:
+      - light.dimmable_lights
+      - group.my_switches
