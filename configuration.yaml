@@ -34,7 +34,6 @@ sensor:
       - "date_time_iso"
       - "time_date"
       - "time_utc"
-      - "beat"
 
 input_text: !include src/inputs/text.yaml
 input_boolean: !include src/inputs/boolean.yaml
