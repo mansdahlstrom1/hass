@@ -1,3 +1,5 @@
+default_config:
+
 homeassistant: !include src/homeassistant.yaml
 http: !include src/http.yaml
 person: !include src/persons.yaml
@@ -5,21 +7,12 @@ group: !include src/groups.yaml
 automation: !include_dir_list src/automations
 script: !include src/scripts.yaml
 
-config:
-history:
-logbook:
-map:
-sun:
-api:
-cloud:
-mobile_app:
-system_health:
 alexa: !include src/alexa.yaml
 homekit: !include src/homekit.yaml
 light: !include src/light_groups.yaml
-ios: !include_dir_list src/ios_actions
-# Xiaomi CLoud Mapo Extractor
-camera: !include src/dusty_map_extractor.yaml
+
+# # Xiaomi Cloud Map Extractor
+# camera: !include src/dusty_map_extractor.yaml
 
 binary_sensor:
   - platform: flic

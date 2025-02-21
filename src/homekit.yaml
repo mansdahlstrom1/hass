@@ -1,11 +1,7 @@
 - filter:
-    include_domains:
-      - light
-      - sensor
-      - switch
-    exclude_entities:
-      # switches
-      - switch.echo_do_not_disturb_switch
-      - switch.echo_repeat_switch
-      - switch.echo_shuffle_switch
-      - switch.this_device_do_not_disturb_switch
+  include_domains:
+    - light
+    - sensor
+    - switch
+  name: Hass Bridge
+  advertise_ip: 192.168.1.36
