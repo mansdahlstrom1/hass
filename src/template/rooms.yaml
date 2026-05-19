@@ -1,0 +1,87 @@
+# Room metadata sensors
+#
+# Each room is a template sensor with attributes describing its growing
+# conditions. Plants reference their room by slug in the `room` attribute
+# on their sensor. The dashboard uses these to group plants and to show
+# per-room context (light direction, brightness, etc).
+#
+# Slug = the entity_id suffix (sensor.room_<slug>). Keep it stable.
+#
+# Adding a room: append a new `- name: "Room <Slug>"` block here, then
+# the add-plant skill will pick it up.
+
+- sensor:
+    - name: "Room Balcony"
+      unique_id: room_balcony
+      state: "active"
+      icon: mdi:balcony
+      attributes:
+        slug: balcony
+        display_name: "Balkong"
+        location: outdoor
+        windows_direction: west
+        sun_hours: 6
+        brightness: high
+        temperature_range: "outdoor (Malmö, ~−5 to +28 °C across year)"
+        humidity_hint: "outdoor, rain-exposed"
+        notes: "Direkt eftermiddagssol från ~16:00. Vindutsatt. Vinter kräver skydd för icke-härdiga växter."
+
+    - name: "Room Living Room"
+      unique_id: room_living_room
+      state: "active"
+      icon: mdi:sofa
+      attributes:
+        slug: living_room
+        display_name: "Vardagsrum"
+        location: indoor
+        windows_direction: unknown
+        sun_hours: "unknown"
+        brightness: unknown
+        temperature_range: "indoor (~20 °C)"
+        humidity_hint: "indoor, dry"
+        notes: "Fyll i fönsterriktning och ljus när första växten läggs till."
+
+    - name: "Room Studio"
+      unique_id: room_studio
+      state: "active"
+      icon: mdi:palette
+      attributes:
+        slug: studio
+        display_name: "Studio"
+        location: indoor
+        windows_direction: unknown
+        sun_hours: "unknown"
+        brightness: unknown
+        temperature_range: "indoor (~20 °C)"
+        humidity_hint: "indoor, dry"
+        notes: "Fyll i fönsterriktning och ljus när första växten läggs till."
+
+    - name: "Room Kitchen"
+      unique_id: room_kitchen
+      state: "active"
+      icon: mdi:silverware-fork-knife
+      attributes:
+        slug: kitchen
+        display_name: "Kök"
+        location: indoor
+        windows_direction: unknown
+        sun_hours: "unknown"
+        brightness: unknown
+        temperature_range: "indoor (~20 °C, varmare nära spis)"
+        humidity_hint: "indoor, vissa fuktspikar vid matlagning"
+        notes: "Fyll i fönsterriktning och ljus när första växten läggs till."
+
+    - name: "Room Bedroom"
+      unique_id: room_bedroom
+      state: "active"
+      icon: mdi:bed
+      attributes:
+        slug: bedroom
+        display_name: "Sovrum"
+        location: indoor
+        windows_direction: unknown
+        sun_hours: "unknown"
+        brightness: unknown
+        temperature_range: "indoor (~18 °C, svalare)"
+        humidity_hint: "indoor, dry"
+        notes: "Fyll i fönsterriktning och ljus när första växten läggs till."

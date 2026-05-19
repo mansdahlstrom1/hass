@@ -1,0 +1,929 @@
+# Plants — Lovelace dashboard (YAML mode)
+#
+# Wired in configuration.yaml under lovelace.dashboards.house-plants.
+# URL: /house-plants/  (HA requires a hyphen in dashboard URLs)
+# Sidebar title: "Plants"
+#
+# Structure (Plant UI v2 + ULM):
+#   Main view  (type: sections, one section per room)
+#     • Översikt section: summary card
+#     • Per-room section: markdown header + "Vattna alla" chip-row +
+#       one custom_card_mans_plant card per plant
+#   Per-plant subview (subview: true, path: plant-<slug>)
+#     • Header card (name + species)
+#     • Status card (state-aware color + relative last watered)
+#     • Care table (light / water / interval)
+#     • Care notes (markdown free text from `care` attribute)
+#     • "Markera som vattnad" button
+#
+# Tap targets:
+#   • Plant card body  → navigate to /house-plants/plant-<slug>
+#   • Plant 💧 button  → script.mark_<slug>_watered
+#   • Room "Vattna alla" → script.mark_room_watered (room: <slug>)
+#   • Subview water button → script.mark_<slug>_watered
+#
+# Adding a plant: use the `add-plant` Claude skill (.claude/skills/add-plant.md).
+# Otherwise, manually update:
+#   1. src/inputs/datetime.yaml (input_datetime helper)
+#   2. src/template/main.yaml (plant sensor)
+#   3. src/scripts.yaml (mark_<slug>_watered)
+#   4. This file: add plant card to room section + add subview at end
+#   5. src/template/main.yaml plants_needing_water — append slug
+#
+# Requires HACS: mushroom (subviews), button-card (plant cards), UI Lovelace Minimalist integration.
+
+button_card_templates: !include_dir_merge_named "../../custom_components/ui_lovelace_minimalist/__ui_minimalist__/ulm_templates/"
+
+title: Plants
+theme: minimalist-desktop
+views:
+  - title: Plants
+    path: plants
+    icon: mdi:sprout
+    type: sections
+    max_columns: 3
+    sections:
+      # === Översikt ===
+      - type: grid
+        cards:
+          - type: custom:mushroom-template-card
+            primary: 🪴 Alla växter
+            secondary: |-
+              {% set n = states('sensor.plants_needing_water') | int(0) %}
+              {% set due = state_attr('sensor.plants_needing_water', 'due_now') %}
+              {% if n == 0 %}Alla växter mår bra 🎉
+              {% else %}Behöver vatten: {{ due | join(', ') }}
+              {% endif %}
+            icon: mdi:flower-tulip
+            icon_color: |-
+              {% set n = states('sensor.plants_needing_water') | int(0) %}
+              {% if n == 0 %}green
+              {% else %}orange
+              {% endif %}
+            multiline_secondary: true
+            tap_action: { action: none }
+
+      # === ROOM: Balkong ===
+      - type: grid
+        cards:
+          - type: custom:vertical-stack-in-card
+            cards:
+              - type: custom:button-card
+                show_name: true
+                show_label: true
+                show_icon: false
+                name: "[[[ return '🌿 ' + states['sensor.room_balcony'].attributes.display_name ]]]"
+                label: >
+                  [[[
+                    var a = states['sensor.room_balcony'].attributes;
+                    return a.windows_direction + ' · ' + a.sun_hours + 'h sol · ' + a.brightness + ' ljus';
+                  ]]]
+                tap_action: { action: none }
+                styles:
+                  grid:
+                    - grid-template-areas: "'n c' 'l c'"
+                    - grid-template-columns: "1fr min-content"
+                    - grid-template-rows: "min-content min-content"
+                  card:
+                    - background-color: "rgba(0,0,0,0)"
+                    - box-shadow: "none"
+                    - padding: "12px 14px 8px 14px"
+                  name:
+                    - justify-self: "start"
+                    - font-weight: "bold"
+                    - font-size: "1.5rem"
+                  label:
+                    - justify-self: "start"
+                    - font-weight: "bold"
+                    - font-size: "0.95rem"
+                    - opacity: "0.55"
+                custom_fields:
+                  c:
+                    card:
+                      type: custom:button-card
+                      show_icon: true
+                      show_name: true
+                      show_label: false
+                      icon: mdi:watering-can-outline
+                      name: Vattna alla
+                      size: "16px"
+                      tap_action:
+                        action: call-service
+                        service: script.mark_room_watered
+                        data:
+                          room: balcony
+                        haptic: light
+                      styles:
+                        grid:
+                          - grid-template-areas: "'i n'"
+                          - grid-template-columns: "min-content auto"
+                          - column-gap: "6px"
+                        card:
+                          - background-color: "rgba(var(--color-blue, 61,90,254), 0.18)"
+                          - border-radius: "16px"
+                          - padding: "6px 12px"
+                          - box-shadow: "none"
+                          - place-self: "center end"
+                        icon:
+                          - color: "rgba(var(--color-blue, 61,90,254), 1)"
+                          - width: "18px"
+                          - height: "18px"
+                        name:
+                          - font-size: "13px"
+                          - font-weight: "bold"
+
+              - type: custom:button-card
+                template: custom_card_mans_plant
+                variables:
+                  ulm_plant_slug: dill
+                  ulm_plant_icon: mdi:sprout
+              - type: custom:button-card
+                template: custom_card_mans_plant
+                variables:
+                  ulm_plant_slug: persilja
+                  ulm_plant_icon: mdi:sprout
+              - type: custom:button-card
+                template: custom_card_mans_plant
+                variables:
+                  ulm_plant_slug: timjan
+                  ulm_plant_icon: mdi:sprout
+              - type: custom:button-card
+                template: custom_card_mans_plant
+                variables:
+                  ulm_plant_slug: graslok
+                  ulm_plant_icon: mdi:sprout
+              - type: custom:button-card
+                template: custom_card_mans_plant
+                variables:
+                  ulm_plant_slug: dahlia
+                  ulm_plant_icon: mdi:flower
+              - type: custom:button-card
+                template: custom_card_mans_plant
+                variables:
+                  ulm_plant_slug: pelargon
+                  ulm_plant_icon: mdi:flower
+              - type: custom:button-card
+                template: custom_card_mans_plant
+                variables:
+                  ulm_plant_slug: lavandell
+                  ulm_plant_icon: mdi:flower
+              - type: custom:button-card
+                template: custom_card_mans_plant
+                variables:
+                  ulm_plant_slug: murgrona_1
+                  ulm_plant_icon: mdi:leaf
+              - type: custom:button-card
+                template: custom_card_mans_plant
+                variables:
+                  ulm_plant_slug: murgrona_2
+                  ulm_plant_icon: mdi:leaf
+  # ─── Per-plant subviews ───
+  # Each plant has its own subview reachable via /house-plants/plant-<slug>.
+  # Tapping a plant card on the main view navigates here.
+
+  - title: Dill
+    path: plant-dill
+    icon: mdi:sprout
+    subview: true
+    type: sections
+    max_columns: 1
+    sections:
+      - type: grid
+        cards:
+          - type: custom:button-card
+            template: custom_card_mans_plant
+            variables:
+              ulm_plant_slug: dill
+              ulm_plant_icon: mdi:sprout
+
+          - type: custom:vertical-stack-in-card
+            cards:
+              - type: custom:button-card
+                show_name: true
+                show_label: true
+                show_icon: false
+                name: 🌱 Skötselråd
+                label: "[[[ return states['sensor.plant_dill'].attributes.species ]]]"
+                tap_action: { action: none }
+                styles:
+                  grid:
+                    - grid-template-areas: "'n' 'l'"
+                    - grid-template-columns: "1fr"
+                    - grid-template-rows: "min-content min-content"
+                  card:
+                    - background-color: "rgba(0,0,0,0)"
+                    - box-shadow: "none"
+                    - padding: "12px 14px 4px 14px"
+                  name:
+                    - justify-self: "start"
+                    - font-weight: "bold"
+                    - font-size: "1.5rem"
+                  label:
+                    - justify-self: "start"
+                    - font-weight: "bold"
+                    - font-size: "0.95rem"
+                    - opacity: "0.55"
+              - type: markdown
+                content: |
+                  📅 **Senast vattnad:** {{ (state_attr('sensor.plant_dill', 'last_watered') | as_datetime | as_local).strftime('%Y-%m-%d kl %H:%M') }}
+
+                  ---
+
+                  {{ state_attr('sensor.plant_dill', 'care') }}
+
+          - type: custom:button-card
+            name: Markera som vattnad
+            icon: mdi:watering-can
+            show_icon: true
+            show_name: true
+            tap_action:
+              action: call-service
+              service: script.mark_dill_watered
+              haptic: light
+            styles:
+              card:
+                - border-radius: "12px"
+                - padding: "14px"
+              icon:
+                - color: "rgba(var(--color-blue, 61,90,254), 1)"
+                - width: "22px"
+                - height: "22px"
+              img_cell:
+                - background-color: "rgba(var(--color-blue, 61,90,254), 0.2)"
+                - border-radius: "50%"
+                - width: "42px"
+                - height: "42px"
+                - place-self: "center"
+              name:
+                - justify-self: "start"
+                - font-weight: "bold"
+                - font-size: "14px"
+                - margin-left: "14px"
+              grid:
+                - grid-template-areas: "'i n'"
+                - grid-template-columns: "min-content auto"
+                - column-gap: "0px"
+
+  - title: Persilja
+    path: plant-persilja
+    icon: mdi:sprout
+    subview: true
+    type: sections
+    max_columns: 1
+    sections:
+      - type: grid
+        cards:
+          - type: custom:button-card
+            template: custom_card_mans_plant
+            variables:
+              ulm_plant_slug: persilja
+              ulm_plant_icon: mdi:sprout
+
+          - type: custom:vertical-stack-in-card
+            cards:
+              - type: custom:button-card
+                show_name: true
+                show_label: true
+                show_icon: false
+                name: 🌱 Skötselråd
+                label: "[[[ return states['sensor.plant_persilja'].attributes.species ]]]"
+                tap_action: { action: none }
+                styles:
+                  grid:
+                    - grid-template-areas: "'n' 'l'"
+                    - grid-template-columns: "1fr"
+                    - grid-template-rows: "min-content min-content"
+                  card:
+                    - background-color: "rgba(0,0,0,0)"
+                    - box-shadow: "none"
+                    - padding: "12px 14px 4px 14px"
+                  name:
+                    - justify-self: "start"
+                    - font-weight: "bold"
+                    - font-size: "1.5rem"
+                  label:
+                    - justify-self: "start"
+                    - font-weight: "bold"
+                    - font-size: "0.95rem"
+                    - opacity: "0.55"
+              - type: markdown
+                content: |
+                  📅 **Senast vattnad:** {{ (state_attr('sensor.plant_persilja', 'last_watered') | as_datetime | as_local).strftime('%Y-%m-%d kl %H:%M') }}
+
+                  ---
+
+                  {{ state_attr('sensor.plant_persilja', 'care') }}
+
+          - type: custom:button-card
+            name: Markera som vattnad
+            icon: mdi:watering-can
+            show_icon: true
+            show_name: true
+            tap_action:
+              action: call-service
+              service: script.mark_persilja_watered
+              haptic: light
+            styles:
+              card:
+                - border-radius: "12px"
+                - padding: "14px"
+              icon:
+                - color: "rgba(var(--color-blue, 61,90,254), 1)"
+                - width: "22px"
+                - height: "22px"
+              img_cell:
+                - background-color: "rgba(var(--color-blue, 61,90,254), 0.2)"
+                - border-radius: "50%"
+                - width: "42px"
+                - height: "42px"
+                - place-self: "center"
+              name:
+                - justify-self: "start"
+                - font-weight: "bold"
+                - font-size: "14px"
+                - margin-left: "14px"
+              grid:
+                - grid-template-areas: "'i n'"
+                - grid-template-columns: "min-content auto"
+                - column-gap: "0px"
+
+  - title: Timjan
+    path: plant-timjan
+    icon: mdi:sprout
+    subview: true
+    type: sections
+    max_columns: 1
+    sections:
+      - type: grid
+        cards:
+          - type: custom:button-card
+            template: custom_card_mans_plant
+            variables:
+              ulm_plant_slug: timjan
+              ulm_plant_icon: mdi:sprout
+
+          - type: custom:vertical-stack-in-card
+            cards:
+              - type: custom:button-card
+                show_name: true
+                show_label: true
+                show_icon: false
+                name: 🌱 Skötselråd
+                label: "[[[ return states['sensor.plant_timjan'].attributes.species ]]]"
+                tap_action: { action: none }
+                styles:
+                  grid:
+                    - grid-template-areas: "'n' 'l'"
+                    - grid-template-columns: "1fr"
+                    - grid-template-rows: "min-content min-content"
+                  card:
+                    - background-color: "rgba(0,0,0,0)"
+                    - box-shadow: "none"
+                    - padding: "12px 14px 4px 14px"
+                  name:
+                    - justify-self: "start"
+                    - font-weight: "bold"
+                    - font-size: "1.5rem"
+                  label:
+                    - justify-self: "start"
+                    - font-weight: "bold"
+                    - font-size: "0.95rem"
+                    - opacity: "0.55"
+              - type: markdown
+                content: |
+                  📅 **Senast vattnad:** {{ (state_attr('sensor.plant_timjan', 'last_watered') | as_datetime | as_local).strftime('%Y-%m-%d kl %H:%M') }}
+
+                  ---
+
+                  {{ state_attr('sensor.plant_timjan', 'care') }}
+
+          - type: custom:button-card
+            name: Markera som vattnad
+            icon: mdi:watering-can
+            show_icon: true
+            show_name: true
+            tap_action:
+              action: call-service
+              service: script.mark_timjan_watered
+              haptic: light
+            styles:
+              card:
+                - border-radius: "12px"
+                - padding: "14px"
+              icon:
+                - color: "rgba(var(--color-blue, 61,90,254), 1)"
+                - width: "22px"
+                - height: "22px"
+              img_cell:
+                - background-color: "rgba(var(--color-blue, 61,90,254), 0.2)"
+                - border-radius: "50%"
+                - width: "42px"
+                - height: "42px"
+                - place-self: "center"
+              name:
+                - justify-self: "start"
+                - font-weight: "bold"
+                - font-size: "14px"
+                - margin-left: "14px"
+              grid:
+                - grid-template-areas: "'i n'"
+                - grid-template-columns: "min-content auto"
+                - column-gap: "0px"
+
+  - title: Gräslök
+    path: plant-graslok
+    icon: mdi:sprout
+    subview: true
+    type: sections
+    max_columns: 1
+    sections:
+      - type: grid
+        cards:
+          - type: custom:button-card
+            template: custom_card_mans_plant
+            variables:
+              ulm_plant_slug: graslok
+              ulm_plant_icon: mdi:sprout
+
+          - type: custom:vertical-stack-in-card
+            cards:
+              - type: custom:button-card
+                show_name: true
+                show_label: true
+                show_icon: false
+                name: 🌱 Skötselråd
+                label: "[[[ return states['sensor.plant_graslok'].attributes.species ]]]"
+                tap_action: { action: none }
+                styles:
+                  grid:
+                    - grid-template-areas: "'n' 'l'"
+                    - grid-template-columns: "1fr"
+                    - grid-template-rows: "min-content min-content"
+                  card:
+                    - background-color: "rgba(0,0,0,0)"
+                    - box-shadow: "none"
+                    - padding: "12px 14px 4px 14px"
+                  name:
+                    - justify-self: "start"
+                    - font-weight: "bold"
+                    - font-size: "1.5rem"
+                  label:
+                    - justify-self: "start"
+                    - font-weight: "bold"
+                    - font-size: "0.95rem"
+                    - opacity: "0.55"
+              - type: markdown
+                content: |
+                  📅 **Senast vattnad:** {{ (state_attr('sensor.plant_graslok', 'last_watered') | as_datetime | as_local).strftime('%Y-%m-%d kl %H:%M') }}
+
+                  ---
+
+                  {{ state_attr('sensor.plant_graslok', 'care') }}
+
+          - type: custom:button-card
+            name: Markera som vattnad
+            icon: mdi:watering-can
+            show_icon: true
+            show_name: true
+            tap_action:
+              action: call-service
+              service: script.mark_graslok_watered
+              haptic: light
+            styles:
+              card:
+                - border-radius: "12px"
+                - padding: "14px"
+              icon:
+                - color: "rgba(var(--color-blue, 61,90,254), 1)"
+                - width: "22px"
+                - height: "22px"
+              img_cell:
+                - background-color: "rgba(var(--color-blue, 61,90,254), 0.2)"
+                - border-radius: "50%"
+                - width: "42px"
+                - height: "42px"
+                - place-self: "center"
+              name:
+                - justify-self: "start"
+                - font-weight: "bold"
+                - font-size: "14px"
+                - margin-left: "14px"
+              grid:
+                - grid-template-areas: "'i n'"
+                - grid-template-columns: "min-content auto"
+                - column-gap: "0px"
+
+  - title: Dahlia
+    path: plant-dahlia
+    icon: mdi:flower
+    subview: true
+    type: sections
+    max_columns: 1
+    sections:
+      - type: grid
+        cards:
+          - type: custom:button-card
+            template: custom_card_mans_plant
+            variables:
+              ulm_plant_slug: dahlia
+              ulm_plant_icon: mdi:flower
+
+          - type: custom:vertical-stack-in-card
+            cards:
+              - type: custom:button-card
+                show_name: true
+                show_label: true
+                show_icon: false
+                name: 🌱 Skötselråd
+                label: "[[[ return states['sensor.plant_dahlia'].attributes.species ]]]"
+                tap_action: { action: none }
+                styles:
+                  grid:
+                    - grid-template-areas: "'n' 'l'"
+                    - grid-template-columns: "1fr"
+                    - grid-template-rows: "min-content min-content"
+                  card:
+                    - background-color: "rgba(0,0,0,0)"
+                    - box-shadow: "none"
+                    - padding: "12px 14px 4px 14px"
+                  name:
+                    - justify-self: "start"
+                    - font-weight: "bold"
+                    - font-size: "1.5rem"
+                  label:
+                    - justify-self: "start"
+                    - font-weight: "bold"
+                    - font-size: "0.95rem"
+                    - opacity: "0.55"
+              - type: markdown
+                content: |
+                  📅 **Senast vattnad:** {{ (state_attr('sensor.plant_dahlia', 'last_watered') | as_datetime | as_local).strftime('%Y-%m-%d kl %H:%M') }}
+
+                  ---
+
+                  {{ state_attr('sensor.plant_dahlia', 'care') }}
+
+          - type: custom:button-card
+            name: Markera som vattnad
+            icon: mdi:watering-can
+            show_icon: true
+            show_name: true
+            tap_action:
+              action: call-service
+              service: script.mark_dahlia_watered
+              haptic: light
+            styles:
+              card:
+                - border-radius: "12px"
+                - padding: "14px"
+              icon:
+                - color: "rgba(var(--color-blue, 61,90,254), 1)"
+                - width: "22px"
+                - height: "22px"
+              img_cell:
+                - background-color: "rgba(var(--color-blue, 61,90,254), 0.2)"
+                - border-radius: "50%"
+                - width: "42px"
+                - height: "42px"
+                - place-self: "center"
+              name:
+                - justify-self: "start"
+                - font-weight: "bold"
+                - font-size: "14px"
+                - margin-left: "14px"
+              grid:
+                - grid-template-areas: "'i n'"
+                - grid-template-columns: "min-content auto"
+                - column-gap: "0px"
+
+  - title: Pelargon
+    path: plant-pelargon
+    icon: mdi:flower
+    subview: true
+    type: sections
+    max_columns: 1
+    sections:
+      - type: grid
+        cards:
+          - type: custom:button-card
+            template: custom_card_mans_plant
+            variables:
+              ulm_plant_slug: pelargon
+              ulm_plant_icon: mdi:flower
+
+          - type: custom:vertical-stack-in-card
+            cards:
+              - type: custom:button-card
+                show_name: true
+                show_label: true
+                show_icon: false
+                name: 🌱 Skötselråd
+                label: "[[[ return states['sensor.plant_pelargon'].attributes.species ]]]"
+                tap_action: { action: none }
+                styles:
+                  grid:
+                    - grid-template-areas: "'n' 'l'"
+                    - grid-template-columns: "1fr"
+                    - grid-template-rows: "min-content min-content"
+                  card:
+                    - background-color: "rgba(0,0,0,0)"
+                    - box-shadow: "none"
+                    - padding: "12px 14px 4px 14px"
+                  name:
+                    - justify-self: "start"
+                    - font-weight: "bold"
+                    - font-size: "1.5rem"
+                  label:
+                    - justify-self: "start"
+                    - font-weight: "bold"
+                    - font-size: "0.95rem"
+                    - opacity: "0.55"
+              - type: markdown
+                content: |
+                  📅 **Senast vattnad:** {{ (state_attr('sensor.plant_pelargon', 'last_watered') | as_datetime | as_local).strftime('%Y-%m-%d kl %H:%M') }}
+
+                  ---
+
+                  {{ state_attr('sensor.plant_pelargon', 'care') }}
+
+          - type: custom:button-card
+            name: Markera som vattnad
+            icon: mdi:watering-can
+            show_icon: true
+            show_name: true
+            tap_action:
+              action: call-service
+              service: script.mark_pelargon_watered
+              haptic: light
+            styles:
+              card:
+                - border-radius: "12px"
+                - padding: "14px"
+              icon:
+                - color: "rgba(var(--color-blue, 61,90,254), 1)"
+                - width: "22px"
+                - height: "22px"
+              img_cell:
+                - background-color: "rgba(var(--color-blue, 61,90,254), 0.2)"
+                - border-radius: "50%"
+                - width: "42px"
+                - height: "42px"
+                - place-self: "center"
+              name:
+                - justify-self: "start"
+                - font-weight: "bold"
+                - font-size: "14px"
+                - margin-left: "14px"
+              grid:
+                - grid-template-areas: "'i n'"
+                - grid-template-columns: "min-content auto"
+                - column-gap: "0px"
+
+  - title: Lavendel
+    path: plant-lavandell
+    icon: mdi:flower
+    subview: true
+    type: sections
+    max_columns: 1
+    sections:
+      - type: grid
+        cards:
+          - type: custom:button-card
+            template: custom_card_mans_plant
+            variables:
+              ulm_plant_slug: lavandell
+              ulm_plant_icon: mdi:flower
+
+          - type: custom:vertical-stack-in-card
+            cards:
+              - type: custom:button-card
+                show_name: true
+                show_label: true
+                show_icon: false
+                name: 🌱 Skötselråd
+                label: "[[[ return states['sensor.plant_lavandell'].attributes.species ]]]"
+                tap_action: { action: none }
+                styles:
+                  grid:
+                    - grid-template-areas: "'n' 'l'"
+                    - grid-template-columns: "1fr"
+                    - grid-template-rows: "min-content min-content"
+                  card:
+                    - background-color: "rgba(0,0,0,0)"
+                    - box-shadow: "none"
+                    - padding: "12px 14px 4px 14px"
+                  name:
+                    - justify-self: "start"
+                    - font-weight: "bold"
+                    - font-size: "1.5rem"
+                  label:
+                    - justify-self: "start"
+                    - font-weight: "bold"
+                    - font-size: "0.95rem"
+                    - opacity: "0.55"
+              - type: markdown
+                content: |
+                  📅 **Senast vattnad:** {{ (state_attr('sensor.plant_lavandell', 'last_watered') | as_datetime | as_local).strftime('%Y-%m-%d kl %H:%M') }}
+
+                  ---
+
+                  {{ state_attr('sensor.plant_lavandell', 'care') }}
+
+          - type: custom:button-card
+            name: Markera som vattnad
+            icon: mdi:watering-can
+            show_icon: true
+            show_name: true
+            tap_action:
+              action: call-service
+              service: script.mark_lavandell_watered
+              haptic: light
+            styles:
+              card:
+                - border-radius: "12px"
+                - padding: "14px"
+              icon:
+                - color: "rgba(var(--color-blue, 61,90,254), 1)"
+                - width: "22px"
+                - height: "22px"
+              img_cell:
+                - background-color: "rgba(var(--color-blue, 61,90,254), 0.2)"
+                - border-radius: "50%"
+                - width: "42px"
+                - height: "42px"
+                - place-self: "center"
+              name:
+                - justify-self: "start"
+                - font-weight: "bold"
+                - font-size: "14px"
+                - margin-left: "14px"
+              grid:
+                - grid-template-areas: "'i n'"
+                - grid-template-columns: "min-content auto"
+                - column-gap: "0px"
+
+  - title: Murgröna 1
+    path: plant-murgrona_1
+    icon: mdi:leaf
+    subview: true
+    type: sections
+    max_columns: 1
+    sections:
+      - type: grid
+        cards:
+          - type: custom:button-card
+            template: custom_card_mans_plant
+            variables:
+              ulm_plant_slug: murgrona_1
+              ulm_plant_icon: mdi:leaf
+
+          - type: custom:vertical-stack-in-card
+            cards:
+              - type: custom:button-card
+                show_name: true
+                show_label: true
+                show_icon: false
+                name: 🌱 Skötselråd
+                label: "[[[ return states['sensor.plant_murgrona_1'].attributes.species ]]]"
+                tap_action: { action: none }
+                styles:
+                  grid:
+                    - grid-template-areas: "'n' 'l'"
+                    - grid-template-columns: "1fr"
+                    - grid-template-rows: "min-content min-content"
+                  card:
+                    - background-color: "rgba(0,0,0,0)"
+                    - box-shadow: "none"
+                    - padding: "12px 14px 4px 14px"
+                  name:
+                    - justify-self: "start"
+                    - font-weight: "bold"
+                    - font-size: "1.5rem"
+                  label:
+                    - justify-self: "start"
+                    - font-weight: "bold"
+                    - font-size: "0.95rem"
+                    - opacity: "0.55"
+              - type: markdown
+                content: |
+                  📅 **Senast vattnad:** {{ (state_attr('sensor.plant_murgrona_1', 'last_watered') | as_datetime | as_local).strftime('%Y-%m-%d kl %H:%M') }}
+
+                  ---
+
+                  {{ state_attr('sensor.plant_murgrona_1', 'care') }}
+
+          - type: custom:button-card
+            name: Markera som vattnad
+            icon: mdi:watering-can
+            show_icon: true
+            show_name: true
+            tap_action:
+              action: call-service
+              service: script.mark_murgrona_1_watered
+              haptic: light
+            styles:
+              card:
+                - border-radius: "12px"
+                - padding: "14px"
+              icon:
+                - color: "rgba(var(--color-blue, 61,90,254), 1)"
+                - width: "22px"
+                - height: "22px"
+              img_cell:
+                - background-color: "rgba(var(--color-blue, 61,90,254), 0.2)"
+                - border-radius: "50%"
+                - width: "42px"
+                - height: "42px"
+                - place-self: "center"
+              name:
+                - justify-self: "start"
+                - font-weight: "bold"
+                - font-size: "14px"
+                - margin-left: "14px"
+              grid:
+                - grid-template-areas: "'i n'"
+                - grid-template-columns: "min-content auto"
+                - column-gap: "0px"
+
+  - title: Murgröna 2
+    path: plant-murgrona_2
+    icon: mdi:leaf
+    subview: true
+    type: sections
+    max_columns: 1
+    sections:
+      - type: grid
+        cards:
+          - type: custom:button-card
+            template: custom_card_mans_plant
+            variables:
+              ulm_plant_slug: murgrona_2
+              ulm_plant_icon: mdi:leaf
+
+          - type: custom:vertical-stack-in-card
+            cards:
+              - type: custom:button-card
+                show_name: true
+                show_label: true
+                show_icon: false
+                name: 🌱 Skötselråd
+                label: "[[[ return states['sensor.plant_murgrona_2'].attributes.species ]]]"
+                tap_action: { action: none }
+                styles:
+                  grid:
+                    - grid-template-areas: "'n' 'l'"
+                    - grid-template-columns: "1fr"
+                    - grid-template-rows: "min-content min-content"
+                  card:
+                    - background-color: "rgba(0,0,0,0)"
+                    - box-shadow: "none"
+                    - padding: "12px 14px 4px 14px"
+                  name:
+                    - justify-self: "start"
+                    - font-weight: "bold"
+                    - font-size: "1.5rem"
+                  label:
+                    - justify-self: "start"
+                    - font-weight: "bold"
+                    - font-size: "0.95rem"
+                    - opacity: "0.55"
+              - type: markdown
+                content: |
+                  📅 **Senast vattnad:** {{ (state_attr('sensor.plant_murgrona_2', 'last_watered') | as_datetime | as_local).strftime('%Y-%m-%d kl %H:%M') }}
+
+                  ---
+
+                  {{ state_attr('sensor.plant_murgrona_2', 'care') }}
+
+          - type: custom:button-card
+            name: Markera som vattnad
+            icon: mdi:watering-can
+            show_icon: true
+            show_name: true
+            tap_action:
+              action: call-service
+              service: script.mark_murgrona_2_watered
+              haptic: light
+            styles:
+              card:
+                - border-radius: "12px"
+                - padding: "14px"
+              icon:
+                - color: "rgba(var(--color-blue, 61,90,254), 1)"
+                - width: "22px"
+                - height: "22px"
+              img_cell:
+                - background-color: "rgba(var(--color-blue, 61,90,254), 0.2)"
+                - border-radius: "50%"
+                - width: "42px"
+                - height: "42px"
+                - place-self: "center"
+              name:
+                - justify-self: "start"
+                - font-weight: "bold"
+                - font-size: "14px"
+                - margin-left: "14px"
+              grid:
+                - grid-template-areas: "'i n'"
+                - grid-template-columns: "min-content auto"
+                - column-gap: "0px"

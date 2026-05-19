@@ -1,0 +1,555 @@
+- binary_sensor:
+    - name: Mans Home Wifi
+      unique_id: mans_home_wifi
+      state: >-
+        {% set ssid = states('sensor.mans_iphone_x_ssid') %}
+        {% if ssid == '404 - Not Found' %}
+          true
+        {% elif ssid in ['unknown', 'unavailable'] %}
+          {{ this.state == 'on' }}
+        {% else %}
+          false
+        {% endif %}
+      delay_off: "00:02:00"
+
+    - name: Agnes Home Wifi
+      unique_id: agnes_home_wifi
+      state: >-
+        {% set ssid = states('sensor.agnes_iphone_ssid_2') %}
+        {% if ssid == '404 - Not Found' %}
+          true
+        {% elif ssid in ['unknown', 'unavailable'] %}
+          {{ this.state == 'on' }}
+        {% else %}
+          false
+        {% endif %}
+      delay_off: "00:02:00"
+
+    - name: Anyone Home
+      unique_id: anyone_home
+      state: >-
+        {{ is_state('binary_sensor.mans_home_wifi', 'on')
+           or is_state('binary_sensor.agnes_home_wifi', 'on') }}
+
+- sensor:
+    - name: "Plant Dill"
+      unique_id: plant_dill
+      icon: mdi:sprout
+      state: >-
+        {% set ts = state_attr('input_datetime.plant_dill_last_watered', 'timestamp') %}
+        {% set interval = 2 %}
+        {% if ts in [none, 0] %}
+          overdue
+        {% else %}
+          {% set secs = now().timestamp() - ts %}
+          {% if secs < 300 %} nyvattnad
+          {% else %}
+            {% set days = secs / 86400 %}
+            {% if days < interval - 0.5 %} ok
+            {% elif days < interval + 0.5 %} due
+            {% else %} overdue
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      attributes:
+        display_name: "Dill"
+        room: balcony
+        species: "Anethum graveolens"
+        interval_days: 2
+        days_since: >-
+          {% set ts = state_attr('input_datetime.plant_dill_last_watered', 'timestamp') %}
+          {% if ts in [none, 0] %} none
+          {% else %} {{ ((now().timestamp() - ts) / 86400) | round(1) }}
+          {% endif %}
+        last_watered: "{{ states('input_datetime.plant_dill_last_watered') }}"
+        relative_last_watered: >-
+          {% set ts = state_attr('input_datetime.plant_dill_last_watered', 'timestamp') %}
+          {% if ts in [none, 0] %}aldrig
+          {% else %}
+            {% set secs = now().timestamp() - ts %}
+            {% set mins = (secs / 60) | int %}
+            {% set hours = (secs / 3600) | int %}
+            {% set days = (secs / 86400) | int %}
+            {% if mins < 1 %}precis nu
+            {% elif mins < 60 %}{{ mins }} min sedan
+            {% elif hours < 24 %}{{ hours }} h sedan
+            {% elif days == 1 %}igår
+            {% elif days < 7 %}{{ days }} dagar sedan
+            {% else %}{{ days }} d sedan
+            {% endif %}
+          {% endif %}
+        light: "Full sol / halvskugga"
+        water: "Ofta — håll jämnt fuktig"
+        care: |
+          Älskar fukt och tål inte att torka ut.
+          Små krukor i västsol torkar snabbt — vattna ofta.
+          Plocka blad regelbundet för att hålla plantan i tillväxt.
+          Ettårig.
+
+    - name: "Plant Persilja"
+      unique_id: plant_persilja
+      icon: mdi:sprout
+      state: >-
+        {% set ts = state_attr('input_datetime.plant_persilja_last_watered', 'timestamp') %}
+        {% set interval = 2 %}
+        {% if ts in [none, 0] %}
+          overdue
+        {% else %}
+          {% set secs = now().timestamp() - ts %}
+          {% if secs < 300 %} nyvattnad
+          {% else %}
+            {% set days = secs / 86400 %}
+            {% if days < interval - 0.5 %} ok
+            {% elif days < interval + 0.5 %} due
+            {% else %} overdue
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      attributes:
+        display_name: "Persilja"
+        room: balcony
+        species: "Petroselinum crispum"
+        interval_days: 2
+        days_since: >-
+          {% set ts = state_attr('input_datetime.plant_persilja_last_watered', 'timestamp') %}
+          {% if ts in [none, 0] %} none
+          {% else %} {{ ((now().timestamp() - ts) / 86400) | round(1) }}
+          {% endif %}
+        last_watered: "{{ states('input_datetime.plant_persilja_last_watered') }}"
+        relative_last_watered: >-
+          {% set ts = state_attr('input_datetime.plant_persilja_last_watered', 'timestamp') %}
+          {% if ts in [none, 0] %}aldrig
+          {% else %}
+            {% set secs = now().timestamp() - ts %}
+            {% set mins = (secs / 60) | int %}
+            {% set hours = (secs / 3600) | int %}
+            {% set days = (secs / 86400) | int %}
+            {% if mins < 1 %}precis nu
+            {% elif mins < 60 %}{{ mins }} min sedan
+            {% elif hours < 24 %}{{ hours }} h sedan
+            {% elif days == 1 %}igår
+            {% elif days < 7 %}{{ days }} dagar sedan
+            {% else %}{{ days }} d sedan
+            {% endif %}
+          {% endif %}
+        light: "Sol / halvskugga"
+        water: "Ofta — håll jämnt fuktig"
+        care: |
+          Vill ha jämnt fuktig, näringsrik jord.
+          Tål viss skugga.
+          Plocka yttre blad först — undvik att klippa hela toppen.
+          Tvåårig: blommar år två och dör sedan.
+
+    - name: "Plant Timjan"
+      unique_id: plant_timjan
+      icon: mdi:sprout
+      state: >-
+        {% set ts = state_attr('input_datetime.plant_timjan_last_watered', 'timestamp') %}
+        {% set interval = 4 %}
+        {% if ts in [none, 0] %}
+          overdue
+        {% else %}
+          {% set secs = now().timestamp() - ts %}
+          {% if secs < 300 %} nyvattnad
+          {% else %}
+            {% set days = secs / 86400 %}
+            {% if days < interval - 0.5 %} ok
+            {% elif days < interval + 0.5 %} due
+            {% else %} overdue
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      attributes:
+        display_name: "Timjan"
+        room: balcony
+        species: "Thymus vulgaris"
+        interval_days: 4
+        days_since: >-
+          {% set ts = state_attr('input_datetime.plant_timjan_last_watered', 'timestamp') %}
+          {% if ts in [none, 0] %} none
+          {% else %} {{ ((now().timestamp() - ts) / 86400) | round(1) }}
+          {% endif %}
+        last_watered: "{{ states('input_datetime.plant_timjan_last_watered') }}"
+        relative_last_watered: >-
+          {% set ts = state_attr('input_datetime.plant_timjan_last_watered', 'timestamp') %}
+          {% if ts in [none, 0] %}aldrig
+          {% else %}
+            {% set secs = now().timestamp() - ts %}
+            {% set mins = (secs / 60) | int %}
+            {% set hours = (secs / 3600) | int %}
+            {% set days = (secs / 86400) | int %}
+            {% if mins < 1 %}precis nu
+            {% elif mins < 60 %}{{ mins }} min sedan
+            {% elif hours < 24 %}{{ hours }} h sedan
+            {% elif days == 1 %}igår
+            {% elif days < 7 %}{{ days }} dagar sedan
+            {% else %}{{ days }} d sedan
+            {% endif %}
+          {% endif %}
+        light: "Full sol"
+        water: "Sparsamt — låt torka mellan"
+        care: |
+          Medelhavsväxt — torktålig och hatar blöta rötter.
+          Vattna först när jorden känns torr.
+          Beskär efter blomning för att hålla busken kompakt.
+          Härdig perenn.
+
+    - name: "Plant Gräslök"
+      unique_id: plant_graslok
+      icon: mdi:sprout
+      state: >-
+        {% set ts = state_attr('input_datetime.plant_graslok_last_watered', 'timestamp') %}
+        {% set interval = 2 %}
+        {% if ts in [none, 0] %}
+          overdue
+        {% else %}
+          {% set secs = now().timestamp() - ts %}
+          {% if secs < 300 %} nyvattnad
+          {% else %}
+            {% set days = secs / 86400 %}
+            {% if days < interval - 0.5 %} ok
+            {% elif days < interval + 0.5 %} due
+            {% else %} overdue
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      attributes:
+        display_name: "Gräslök"
+        room: balcony
+        species: "Allium schoenoprasum"
+        interval_days: 2
+        days_since: >-
+          {% set ts = state_attr('input_datetime.plant_graslok_last_watered', 'timestamp') %}
+          {% if ts in [none, 0] %} none
+          {% else %} {{ ((now().timestamp() - ts) / 86400) | round(1) }}
+          {% endif %}
+        last_watered: "{{ states('input_datetime.plant_graslok_last_watered') }}"
+        relative_last_watered: >-
+          {% set ts = state_attr('input_datetime.plant_graslok_last_watered', 'timestamp') %}
+          {% if ts in [none, 0] %}aldrig
+          {% else %}
+            {% set secs = now().timestamp() - ts %}
+            {% set mins = (secs / 60) | int %}
+            {% set hours = (secs / 3600) | int %}
+            {% set days = (secs / 86400) | int %}
+            {% if mins < 1 %}precis nu
+            {% elif mins < 60 %}{{ mins }} min sedan
+            {% elif hours < 24 %}{{ hours }} h sedan
+            {% elif days == 1 %}igår
+            {% elif days < 7 %}{{ days }} dagar sedan
+            {% else %}{{ days }} d sedan
+            {% endif %}
+          {% endif %}
+        light: "Sol / halvskugga"
+        water: "Ofta — håll jämnt fuktig"
+        care: |
+          Tål både sol och halvskugga.
+          Vill ha jämnt fuktig jord.
+          Klipp bladen nära basen — de växer ut igen.
+          Härdig — överlever vintern i kruka utomhus.
+
+    - name: "Plant Dahlia"
+      unique_id: plant_dahlia
+      icon: mdi:flower
+      state: >-
+        {% set ts = state_attr('input_datetime.plant_dahlia_last_watered', 'timestamp') %}
+        {% set interval = 2 %}
+        {% if ts in [none, 0] %}
+          overdue
+        {% else %}
+          {% set secs = now().timestamp() - ts %}
+          {% if secs < 300 %} nyvattnad
+          {% else %}
+            {% set days = secs / 86400 %}
+            {% if days < interval - 0.5 %} ok
+            {% elif days < interval + 0.5 %} due
+            {% else %} overdue
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      attributes:
+        display_name: "Dahlia"
+        room: balcony
+        species: "Dahlia (15 cm kruka)"
+        interval_days: 2
+        days_since: >-
+          {% set ts = state_attr('input_datetime.plant_dahlia_last_watered', 'timestamp') %}
+          {% if ts in [none, 0] %} none
+          {% else %} {{ ((now().timestamp() - ts) / 86400) | round(1) }}
+          {% endif %}
+        last_watered: "{{ states('input_datetime.plant_dahlia_last_watered') }}"
+        relative_last_watered: >-
+          {% set ts = state_attr('input_datetime.plant_dahlia_last_watered', 'timestamp') %}
+          {% if ts in [none, 0] %}aldrig
+          {% else %}
+            {% set secs = now().timestamp() - ts %}
+            {% set mins = (secs / 60) | int %}
+            {% set hours = (secs / 3600) | int %}
+            {% set days = (secs / 86400) | int %}
+            {% if mins < 1 %}precis nu
+            {% elif mins < 60 %}{{ mins }} min sedan
+            {% elif hours < 24 %}{{ hours }} h sedan
+            {% elif days == 1 %}igår
+            {% elif days < 7 %}{{ days }} dagar sedan
+            {% else %}{{ days }} d sedan
+            {% endif %}
+          {% endif %}
+        light: "Full sol"
+        water: "Ofta — regelbunden vattning"
+        care: |
+          Knölväxt som vill ha regelbunden vattning och näringsrik jord.
+          15 cm kruka torkar snabbt i västsol — vattna ofta i sommar.
+          Nyp av vissna blommor för fortsatt blomning.
+          Ta in knölen före frost.
+
+    - name: "Plant Pelargon"
+      unique_id: plant_pelargon
+      icon: mdi:flower
+      state: >-
+        {% set ts = state_attr('input_datetime.plant_pelargon_last_watered', 'timestamp') %}
+        {% set interval = 3 %}
+        {% if ts in [none, 0] %}
+          overdue
+        {% else %}
+          {% set secs = now().timestamp() - ts %}
+          {% if secs < 300 %} nyvattnad
+          {% else %}
+            {% set days = secs / 86400 %}
+            {% if days < interval - 0.5 %} ok
+            {% elif days < interval + 0.5 %} due
+            {% else %} overdue
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      attributes:
+        display_name: "Pelargon"
+        room: balcony
+        species: "Pelargonium (15 cm kruka)"
+        interval_days: 3
+        days_since: >-
+          {% set ts = state_attr('input_datetime.plant_pelargon_last_watered', 'timestamp') %}
+          {% if ts in [none, 0] %} none
+          {% else %} {{ ((now().timestamp() - ts) / 86400) | round(1) }}
+          {% endif %}
+        last_watered: "{{ states('input_datetime.plant_pelargon_last_watered') }}"
+        relative_last_watered: >-
+          {% set ts = state_attr('input_datetime.plant_pelargon_last_watered', 'timestamp') %}
+          {% if ts in [none, 0] %}aldrig
+          {% else %}
+            {% set secs = now().timestamp() - ts %}
+            {% set mins = (secs / 60) | int %}
+            {% set hours = (secs / 3600) | int %}
+            {% set days = (secs / 86400) | int %}
+            {% if mins < 1 %}precis nu
+            {% elif mins < 60 %}{{ mins }} min sedan
+            {% elif hours < 24 %}{{ hours }} h sedan
+            {% elif days == 1 %}igår
+            {% elif days < 7 %}{{ days }} dagar sedan
+            {% else %}{{ days }} d sedan
+            {% endif %}
+          {% endif %}
+        light: "Full sol"
+        water: "Måttligt — låt torka mellan"
+        care: |
+          Torktålig — låt jorden torka mellan vattningar.
+          Hatar blöta rötter, använd dränerande jord.
+          Nyp bort vissna blommor och topparna för buskig form.
+          Ta in före frost.
+
+    - name: "Plant Lavendel"
+      unique_id: plant_lavandell
+      icon: mdi:flower
+      state: >-
+        {% set ts = state_attr('input_datetime.plant_lavandell_last_watered', 'timestamp') %}
+        {% set interval = 5 %}
+        {% if ts in [none, 0] %}
+          overdue
+        {% else %}
+          {% set secs = now().timestamp() - ts %}
+          {% if secs < 300 %} nyvattnad
+          {% else %}
+            {% set days = secs / 86400 %}
+            {% if days < interval - 0.5 %} ok
+            {% elif days < interval + 0.5 %} due
+            {% else %} overdue
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      attributes:
+        display_name: "Lavendel"
+        room: balcony
+        species: "Lavandula"
+        interval_days: 5
+        days_since: >-
+          {% set ts = state_attr('input_datetime.plant_lavandell_last_watered', 'timestamp') %}
+          {% if ts in [none, 0] %} none
+          {% else %} {{ ((now().timestamp() - ts) / 86400) | round(1) }}
+          {% endif %}
+        last_watered: "{{ states('input_datetime.plant_lavandell_last_watered') }}"
+        relative_last_watered: >-
+          {% set ts = state_attr('input_datetime.plant_lavandell_last_watered', 'timestamp') %}
+          {% if ts in [none, 0] %}aldrig
+          {% else %}
+            {% set secs = now().timestamp() - ts %}
+            {% set mins = (secs / 60) | int %}
+            {% set hours = (secs / 3600) | int %}
+            {% set days = (secs / 86400) | int %}
+            {% if mins < 1 %}precis nu
+            {% elif mins < 60 %}{{ mins }} min sedan
+            {% elif hours < 24 %}{{ hours }} h sedan
+            {% elif days == 1 %}igår
+            {% elif days < 7 %}{{ days }} dagar sedan
+            {% else %}{{ days }} d sedan
+            {% endif %}
+          {% endif %}
+        light: "Full sol"
+        water: "Sparsamt — vill torka ut"
+        care: |
+          Medelhavsväxt — mycket torktålig och hatar blöta rötter.
+          Använd välldränerande jord, blanda gärna med sand eller perlit.
+          Vattna sparsamt, bara när jorden är torr.
+          Gödsla sparsamt — för mycket näring ger glesa, blomfattiga plantor.
+          Beskär efter blomning (sensommar) för att hålla busken kompakt.
+          Övervintring: krukodlad lavendel i Sverige behöver vinterskydd —
+          flytta mot vägg, isolera kruka, eller ta in i kallt utrymme.
+          Endast Lavandula angustifolia är härdig; L. stoechas klarar inte svensk vinter.
+
+    - name: "Plant Murgröna 1"
+      unique_id: plant_murgrona_1
+      icon: mdi:leaf
+      state: >-
+        {% set ts = state_attr('input_datetime.plant_murgrona_1_last_watered', 'timestamp') %}
+        {% set interval = 3 %}
+        {% if ts in [none, 0] %}
+          overdue
+        {% else %}
+          {% set secs = now().timestamp() - ts %}
+          {% if secs < 300 %} nyvattnad
+          {% else %}
+            {% set days = secs / 86400 %}
+            {% if days < interval - 0.5 %} ok
+            {% elif days < interval + 0.5 %} due
+            {% else %} overdue
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      attributes:
+        display_name: "Murgröna 1"
+        room: balcony
+        species: "Hedera helix"
+        interval_days: 3
+        days_since: >-
+          {% set ts = state_attr('input_datetime.plant_murgrona_1_last_watered', 'timestamp') %}
+          {% if ts in [none, 0] %} none
+          {% else %} {{ ((now().timestamp() - ts) / 86400) | round(1) }}
+          {% endif %}
+        last_watered: "{{ states('input_datetime.plant_murgrona_1_last_watered') }}"
+        relative_last_watered: >-
+          {% set ts = state_attr('input_datetime.plant_murgrona_1_last_watered', 'timestamp') %}
+          {% if ts in [none, 0] %}aldrig
+          {% else %}
+            {% set secs = now().timestamp() - ts %}
+            {% set mins = (secs / 60) | int %}
+            {% set hours = (secs / 3600) | int %}
+            {% set days = (secs / 86400) | int %}
+            {% if mins < 1 %}precis nu
+            {% elif mins < 60 %}{{ mins }} min sedan
+            {% elif hours < 24 %}{{ hours }} h sedan
+            {% elif days == 1 %}igår
+            {% elif days < 7 %}{{ days }} dagar sedan
+            {% else %}{{ days }} d sedan
+            {% endif %}
+          {% endif %}
+        light: "Halvskugga / sol"
+        water: "Måttligt — tål kort torka"
+        care: |
+          Tål både sol och halvskugga.
+          Vill ha jämnt fuktig jord men klarar kort torka.
+          Härdig vintergrön klätterväxt.
+          Klipp för att hålla formen.
+
+    - name: "Plant Murgröna 2"
+      unique_id: plant_murgrona_2
+      icon: mdi:leaf
+      state: >-
+        {% set ts = state_attr('input_datetime.plant_murgrona_2_last_watered', 'timestamp') %}
+        {% set interval = 3 %}
+        {% if ts in [none, 0] %}
+          overdue
+        {% else %}
+          {% set secs = now().timestamp() - ts %}
+          {% if secs < 300 %} nyvattnad
+          {% else %}
+            {% set days = secs / 86400 %}
+            {% if days < interval - 0.5 %} ok
+            {% elif days < interval + 0.5 %} due
+            {% else %} overdue
+            {% endif %}
+          {% endif %}
+        {% endif %}
+      attributes:
+        display_name: "Murgröna 2"
+        room: balcony
+        species: "Hedera helix"
+        interval_days: 3
+        days_since: >-
+          {% set ts = state_attr('input_datetime.plant_murgrona_2_last_watered', 'timestamp') %}
+          {% if ts in [none, 0] %} none
+          {% else %} {{ ((now().timestamp() - ts) / 86400) | round(1) }}
+          {% endif %}
+        last_watered: "{{ states('input_datetime.plant_murgrona_2_last_watered') }}"
+        relative_last_watered: >-
+          {% set ts = state_attr('input_datetime.plant_murgrona_2_last_watered', 'timestamp') %}
+          {% if ts in [none, 0] %}aldrig
+          {% else %}
+            {% set secs = now().timestamp() - ts %}
+            {% set mins = (secs / 60) | int %}
+            {% set hours = (secs / 3600) | int %}
+            {% set days = (secs / 86400) | int %}
+            {% if mins < 1 %}precis nu
+            {% elif mins < 60 %}{{ mins }} min sedan
+            {% elif hours < 24 %}{{ hours }} h sedan
+            {% elif days == 1 %}igår
+            {% elif days < 7 %}{{ days }} dagar sedan
+            {% else %}{{ days }} d sedan
+            {% endif %}
+          {% endif %}
+        light: "Halvskugga / sol"
+        water: "Måttligt — tål kort torka"
+        care: |
+          Tål både sol och halvskugga.
+          Vill ha jämnt fuktig jord men klarar kort torka.
+          Härdig vintergrön klätterväxt.
+          Klipp för att hålla formen.
+
+    - name: "Plants Needing Water"
+      unique_id: plants_needing_water
+      icon: mdi:watering-can
+      state: >-
+        {% set entities = [
+          'sensor.plant_dill', 'sensor.plant_persilja', 'sensor.plant_timjan',
+          'sensor.plant_graslok', 'sensor.plant_dahlia', 'sensor.plant_pelargon',
+          'sensor.plant_lavandell', 'sensor.plant_murgrona_1', 'sensor.plant_murgrona_2'
+        ] %}
+        {% set ns = namespace(count=0) %}
+        {% for e in entities %}
+          {% if states(e) in ['due', 'overdue'] %}
+            {% set ns.count = ns.count + 1 %}
+          {% endif %}
+        {% endfor %}
+        {{ ns.count }}
+      attributes:
+        due_now: >-
+          {% set entities = [
+            'sensor.plant_dill', 'sensor.plant_persilja', 'sensor.plant_timjan',
+            'sensor.plant_graslok', 'sensor.plant_dahlia', 'sensor.plant_pelargon',
+            'sensor.plant_lavandell', 'sensor.plant_murgrona_1', 'sensor.plant_murgrona_2'
+          ] %}
+          {% set ns = namespace(items=[]) %}
+          {% for e in entities %}
+            {% if states(e) in ['due', 'overdue'] %}
+              {% set label = state_attr(e, 'display_name') ~ ' (' ~ states(e) ~ ')' %}
+              {% set ns.items = ns.items + [label] %}
+            {% endif %}
+          {% endfor %}
+          {{ ns.items }}

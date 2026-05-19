@@ -1,0 +1,16 @@
+id: plant_water_reminder
+alias: Plant Water Reminder
+description: Daily 09:00 push if any balcony plant needs water
+trigger:
+  platform: time
+  at: "09:00:00"
+condition:
+  condition: numeric_state
+  entity_id: sensor.plants_needing_water
+  above: 0
+action:
+  - service: notify.family
+    data:
+      title: "🪴 Dags att vattna"
+      message: >-
+        {{ state_attr('sensor.plants_needing_water', 'due_now') | join(', ') }}

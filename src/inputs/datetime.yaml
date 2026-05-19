@@ -1,0 +1,44 @@
+plant_dill_last_watered:
+  name: Dill last watered
+  has_date: true
+  has_time: true
+
+plant_persilja_last_watered:
+  name: Persilja last watered
+  has_date: true
+  has_time: true
+
+plant_timjan_last_watered:
+  name: Timjan last watered
+  has_date: true
+  has_time: true
+
+plant_graslok_last_watered:
+  name: Gräslök last watered
+  has_date: true
+  has_time: true
+
+plant_dahlia_last_watered:
+  name: Dahlia last watered
+  has_date: true
+  has_time: true
+
+plant_pelargon_last_watered:
+  name: Pelargon last watered
+  has_date: true
+  has_time: true
+
+plant_lavandell_last_watered:
+  name: Lavendel last watered
+  has_date: true
+  has_time: true
+
+plant_murgrona_1_last_watered:
+  name: Murgröna 1 last watered
+  has_date: true
+  has_time: true
+
+plant_murgrona_2_last_watered:
+  name: Murgröna 2 last watered
+  has_date: true
+  has_time: true

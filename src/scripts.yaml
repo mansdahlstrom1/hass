@@ -1,0 +1,154 @@
+wake_and_play_ambient:
+  alias: Wake Sonos Play & Start Ambient
+  description: Play ambient forest sounds on Sonos Play. Speaker wakes from standby automatically on play command.
+  sequence:
+    - action: wake_on_lan.send_magic_packet
+      data:
+        mac: "80:4a:f2:b1:da:9c"
+    - wait_template: "{{ not is_state('media_player.play', 'unavailable') }}"
+      timeout: "00:01:30"
+      continue_on_timeout: false
+    - action: sonos.snapshot
+      data:
+        entity_id:
+          - media_player.kok
+          - media_player.vardagsrum
+        with_group: true
+    - action: media_player.unjoin
+      target:
+        entity_id: media_player.play
+    - delay: "00:00:01"
+    - action: sonos.restore
+      data:
+        entity_id:
+          - media_player.kok
+          - media_player.vardagsrum
+        with_group: true
+    - action: media_player.select_source
+      target:
+        entity_id: media_player.play
+      data:
+        source: "Forest - Sounds of Nature"
+    - action: media_player.volume_set
+      target:
+        entity_id: media_player.play
+      data:
+        volume_level: 0.05
+
+mark_dill_watered:
+  alias: Markera Dill som vattnad
+  icon: mdi:watering-can
+  sequence:
+    - action: input_datetime.set_datetime
+      target:
+        entity_id: input_datetime.plant_dill_last_watered
+      data:
+        datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+
+mark_persilja_watered:
+  alias: Markera Persilja som vattnad
+  icon: mdi:watering-can
+  sequence:
+    - action: input_datetime.set_datetime
+      target:
+        entity_id: input_datetime.plant_persilja_last_watered
+      data:
+        datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+
+mark_timjan_watered:
+  alias: Markera Timjan som vattnad
+  icon: mdi:watering-can
+  sequence:
+    - action: input_datetime.set_datetime
+      target:
+        entity_id: input_datetime.plant_timjan_last_watered
+      data:
+        datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+
+mark_graslok_watered:
+  alias: Markera Gräslök som vattnad
+  icon: mdi:watering-can
+  sequence:
+    - action: input_datetime.set_datetime
+      target:
+        entity_id: input_datetime.plant_graslok_last_watered
+      data:
+        datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+
+mark_dahlia_watered:
+  alias: Markera Dahlia som vattnad
+  icon: mdi:watering-can
+  sequence:
+    - action: input_datetime.set_datetime
+      target:
+        entity_id: input_datetime.plant_dahlia_last_watered
+      data:
+        datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+
+mark_pelargon_watered:
+  alias: Markera Pelargon som vattnad
+  icon: mdi:watering-can
+  sequence:
+    - action: input_datetime.set_datetime
+      target:
+        entity_id: input_datetime.plant_pelargon_last_watered
+      data:
+        datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+
+mark_lavandell_watered:
+  alias: Markera Lavendel som vattnad
+  icon: mdi:watering-can
+  sequence:
+    - action: input_datetime.set_datetime
+      target:
+        entity_id: input_datetime.plant_lavandell_last_watered
+      data:
+        datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+
+mark_murgrona_1_watered:
+  alias: Markera Murgröna 1 som vattnad
+  icon: mdi:watering-can
+  sequence:
+    - action: input_datetime.set_datetime
+      target:
+        entity_id: input_datetime.plant_murgrona_1_last_watered
+      data:
+        datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+
+mark_murgrona_2_watered:
+  alias: Markera Murgröna 2 som vattnad
+  icon: mdi:watering-can
+  sequence:
+    - action: input_datetime.set_datetime
+      target:
+        entity_id: input_datetime.plant_murgrona_2_last_watered
+      data:
+        datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+
+mark_room_watered:
+  alias: Markera hela rummets växter som vattnade
+  icon: mdi:watering-can-outline
+  fields:
+    room:
+      name: Room slug
+      description: "balcony / living_room / studio / kitchen / bedroom"
+      selector:
+        text:
+  sequence:
+    - variables:
+        timestamp: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+        plants: >-
+          {{ states.sensor
+             | selectattr('attributes.room', 'defined')
+             | selectattr('attributes.room', 'eq', room)
+             | selectattr('object_id', 'match', '^plant_')
+             | map(attribute='object_id')
+             | list }}
+    - repeat:
+        for_each: "{{ plants }}"
+        sequence:
+          - action: input_datetime.set_datetime
+            target:
+              entity_id: "input_datetime.{{ repeat.item }}_last_watered"
+            data:
+              datetime: "{{ timestamp }}"

@@ -1,0 +1,177 @@
+---
+### Custom Card: Plant (ULM extension) ###
+#
+# Rectangular plant tile, ULM card_room-inspired. Renders:
+#   ┌───────────────────────────────────────────────────┐
+#   │ ┌──┐  Plant Name                            [💧] │
+#   │ │🌿│  🌿 Trivs · 2d                              │
+#   │ └──┘  ☀️ Ljus       Full sol / halvskugga       │
+#   │       💧 Vattning   Ofta — håll jämnt fuktig …  │
+#   └───────────────────────────────────────────────────┘
+#
+# Tap card body → navigate to /house-plants/plant-<slug>
+# Tap 💧 button → script.mark_<slug>_watered
+#
+# Variables:
+#   ulm_plant_slug   (required)   e.g. "dill" — drives all entity refs
+#   ulm_plant_icon   (optional)   mdi:* string, default mdi:flower
+#
+# Pulls the following attributes from sensor.plant_<slug>:
+#   display_name, relative_last_watered, light, water, interval_days
+#
+# State colors (ULM theme vars with literal RGB fallbacks):
+#   nyvattnad → blue
+#   ok        → green
+#   due       → yellow
+#   overdue   → red
+
+custom_card_mans_plant:
+  triggers_update: "all"
+  show_icon: true
+  show_name: true
+  show_label: true
+  size: "32px"
+  icon: "[[[ return variables.ulm_plant_icon || 'mdi:flower'; ]]]"
+  name: >
+    [[[
+      var e = states['sensor.plant_' + variables.ulm_plant_slug];
+      if (!e) return variables.ulm_plant_slug;
+      return e.attributes.display_name || e.entity_id;
+    ]]]
+  label: >
+    [[[
+      var e = states['sensor.plant_' + variables.ulm_plant_slug];
+      if (!e) return '';
+      var s = e.state;
+      var rel = (e.attributes.relative_last_watered || '').trim();
+      if (s === 'nyvattnad') return '✨ ' + rel;
+      if (s === 'overdue') return '🥀 Vissnar · ' + rel;
+      if (s === 'due') return '💧 Törstig · ' + rel;
+      return '🌿 Trivs · ' + rel;
+    ]]]
+  tap_action:
+    action: "navigate"
+    navigation_path: "[[[ return '/house-plants/plant-' + variables.ulm_plant_slug; ]]]"
+  styles:
+    grid:
+      - grid-template-areas: "'i n w' 'i l w' 'i light w' 'i water w'"
+      - grid-template-columns: "min-content 1fr min-content"
+      - grid-template-rows: "min-content min-content min-content min-content"
+      - column-gap: "0px"
+      - row-gap: "2px"
+      - align-items: "center"
+    card:
+      - border-radius: "20px"
+      - box-shadow: "var(--box-shadow, none)"
+      - padding: "14px"
+      - cursor: "pointer"
+    name:
+      - justify-self: "start"
+      - align-self: "end"
+      - font-weight: "bold"
+      - font-size: "15px"
+      - margin-left: "14px"
+      - color: "var(--primary-text-color)"
+    label:
+      - justify-self: "start"
+      - align-self: "start"
+      - font-weight: "bold"
+      - font-size: "12px"
+      - filter: "opacity(60%)"
+      - margin-left: "14px"
+      - color: "var(--primary-text-color)"
+    icon:
+      - color: >
+          [[[
+            var e = states['sensor.plant_' + variables.ulm_plant_slug];
+            var s = e ? e.state : 'unknown';
+            if (s === 'overdue') return 'rgba(var(--color-red, 245,68,54), 1)';
+            if (s === 'due') return 'rgba(var(--color-yellow, 255,145,1), 1)';
+            if (s === 'nyvattnad') return 'rgba(var(--color-blue, 61,90,254), 1)';
+            return 'rgba(var(--color-green, 1,200,82), 1)';
+          ]]]
+    img_cell:
+      - background-color: >
+          [[[
+            var e = states['sensor.plant_' + variables.ulm_plant_slug];
+            var s = e ? e.state : 'unknown';
+            if (s === 'overdue') return 'rgba(var(--color-red, 245,68,54), 0.2)';
+            if (s === 'due') return 'rgba(var(--color-yellow, 255,145,1), 0.2)';
+            if (s === 'nyvattnad') return 'rgba(var(--color-blue, 61,90,254), 0.2)';
+            return 'rgba(var(--color-green, 1,200,82), 0.2)';
+          ]]]
+      - border-radius: "50%"
+      - place-self: "center"
+      - width: "56px"
+      - height: "56px"
+    custom_fields:
+      light:
+        - justify-self: "start"
+        - align-self: "center"
+        - font-size: "11px"
+        - margin-left: "14px"
+        - filter: "opacity(75%)"
+        - color: "var(--primary-text-color)"
+      water:
+        - justify-self: "start"
+        - align-self: "center"
+        - font-size: "11px"
+        - margin-left: "14px"
+        - filter: "opacity(75%)"
+        - color: "var(--primary-text-color)"
+  custom_fields:
+    # ☀️ Ljus row
+    light: >
+      [[[
+        var e = states['sensor.plant_' + variables.ulm_plant_slug];
+        if (!e || !e.attributes.light) return '';
+        return '<span style="margin-right:6px;">☀️</span>' + e.attributes.light;
+      ]]]
+    # 💧 Vattning row
+    water: >
+      [[[
+        var e = states['sensor.plant_' + variables.ulm_plant_slug];
+        if (!e) return '';
+        var w = e.attributes.water || '';
+        var d = e.attributes.interval_days;
+        var suffix = d ? ' (var ' + d + ':e dag)' : '';
+        return '<span style="margin-right:6px;">💧</span>' + w + suffix;
+      ]]]
+    # Water button (top-right)
+    w:
+      card:
+        type: "custom:button-card"
+        icon: "mdi:watering-can"
+        show_icon: true
+        show_name: false
+        show_label: false
+        size: "20px"
+        tap_action:
+          action: "call-service"
+          service: >
+            [[[
+              return 'script.mark_' + variables.ulm_plant_slug + '_watered';
+            ]]]
+          haptic: "light"
+        styles:
+          icon:
+            - color: "rgba(var(--color-blue, 61,90,254), 1)"
+            - width: "20px"
+            - height: "20px"
+          img_cell:
+            - border-radius: "50%"
+            - background-color: "rgba(var(--color-blue, 61,90,254), 0.2)"
+            - width: "42px"
+            - height: "42px"
+            - place-self: "center"
+          grid:
+            - grid-template-areas: "'i'"
+            - grid-template-columns: "1fr"
+            - grid-template-rows: "1fr"
+          card:
+            - height: "100%"
+            - box-shadow: "none"
+            - padding: "0px"
+            - background-color: "rgba(0,0,0,0)"
+            - border-radius: "50%"
+            - place-self: "center"
