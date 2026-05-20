@@ -2,8 +2,10 @@ id: leaving_home
 alias: Leaving Home
 trigger:
 - platform: state
-  entity_id: group.all_persons
-  to: 'not_home'
+  entity_id: binary_sensor.anyone_home
+  from: 'on'
+  to: 'off'
+
 action:
   - service: homeassistant.turn_off
     entity_id:

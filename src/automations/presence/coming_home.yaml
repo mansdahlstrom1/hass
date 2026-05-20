@@ -2,11 +2,11 @@ id: coming_home
 alias: Coming Home
 trigger:
   platform: state
-  entity_id: group.all_persons
-  to: "home"
+  entity_id: binary_sensor.anyone_home
+  from: "off"
+  to: "on"
 
 action:
   - service: homeassistant.turn_on
     entity_id:
-      - light.dimmable_lights
-      - group.my_switches
+      - switch.blob_light
