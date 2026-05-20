@@ -4,7 +4,7 @@ wake_and_play_ambient:
   sequence:
     - action: wake_on_lan.send_magic_packet
       data:
-        mac: "80:4a:f2:b1:da:9c"
+        mac: !secret bathroom_sonos_mac
     - wait_template: "{{ not is_state('media_player.play', 'unavailable') }}"
       timeout: "00:01:30"
       continue_on_timeout: false
