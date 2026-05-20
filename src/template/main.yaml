@@ -69,13 +69,14 @@
             {% set secs = now().timestamp() - ts %}
             {% set mins = (secs / 60) | int %}
             {% set hours = (secs / 3600) | int %}
-            {% set days = (secs / 86400) | int %}
+            {% set cal_days = (now().date() - (ts | as_datetime | as_local).date()).days %}
             {% if mins < 1 %}precis nu
             {% elif mins < 60 %}{{ mins }} min sedan
-            {% elif hours < 24 %}{{ hours }} h sedan
-            {% elif days == 1 %}igår
-            {% elif days < 7 %}{{ days }} dagar sedan
-            {% else %}{{ days }} d sedan
+            {% elif cal_days == 0 %}{{ hours }} h sedan
+            {% elif cal_days == 1 %}igår
+            {% elif cal_days == 2 %}i förrgår
+            {% elif cal_days < 7 %}{{ cal_days }} dagar sedan
+            {% else %}{{ cal_days }} d sedan
             {% endif %}
           {% endif %}
         light: "Full sol / halvskugga"
@@ -123,13 +124,14 @@
             {% set secs = now().timestamp() - ts %}
             {% set mins = (secs / 60) | int %}
             {% set hours = (secs / 3600) | int %}
-            {% set days = (secs / 86400) | int %}
+            {% set cal_days = (now().date() - (ts | as_datetime | as_local).date()).days %}
             {% if mins < 1 %}precis nu
             {% elif mins < 60 %}{{ mins }} min sedan
-            {% elif hours < 24 %}{{ hours }} h sedan
-            {% elif days == 1 %}igår
-            {% elif days < 7 %}{{ days }} dagar sedan
-            {% else %}{{ days }} d sedan
+            {% elif cal_days == 0 %}{{ hours }} h sedan
+            {% elif cal_days == 1 %}igår
+            {% elif cal_days == 2 %}i förrgår
+            {% elif cal_days < 7 %}{{ cal_days }} dagar sedan
+            {% else %}{{ cal_days }} d sedan
             {% endif %}
           {% endif %}
         light: "Sol / halvskugga"
@@ -177,13 +179,14 @@
             {% set secs = now().timestamp() - ts %}
             {% set mins = (secs / 60) | int %}
             {% set hours = (secs / 3600) | int %}
-            {% set days = (secs / 86400) | int %}
+            {% set cal_days = (now().date() - (ts | as_datetime | as_local).date()).days %}
             {% if mins < 1 %}precis nu
             {% elif mins < 60 %}{{ mins }} min sedan
-            {% elif hours < 24 %}{{ hours }} h sedan
-            {% elif days == 1 %}igår
-            {% elif days < 7 %}{{ days }} dagar sedan
-            {% else %}{{ days }} d sedan
+            {% elif cal_days == 0 %}{{ hours }} h sedan
+            {% elif cal_days == 1 %}igår
+            {% elif cal_days == 2 %}i förrgår
+            {% elif cal_days < 7 %}{{ cal_days }} dagar sedan
+            {% else %}{{ cal_days }} d sedan
             {% endif %}
           {% endif %}
         light: "Full sol"
@@ -231,13 +234,14 @@
             {% set secs = now().timestamp() - ts %}
             {% set mins = (secs / 60) | int %}
             {% set hours = (secs / 3600) | int %}
-            {% set days = (secs / 86400) | int %}
+            {% set cal_days = (now().date() - (ts | as_datetime | as_local).date()).days %}
             {% if mins < 1 %}precis nu
             {% elif mins < 60 %}{{ mins }} min sedan
-            {% elif hours < 24 %}{{ hours }} h sedan
-            {% elif days == 1 %}igår
-            {% elif days < 7 %}{{ days }} dagar sedan
-            {% else %}{{ days }} d sedan
+            {% elif cal_days == 0 %}{{ hours }} h sedan
+            {% elif cal_days == 1 %}igår
+            {% elif cal_days == 2 %}i förrgår
+            {% elif cal_days < 7 %}{{ cal_days }} dagar sedan
+            {% else %}{{ cal_days }} d sedan
             {% endif %}
           {% endif %}
         light: "Sol / halvskugga"
@@ -285,13 +289,14 @@
             {% set secs = now().timestamp() - ts %}
             {% set mins = (secs / 60) | int %}
             {% set hours = (secs / 3600) | int %}
-            {% set days = (secs / 86400) | int %}
+            {% set cal_days = (now().date() - (ts | as_datetime | as_local).date()).days %}
             {% if mins < 1 %}precis nu
             {% elif mins < 60 %}{{ mins }} min sedan
-            {% elif hours < 24 %}{{ hours }} h sedan
-            {% elif days == 1 %}igår
-            {% elif days < 7 %}{{ days }} dagar sedan
-            {% else %}{{ days }} d sedan
+            {% elif cal_days == 0 %}{{ hours }} h sedan
+            {% elif cal_days == 1 %}igår
+            {% elif cal_days == 2 %}i förrgår
+            {% elif cal_days < 7 %}{{ cal_days }} dagar sedan
+            {% else %}{{ cal_days }} d sedan
             {% endif %}
           {% endif %}
         light: "Full sol"
@@ -339,13 +344,14 @@
             {% set secs = now().timestamp() - ts %}
             {% set mins = (secs / 60) | int %}
             {% set hours = (secs / 3600) | int %}
-            {% set days = (secs / 86400) | int %}
+            {% set cal_days = (now().date() - (ts | as_datetime | as_local).date()).days %}
             {% if mins < 1 %}precis nu
             {% elif mins < 60 %}{{ mins }} min sedan
-            {% elif hours < 24 %}{{ hours }} h sedan
-            {% elif days == 1 %}igår
-            {% elif days < 7 %}{{ days }} dagar sedan
-            {% else %}{{ days }} d sedan
+            {% elif cal_days == 0 %}{{ hours }} h sedan
+            {% elif cal_days == 1 %}igår
+            {% elif cal_days == 2 %}i förrgår
+            {% elif cal_days < 7 %}{{ cal_days }} dagar sedan
+            {% else %}{{ cal_days }} d sedan
             {% endif %}
           {% endif %}
         light: "Full sol"
@@ -393,13 +399,14 @@
             {% set secs = now().timestamp() - ts %}
             {% set mins = (secs / 60) | int %}
             {% set hours = (secs / 3600) | int %}
-            {% set days = (secs / 86400) | int %}
+            {% set cal_days = (now().date() - (ts | as_datetime | as_local).date()).days %}
             {% if mins < 1 %}precis nu
             {% elif mins < 60 %}{{ mins }} min sedan
-            {% elif hours < 24 %}{{ hours }} h sedan
-            {% elif days == 1 %}igår
-            {% elif days < 7 %}{{ days }} dagar sedan
-            {% else %}{{ days }} d sedan
+            {% elif cal_days == 0 %}{{ hours }} h sedan
+            {% elif cal_days == 1 %}igår
+            {% elif cal_days == 2 %}i förrgår
+            {% elif cal_days < 7 %}{{ cal_days }} dagar sedan
+            {% else %}{{ cal_days }} d sedan
             {% endif %}
           {% endif %}
         light: "Full sol"
@@ -451,13 +458,14 @@
             {% set secs = now().timestamp() - ts %}
             {% set mins = (secs / 60) | int %}
             {% set hours = (secs / 3600) | int %}
-            {% set days = (secs / 86400) | int %}
+            {% set cal_days = (now().date() - (ts | as_datetime | as_local).date()).days %}
             {% if mins < 1 %}precis nu
             {% elif mins < 60 %}{{ mins }} min sedan
-            {% elif hours < 24 %}{{ hours }} h sedan
-            {% elif days == 1 %}igår
-            {% elif days < 7 %}{{ days }} dagar sedan
-            {% else %}{{ days }} d sedan
+            {% elif cal_days == 0 %}{{ hours }} h sedan
+            {% elif cal_days == 1 %}igår
+            {% elif cal_days == 2 %}i förrgår
+            {% elif cal_days < 7 %}{{ cal_days }} dagar sedan
+            {% else %}{{ cal_days }} d sedan
             {% endif %}
           {% endif %}
         light: "Halvskugga / sol"
@@ -505,13 +513,14 @@
             {% set secs = now().timestamp() - ts %}
             {% set mins = (secs / 60) | int %}
             {% set hours = (secs / 3600) | int %}
-            {% set days = (secs / 86400) | int %}
+            {% set cal_days = (now().date() - (ts | as_datetime | as_local).date()).days %}
             {% if mins < 1 %}precis nu
             {% elif mins < 60 %}{{ mins }} min sedan
-            {% elif hours < 24 %}{{ hours }} h sedan
-            {% elif days == 1 %}igår
-            {% elif days < 7 %}{{ days }} dagar sedan
-            {% else %}{{ days }} d sedan
+            {% elif cal_days == 0 %}{{ hours }} h sedan
+            {% elif cal_days == 1 %}igår
+            {% elif cal_days == 2 %}i förrgår
+            {% elif cal_days < 7 %}{{ cal_days }} dagar sedan
+            {% else %}{{ cal_days }} d sedan
             {% endif %}
           {% endif %}
         light: "Halvskugga / sol"
