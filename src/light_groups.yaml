@@ -2,27 +2,24 @@
 - platform: group
   name: "Dimmable Lights"
   entities:
-    - light.living_room_lamp_1
-    - light.living_room_lamp_2
-    - light.studio_lamp
-    - light.kitchen_lamp
-    - light.marble_lamp
-
-    # Not plugged in right now
-    - light.mans_bedside_lamp
-    - light.agnes_bedside_lamp
+    - light.living_room_lights
+    - light.studio_lights
+    - light.bedroom_lights
+    - light.kitchen_lights
 
 ## Living room
 - platform: group
   name: "Living Room Lights"
   entities:
     - light.living_room_lamp_1
+    - light.marble_lamp
+    - light.hm_home
+    - light.marble_lamp
 
 ## Studio
 - platform: group
   name: "Studio Lights"
   entities:
-    - light.studio_lamp
     - light.studio_ceiling
 
 ## Bedroom
@@ -30,10 +27,14 @@
   name: "Bedroom Lights"
   entities:
     - light.living_room_lamp_2
-    - light.marble_lamp
+    - light.agnes_mushroom_lamp
+    - light.mans_mushroom_lamp
+    # Not plugged in right now
+    # - light.mans_bedside_lamp
+    # - light.agnes_bedside_lamp
 
 ## Kitchen
 - platform: group
   name: "Kitchen Lights"
   entities:
-    - light.kitchen_lamp
+    - light.worktop_lights

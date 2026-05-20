@@ -12,7 +12,7 @@ action:
         - light.mans_bedside_lamp
         - light.living_room_lamp_1
         - light.living_room_lamp_2
-        - light.studio_lamp
         - switch.basket_lamp
-        - switch.sideboard_lamp
+        - switch.christmas_star
+        - switch.christmas_tree
         - light.kitchen_ceiling
