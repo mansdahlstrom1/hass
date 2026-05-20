@@ -1,10 +1,26 @@
-  services:
-    homeassistant:
-      container_name: home-assistant
-      image: homeassistant/home-assistant
-      volumes:
-        - /home/mans/hass_config:/config
-        - /etc/localtime:/etc/localtime:ro
-        - /etc/letsencrypt/:/etc/letsencrypt/
-      restart: always
-      network_mode: host
+services:
+  homeassistant:
+    container_name: home-assistant
+    image: homeassistant/home-assistant
+    volumes:
+      - /home/mans/hass_config:/config
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/letsencrypt/:/etc/letsencrypt/
+    restart: always
+    network_mode: host
+
+  plants-history:
+    container_name: plants-history
+    build: /home/mans/hass_config/services/plants-history
+    restart: always
+    network_mode: host
+    environment:
+      NODE_PORT: 13338
+      DB_PATH: /data/plants_history.db
+      SEED_ON_START: "true"
+      HA_BASE_URL: "https://localhost:8123"
+      HA_TOKEN: ${HA_TOKEN}
+      NODE_TLS_REJECT_UNAUTHORIZED: "0"
+    volumes:
+      - /home/mans/hass_config/plants_history_data:/data
+      - /etc/localtime:/etc/localtime:ro

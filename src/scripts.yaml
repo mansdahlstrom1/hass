@@ -44,6 +44,11 @@ mark_dill_watered:
         entity_id: input_datetime.plant_dill_last_watered
       data:
         datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+    - action: rest_command.log_watering
+      data:
+        slug: dill
+        source: card_tap
+      continue_on_error: true
 
 mark_persilja_watered:
   alias: Markera Persilja som vattnad
@@ -54,6 +59,11 @@ mark_persilja_watered:
         entity_id: input_datetime.plant_persilja_last_watered
       data:
         datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+    - action: rest_command.log_watering
+      data:
+        slug: persilja
+        source: card_tap
+      continue_on_error: true
 
 mark_timjan_watered:
   alias: Markera Timjan som vattnad
@@ -64,6 +74,11 @@ mark_timjan_watered:
         entity_id: input_datetime.plant_timjan_last_watered
       data:
         datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+    - action: rest_command.log_watering
+      data:
+        slug: timjan
+        source: card_tap
+      continue_on_error: true
 
 mark_graslok_watered:
   alias: Markera Gräslök som vattnad
@@ -74,6 +89,11 @@ mark_graslok_watered:
         entity_id: input_datetime.plant_graslok_last_watered
       data:
         datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+    - action: rest_command.log_watering
+      data:
+        slug: graslok
+        source: card_tap
+      continue_on_error: true
 
 mark_dahlia_watered:
   alias: Markera Dahlia som vattnad
@@ -84,6 +104,11 @@ mark_dahlia_watered:
         entity_id: input_datetime.plant_dahlia_last_watered
       data:
         datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+    - action: rest_command.log_watering
+      data:
+        slug: dahlia
+        source: card_tap
+      continue_on_error: true
 
 mark_pelargon_watered:
   alias: Markera Pelargon som vattnad
@@ -94,6 +119,11 @@ mark_pelargon_watered:
         entity_id: input_datetime.plant_pelargon_last_watered
       data:
         datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+    - action: rest_command.log_watering
+      data:
+        slug: pelargon
+        source: card_tap
+      continue_on_error: true
 
 mark_lavandell_watered:
   alias: Markera Lavendel som vattnad
@@ -104,6 +134,11 @@ mark_lavandell_watered:
         entity_id: input_datetime.plant_lavandell_last_watered
       data:
         datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+    - action: rest_command.log_watering
+      data:
+        slug: lavandell
+        source: card_tap
+      continue_on_error: true
 
 mark_murgrona_1_watered:
   alias: Markera Murgröna 1 som vattnad
@@ -114,6 +149,11 @@ mark_murgrona_1_watered:
         entity_id: input_datetime.plant_murgrona_1_last_watered
       data:
         datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+    - action: rest_command.log_watering
+      data:
+        slug: murgrona_1
+        source: card_tap
+      continue_on_error: true
 
 mark_murgrona_2_watered:
   alias: Markera Murgröna 2 som vattnad
@@ -124,6 +164,11 @@ mark_murgrona_2_watered:
         entity_id: input_datetime.plant_murgrona_2_last_watered
       data:
         datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+    - action: rest_command.log_watering
+      data:
+        slug: murgrona_2
+        source: card_tap
+      continue_on_error: true
 
 mark_room_watered:
   alias: Markera hela rummets växter som vattnade
@@ -152,3 +197,8 @@ mark_room_watered:
               entity_id: "input_datetime.{{ repeat.item }}_last_watered"
             data:
               datetime: "{{ timestamp }}"
+          - action: rest_command.log_watering
+            data:
+              slug: "{{ repeat.item | replace('plant_', '') }}"
+              source: room_chip
+            continue_on_error: true

@@ -95,6 +95,13 @@ In the `Plants Needing Water` sensor at the bottom of `main.yaml`:
 1. Add `'sensor.plant_<slug>'` to the `entities` list.
 2. Same for the `due_now` attribute's `entities` list.
 
+#### 3c.1. `configuration.yaml` — append slug to plants_watering_stats
+
+In the `rest:` sensor block (`plants_watering_stats`), append the slug to the
+`json_attributes:` list. Without this, the per-plant stats stay invisible to
+the dashboard. Also append the slug to the `SLUGS` array in
+`services/plants-history/src/seed.js` so backfill picks it up on next start.
+
 #### 3d. `src/scripts.yaml`
 
 Append:
@@ -109,7 +116,16 @@ mark_<slug>_watered:
         entity_id: input_datetime.plant_<slug>_last_watered
       data:
         datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+    - action: rest_command.log_watering
+      data:
+        slug: <slug>
+        source: card_tap
+      continue_on_error: true
 ```
+
+The `rest_command.log_watering` call writes to the plants-history sidecar
+(`services/plants-history/`). `continue_on_error: true` makes it
+fire-and-forget — a sidecar outage never blocks the dashboard.
 
 #### 3e. `src/dashboards/plants.yaml`
 
@@ -189,7 +205,52 @@ The template pulls `display_name`, `relative_last_watered`, `light`, `water`, an
             ulm_plant_slug: <slug>
             ulm_plant_icon: <same icon>
 
-        # 2. Skötselråd container (title + species + care notes)
+        # 2. Vattningshistorik (rolling avg vs configured interval + recent timestamps)
+        - type: custom:vertical-stack-in-card
+          cards:
+            - type: custom:button-card
+              show_name: true
+              show_label: true
+              show_icon: false
+              name: 📊 Vattningshistorik
+              label: >
+                [[[
+                  var s = states['sensor.plants_watering_stats'].attributes.<slug>;
+                  if (!s || s.count < 2) return 'För få vattningar för statistik ännu';
+                  var cfg = states['sensor.plant_<slug>'].attributes.interval_days;
+                  var drift = (s.avg_interval_days - cfg).toFixed(1);
+                  var sign = drift >= 0 ? '+' : '';
+                  return 'Snitt: ' + s.avg_interval_days + ' d  ·  Inställt: ' +
+                         cfg + ' d  ·  Drift: ' + sign + drift + ' d  ·  ' +
+                         s.count + ' totalt';
+                ]]]
+              tap_action: { action: none }
+              styles:
+                card:
+                  - background-color: "rgba(0,0,0,0)"
+                  - box-shadow: "none"
+                  - padding: "12px 14px 4px 14px"
+                name:
+                  - justify-self: "start"
+                  - font-weight: "bold"
+                  - font-size: "1.2rem"
+                label:
+                  - justify-self: "start"
+                  - font-size: "0.9rem"
+                  - opacity: "0.7"
+            - type: markdown
+              content: |
+                **Senaste vattningar:**
+                {% set recent = state_attr('sensor.plants_watering_stats', '<slug>').recent %}
+                {% if recent %}
+                {% for ts in recent %}
+                - {{ (ts | as_datetime | as_local).strftime('%Y-%m-%d %H:%M') }}
+                {% endfor %}
+                {% else %}
+                _Inga vattningar loggade ännu._
+                {% endif %}
+
+        # 3. Skötselråd container (title + species + care notes)
         - type: custom:vertical-stack-in-card
           cards:
             - type: custom:button-card
@@ -203,7 +264,7 @@ The template pulls `display_name`, `relative_last_watered`, `light`, `water`, an
               content: |
                 {{ state_attr('sensor.plant_<slug>', 'care') }}
 
-        # 3. Full-width "Markera som vattnad" button
+        # 4. Full-width "Markera som vattnad" button
         - type: custom:button-card
           name: Markera som vattnad
           icon: mdi:watering-can

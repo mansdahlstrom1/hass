@@ -1,0 +1,15 @@
+{
+  "name": "plants-history",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Durable per-plant watering log for Home Assistant. SQLite + Node built-ins, no third-party deps.",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "seed": "node src/seed.js"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}

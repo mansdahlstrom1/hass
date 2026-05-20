@@ -41,6 +41,32 @@ notify:
       - service: mobile_app_mans_iphone_14_pro
       - service: mobile_app_agnes_iphone
 
+rest_command:
+  log_watering:
+    url: "http://localhost:13338/waterings"
+    method: POST
+    content_type: "application/json"
+    payload: '{"plant_slug": "{{ slug }}", "source": "{{ source }}"}'
+    timeout: 5
+
+rest:
+  - resource: http://localhost:13338/stats
+    scan_interval: 300
+    sensor:
+      - name: Plants Watering Stats
+        unique_id: plants_watering_stats
+        value_template: "{{ value_json.keys() | list | length }}"
+        json_attributes:
+          - dill
+          - persilja
+          - timjan
+          - graslok
+          - dahlia
+          - pelargon
+          - lavandell
+          - murgrona_1
+          - murgrona_2
+
 frontend:
   themes: !include_dir_merge_named themes
   # /config/themes/dark_themes/dark_themes.yaml

@@ -38,6 +38,15 @@
 !.claude/specs/
 .claude/settings.local.json
 
+# Plants history sidecar (Node service committed to repo)
+!services/
+!services/plants-history/
+!services/plants-history/.dockerignore
+!services/plants-history/Dockerfile
+!services/plants-history/package.json
+!services/plants-history/src/
+!services/plants-history/src/*.js
+
 
 # themes
 !themes/
