@@ -1,7 +1,7 @@
 - filter:
-  include_domains:
-    - light
-    - sensor
-    - switch
+    include_domains:
+      - light
+      - sensor
+      - switch
   name: Hass Bridge
   advertise_ip: 192.168.1.36
