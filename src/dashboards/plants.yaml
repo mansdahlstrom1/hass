@@ -76,7 +76,10 @@ views:
                 label: >
                   [[[
                     var a = states['sensor.room_balcony'].attributes;
-                    return a.windows_direction + ' · ' + a.sun_hours + 'h sol · ' + a.brightness + ' ljus';
+                    var dirNames = {north:'Norr',south:'Söder',east:'Öster',west:'Väster'};
+                    var dir = dirNames[a.windows_direction] || a.windows_direction;
+                    var suffix = a.location === 'outdoor' ? 'läge' : 'fönster';
+                    return dir + suffix + ' · ~' + a.sun_hours + 'h sol';
                   ]]]
                 tap_action: { action: none }
                 styles:
@@ -196,7 +199,10 @@ views:
                 label: >
                   [[[
                     var a = states['sensor.room_studio'].attributes;
-                    return a.windows_direction + ' · ' + a.sun_hours + 'h sol · ' + a.brightness + ' ljus';
+                    var dirNames = {north:'Norr',south:'Söder',east:'Öster',west:'Väster'};
+                    var dir = dirNames[a.windows_direction] || a.windows_direction;
+                    var suffix = a.location === 'outdoor' ? 'läge' : 'fönster';
+                    return dir + suffix + ' · ~' + a.sun_hours + 'h sol';
                   ]]]
                 tap_action: { action: none }
                 styles:
