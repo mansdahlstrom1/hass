@@ -47,3 +47,23 @@ plant_basilika_last_watered:
   name: Basilika last watered
   has_date: true
   has_time: true
+
+plant_orkide_last_watered:
+  name: Orkidé last watered
+  has_date: true
+  has_time: true
+
+plant_monstera_last_watered:
+  name: Monstera last watered
+  has_date: true
+  has_time: true
+
+plant_citronfikus_last_watered:
+  name: Citronfikus last watered
+  has_date: true
+  has_time: true
+
+plant_palettblad_last_watered:
+  name: Palettblad last watered
+  has_date: true
+  has_time: true

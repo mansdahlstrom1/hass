@@ -49,12 +49,12 @@
         slug: studio
         display_name: "Studio"
         location: indoor
-        windows_direction: unknown
-        sun_hours: "unknown"
-        brightness: unknown
-        temperature_range: "indoor (~20 °C)"
-        humidity_hint: "indoor, dry"
-        notes: "Fyll i fönsterriktning och ljus när första växten läggs till."
+        windows_direction: south
+        sun_hours: 5
+        brightness: high
+        temperature_range: "indoor (~20 °C, varmare vid söderfönstret i sommarsolen)"
+        humidity_hint: "indoor, dry — söderfönster ger torrare luft i värmen"
+        notes: "Ett söderfönster. Stark direkt sol i mitten av dagen — känsliga växter behöver gardin eller placering en bit in."
 
     - name: "Room Kitchen"
       unique_id: room_kitchen

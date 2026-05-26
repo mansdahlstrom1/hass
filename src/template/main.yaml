@@ -246,6 +246,103 @@
           Nyp bort blomknoppar så fort de visar sig — när basilikan blommar slutar bladproduktionen.
           Köldkänslig: ettårig i svenskt klimat, ta in före nattemperaturer under 10 °C.
 
+    - name: "Plant Orkidé"
+      unique_id: plant_orkide
+      icon: mdi:flower
+      state: "{% from 'plants.jinja' import plant_state %}{{ plant_state('orkide', 7) }}"
+      attributes:
+        display_name: "Orkidé"
+        room: studio
+        species: "Phalaenopsis (rosa)"
+        interval_days: 7
+        days_since: "{% from 'plants.jinja' import days_since %}{{ days_since('orkide') }}"
+        last_watered: "{{ states('input_datetime.plant_orkide_last_watered') }}"
+        relative_last_watered: "{% from 'plants.jinja' import relative_last_watered %}{{ relative_last_watered('orkide') }}"
+        light: "Ljust läge utan direkt middagssol"
+        water: "Sparsamt — låt barkmediet torka mellan vattningar"
+        care: |
+          Ljust läge utan direkt brännande middagssol — söderfönster fungerar
+          bra med tunn gardin eller en bit in i rummet.
+          Vattna genom att doppa krukan i ljummet vatten ~10 min, låt sedan
+          rinna av helt. Undvik stillastående vatten i innerkrukan — rötterna
+          ruttnar lätt.
+          Använd orkidéjord (bark), inte vanlig krukjord.
+          Gödsla svagt under tillväxt (var 3:e vattning).
+          Klipp av blomstängeln över en nod efter blomning för chans till
+          nyblomning. Svalare nattemperatur stimulerar nya blomstänglar.
+
+    - name: "Plant Monstera"
+      unique_id: plant_monstera
+      icon: mdi:leaf
+      state: "{% from 'plants.jinja' import plant_state %}{{ plant_state('monstera', 5) }}"
+      attributes:
+        display_name: "Monstera"
+        room: studio
+        species: "Monstera deliciosa (sticklingsplanta)"
+        interval_days: 5
+        days_since: "{% from 'plants.jinja' import days_since %}{{ days_since('monstera') }}"
+        last_watered: "{{ states('input_datetime.plant_monstera_last_watered') }}"
+        relative_last_watered: "{% from 'plants.jinja' import relative_last_watered %}{{ relative_last_watered('monstera') }}"
+        light: "Ljust indirekt ljus, tål filtrerad sol"
+        water: "Måttligt — låt översta 2–3 cm torka mellan"
+        care: |
+          Ljust indirekt ljus är idealt — direkt middagssol bränner bladen.
+          Vattna när översta 2–3 cm jord är torr. Liten kruka torkar snabbt.
+          Älskar fukt — duscha bladen eller torka av dem regelbundet.
+          Som sticklingsplanta växer den långsamt i början; fenestrationer
+          (hål i bladen) kommer först när plantan är större.
+          Omplantera när rötterna fyller krukan.
+
+    - name: "Plant Citronfikus"
+      unique_id: plant_citronfikus
+      icon: mdi:tree
+      state: "{% from 'plants.jinja' import plant_state %}{{ plant_state('citronfikus', 7) }}"
+      attributes:
+        display_name: "Citronfikus"
+        room: studio
+        species: "Ficus benjamina 'Citrina' (20 cm kruka, äldre exemplar)"
+        interval_days: 7
+        days_since: "{% from 'plants.jinja' import days_since %}{{ days_since('citronfikus') }}"
+        last_watered: "{{ states('input_datetime.plant_citronfikus_last_watered') }}"
+        relative_last_watered: "{% from 'plants.jinja' import relative_last_watered %}{{ relative_last_watered('citronfikus') }}"
+        light: "Ljust läge, tål filtrerad sol"
+        water: "Måttligt — låt jorden torka något mellan"
+        care: |
+          Trivs i ljust läge med filtrerad sol; tål söderfönster om den inte
+          står i stark middagssol hela dagen.
+          Vattna när översta jorden är torr; 20 cm kruka håller fukt längre
+          så vattna inte för ofta.
+          Ogillar att bli flyttad — tappar gärna blad vid stressbyte (växer
+          tillbaka).
+          Torka av blad regelbundet för att hålla dem rena. Mista då och då
+          för luftfuktighet.
+          Långlivad: etablerade exemplar är förlåtande och växer långsamt.
+
+    - name: "Plant Palettblad"
+      unique_id: plant_palettblad
+      icon: mdi:leaf
+      state: "{% from 'plants.jinja' import plant_state %}{{ plant_state('palettblad', 3) }}"
+      attributes:
+        display_name: "Palettblad"
+        room: studio
+        species: "Plectranthus scutellarioides (10–15 cm kruka)"
+        interval_days: 3
+        days_since: "{% from 'plants.jinja' import days_since %}{{ days_since('palettblad') }}"
+        last_watered: "{{ states('input_datetime.plant_palettblad_last_watered') }}"
+        relative_last_watered: "{% from 'plants.jinja' import relative_last_watered %}{{ relative_last_watered('palettblad') }}"
+        light: "Ljust, viss direkt sol OK"
+        water: "Ofta — gillar fukt, vill inte torka ut"
+        care: |
+          Ljust läge med viss direkt sol håller färgerna djupa — för lite ljus
+          gör bladen blekare.
+          Håll jorden lätt fuktig; liten kruka torkar snabbt. Hänger lätt om
+          den får torrt.
+          Nyp av blomställningar så fort de visar sig — annars går energi från
+          de färgglada bladen.
+          Sticklingar rotar lätt i vatten om du vill föröka.
+          Kan hållas som flerårig inomhus, men växer snabbt och kan behöva
+          beskäras eller bytas ut.
+
     - name: "Plants Needing Water"
       unique_id: plants_needing_water
       icon: mdi:watering-can
@@ -254,7 +351,9 @@
           'sensor.plant_dill', 'sensor.plant_persilja', 'sensor.plant_timjan',
           'sensor.plant_graslok', 'sensor.plant_dahlia', 'sensor.plant_pelargon',
           'sensor.plant_lavandell', 'sensor.plant_murgrona_1', 'sensor.plant_murgrona_2',
-          'sensor.plant_basilika'
+          'sensor.plant_basilika',
+          'sensor.plant_orkide', 'sensor.plant_monstera',
+          'sensor.plant_citronfikus', 'sensor.plant_palettblad'
         ] %}
         {% set ns = namespace(count=0) %}
         {% for e in entities %}

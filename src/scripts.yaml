@@ -185,6 +185,66 @@ mark_basilika_watered:
         source: card_tap
       continue_on_error: true
 
+mark_orkide_watered:
+  alias: Markera Orkidé som vattnad
+  icon: mdi:watering-can
+  sequence:
+    - action: input_datetime.set_datetime
+      target:
+        entity_id: input_datetime.plant_orkide_last_watered
+      data:
+        datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+    - action: rest_command.log_watering
+      data:
+        slug: orkide
+        source: card_tap
+      continue_on_error: true
+
+mark_monstera_watered:
+  alias: Markera Monstera som vattnad
+  icon: mdi:watering-can
+  sequence:
+    - action: input_datetime.set_datetime
+      target:
+        entity_id: input_datetime.plant_monstera_last_watered
+      data:
+        datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+    - action: rest_command.log_watering
+      data:
+        slug: monstera
+        source: card_tap
+      continue_on_error: true
+
+mark_citronfikus_watered:
+  alias: Markera Citronfikus som vattnad
+  icon: mdi:watering-can
+  sequence:
+    - action: input_datetime.set_datetime
+      target:
+        entity_id: input_datetime.plant_citronfikus_last_watered
+      data:
+        datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+    - action: rest_command.log_watering
+      data:
+        slug: citronfikus
+        source: card_tap
+      continue_on_error: true
+
+mark_palettblad_watered:
+  alias: Markera Palettblad som vattnad
+  icon: mdi:watering-can
+  sequence:
+    - action: input_datetime.set_datetime
+      target:
+        entity_id: input_datetime.plant_palettblad_last_watered
+      data:
+        datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+    - action: rest_command.log_watering
+      data:
+        slug: palettblad
+        source: card_tap
+      continue_on_error: true
+
 mark_room_watered:
   alias: Markera hela rummets växter som vattnade
   icon: mdi:watering-can-outline
