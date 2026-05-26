@@ -73,20 +73,28 @@ plant_<slug>_last_watered:
 
 #### 3b. `src/template/main.yaml` — plant sensor
 
-Append a new entry under the existing plant `- sensor:` block (the third top-level `- sensor:` entry, after the wifi binary_sensors). Copy the pattern from an existing plant. Required attributes:
+Append a new entry under the existing plant `- sensor:` block (the third top-level `- sensor:` entry, after the wifi binary_sensors). All four Jinja templates (`state`, `days_since`, `last_watered`, `relative_last_watered`) come from macros in `/config/custom_templates/plants.jinja` — you only specify the metadata + care text:
 
-- `display_name`
-- `room` (the slug, e.g. `balcony`)
-- `species`
-- `interval_days` (integer — from research)
-- `days_since` (template — copy pattern)
-- `last_watered` (template — copy pattern)
-- `relative_last_watered` (template — copy pattern, gives "precis nu" / "X h sedan" / "igår" / "X dagar sedan")
-- `light` (Swedish)
-- `water` (Swedish)
-- `care` (Swedish, multiline `|` block)
+```yaml
+- name: "Plant <DisplayName>"
+  unique_id: plant_<slug>
+  icon: <mdi:sprout / mdi:flower / mdi:leaf>
+  state: "{% from 'plants.jinja' import plant_state %}{{ plant_state('<slug>', <interval>) }}"
+  attributes:
+    display_name: "<DisplayName>"
+    room: <roomslug>
+    species: "<Species>"
+    interval_days: <interval>
+    days_since: "{% from 'plants.jinja' import days_since %}{{ days_since('<slug>') }}"
+    last_watered: "{{ states('input_datetime.plant_<slug>_last_watered') }}"
+    relative_last_watered: "{% from 'plants.jinja' import relative_last_watered %}{{ relative_last_watered('<slug>') }}"
+    light: "<Swedish light requirement>"
+    water: "<Swedish water need>"
+    care: |
+      <Swedish multi-line care notes>
+```
 
-State logic (copy from existing plant — handles `nyvattnad`/`ok`/`due`/`overdue` with 5-min nyvattnad window).
+The state macro returns `nyvattnad`/`ok`/`due`/`overdue` (5-min nyvattnad window). The macros live at `custom_templates/plants.jinja` — edit there if you need to tweak the logic for all plants at once.
 
 #### 3c. `src/template/main.yaml` — append slug to plants_needing_water
 
@@ -188,6 +196,8 @@ The template pulls `display_name`, `relative_last_watered`, `light`, `water`, an
 
 ##### Per-plant subview — append at the bottom of `views:`
 
+All four cards in a subview are ULM button-card templates. Just swap slug + icon:
+
 ```yaml
 - title: <DisplayName>
   path: plant-<slug>
@@ -198,106 +208,35 @@ The template pulls `display_name`, `relative_last_watered`, `light`, `water`, an
   sections:
     - type: grid
       cards:
-        # 1. Hero plant card (reuses the same template as the main view)
         - type: custom:button-card
           template: custom_card_mans_plant
           variables:
             ulm_plant_slug: <slug>
             ulm_plant_icon: <same icon>
-
-        # 2. Vattningshistorik (rolling avg vs configured interval + recent timestamps)
-        - type: custom:vertical-stack-in-card
-          cards:
-            - type: custom:button-card
-              show_name: true
-              show_label: true
-              show_icon: false
-              name: 📊 Vattningshistorik
-              label: >
-                [[[
-                  var s = states['sensor.plants_watering_stats'].attributes.<slug>;
-                  if (!s || s.count < 2) return 'För få vattningar för statistik ännu';
-                  var cfg = states['sensor.plant_<slug>'].attributes.interval_days;
-                  var drift = (s.avg_interval_days - cfg).toFixed(1);
-                  var sign = drift >= 0 ? '+' : '';
-                  return 'Snitt: ' + s.avg_interval_days + ' d  ·  Inställt: ' +
-                         cfg + ' d  ·  Drift: ' + sign + drift + ' d  ·  ' +
-                         s.count + ' totalt';
-                ]]]
-              tap_action: { action: none }
-              styles:
-                card:
-                  - background-color: "rgba(0,0,0,0)"
-                  - box-shadow: "none"
-                  - padding: "12px 14px 4px 14px"
-                name:
-                  - justify-self: "start"
-                  - font-weight: "bold"
-                  - font-size: "1.2rem"
-                label:
-                  - justify-self: "start"
-                  - font-size: "0.9rem"
-                  - opacity: "0.7"
-            - type: markdown
-              content: |
-                **Senaste vattningar:**
-                {% set recent = state_attr('sensor.plants_watering_stats', '<slug>').recent %}
-                {% if recent %}
-                {% for ts in recent %}
-                - {{ (ts | as_datetime | as_local).strftime('%Y-%m-%d %H:%M') }}
-                {% endfor %}
-                {% else %}
-                _Inga vattningar loggade ännu._
-                {% endif %}
-
-        # 3. Skötselråd container (title + species + care notes)
-        - type: custom:vertical-stack-in-card
-          cards:
-            - type: custom:button-card
-              template: card_title
-              name: 🌱 Skötselråd
-              label: "[[[ return states['sensor.plant_<slug>'].attributes.species ]]]"
-              styles:
-                card:
-                  - margin-left: "0px"
-            - type: markdown
-              content: |
-                {{ state_attr('sensor.plant_<slug>', 'care') }}
-
-        # 4. Full-width "Markera som vattnad" button
         - type: custom:button-card
-          name: Markera som vattnad
-          icon: mdi:watering-can
-          show_icon: true
-          show_name: true
-          tap_action:
-            action: call-service
-            service: script.mark_<slug>_watered
-            haptic: light
-          styles:
-            card:
-              - border-radius: "12px"
-              - padding: "14px"
-            icon:
-              - color: "rgba(var(--color-blue, 61,90,254), 1)"
-              - width: "22px"
-              - height: "22px"
-            img_cell:
-              - background-color: "rgba(var(--color-blue, 61,90,254), 0.2)"
-              - border-radius: "50%"
-              - width: "42px"
-              - height: "42px"
-              - place-self: "center"
-            name:
-              - justify-self: "start"
-              - font-weight: "bold"
-              - font-size: "14px"
-              - margin-left: "14px"
-            grid:
-              - grid-template-areas: "'i n'"
-              - grid-template-columns: "min-content auto"
-              - column-gap: "0px"
+          template: custom_card_mans_plant_care
+          variables:
+            ulm_plant_slug: <slug>
+        - type: custom:button-card
+          template: custom_card_mans_plant_history
+          variables:
+            ulm_plant_slug: <slug>
+        - type: custom:button-card
+          template: custom_card_mans_plant_water_button
+          variables:
+            ulm_plant_slug: <slug>
 ```
+
+Template sources (auto-synced by the ULM integration on HA load):
+
+| Template | Source file |
+|---|---|
+| `custom_card_mans_plant` | `ui_lovelace_minimalist/custom_cards/custom_card_mans_plant/custom_card_mans_plant.yaml` |
+| `custom_card_mans_plant_care` | `…/custom_card_mans_plant_care/custom_card_mans_plant_care.yaml` |
+| `custom_card_mans_plant_history` | `…/custom_card_mans_plant_history/custom_card_mans_plant_history.yaml` |
+| `custom_card_mans_plant_water_button` | `…/custom_card_mans_plant_water_button/custom_card_mans_plant_water_button.yaml` |
+
+Each template reads `sensor.plant_<slug>` (display_name, species, care, light, water, interval_days, last_watered, relative_last_watered) and `sensor.plants_watering_stats.<slug>` (avg_interval_days, count, recent[]) — nothing else needs to be passed in.
 
 ### 4. Validate config
 
@@ -307,13 +246,36 @@ docker exec home-assistant python -m homeassistant --script check_config --confi
 
 Exit 0 = OK. Fix anything that fails.
 
-### 5. Reload
+### 5. Restart HA (required)
 
-Tell the user to either:
-- Go to **Developer Tools → YAML → Reload all** (faster), or
-- Restart HA container if reload doesn't pick up the new dashboard (`docker restart home-assistant`)
+Adding a plant touches **four** reload-domains: `input_datetime`, `script`,
+`template`, and the YAML dashboard. HA's "Reload all" button does **not**
+cover input_datetime helpers in the version we run, and partial reloads leave
+the system in a broken state where the dashboard renders the template card
+with `ulm_plant_slug` as the literal name (lowercase, no stats, dead water
+button) because `sensor.plant_<slug>` doesn't exist yet.
 
-Then refresh the browser at `https://ubuntu.mansdahlstrom.se/house-plants/`.
+So always run a full restart, don't offer "Reload all" as an alternative:
+
+```bash
+docker restart home-assistant
+```
+
+Then wait for HA to come back (`curl -ks https://localhost:8123/ | grep -q "Home Assistant"`)
+and refresh the browser at `https://ubuntu.mansdahlstrom.se/house-plants/`.
+
+### 6. Verify the plant is live (optional but recommended)
+
+The plant container env exposes a long-lived token at `HA_TOKEN`:
+
+```bash
+HA_TOKEN=$(docker inspect plants-history --format '{{range .Config.Env}}{{println .}}{{end}}' | grep HA_TOKEN | cut -d= -f2)
+curl -ks -H "Authorization: Bearer $HA_TOKEN" https://localhost:8123/api/states/sensor.plant_<slug> | head -c 400
+```
+
+You should see `"display_name":"<DisplayName>"` in the response. If you see
+`404` or the entity is missing, the restart didn't pick up your YAML — check
+`docker logs home-assistant --tail 50` for a config error.
 
 ## Reference: existing rooms (read fresh from rooms.yaml)
 
@@ -327,6 +289,6 @@ Look at `sensor.plant_dill` in `src/template/main.yaml` for the canonical patter
 
 - **Slug case sensitivity**: input_datetime, sensor, script, dashboard refs all need to match. Always lowercase snake_case.
 - **Hyphen in dashboard URL**: HA requires URLs to contain `-`. We use `house-plants`. Don't rename to `plants` alone — it fails validation.
-- **Newly added input_datetime needs HA reload** (Developer Tools → Reload Input datetimes, or full restart). Template sensor reload alone is not enough if the input_datetime is new.
+- **Always restart HA, don't try to reload.** A new plant touches input_datetime + script + template + dashboard. HA's "Reload all" skips input_datetimes on our version, leaving `sensor.plant_<slug>` undefined — the ULM card then falls back to printing `variables.ulm_plant_slug` (lowercase, no stats, dead water button). Symptoms look like the dashboard YAML is broken; the actual cause is a half-loaded HA.
 - **Notifications go to `notify.family`** (group: mans iphone 14 pro + agnes iphone). Don't reference individual mobile_app entities directly.
 - **Daily watering reminder** is at `src/automations/plants/water_reminder.yaml`, fires 09:00. It already loops all plants via the `plants_needing_water` summary sensor, so adding a plant only requires the `entities:` list update in 3c — no automation edit needed.
