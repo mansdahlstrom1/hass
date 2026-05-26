@@ -224,6 +224,28 @@
           Härdig vintergrön klätterväxt.
           Klipp för att hålla formen.
 
+    - name: "Plant Basilika"
+      unique_id: plant_basilika
+      icon: mdi:sprout
+      state: "{% from 'plants.jinja' import plant_state %}{{ plant_state('basilika', 2) }}"
+      attributes:
+        display_name: "Basilika"
+        room: balcony
+        species: "Ocimum basilicum"
+        interval_days: 2
+        days_since: "{% from 'plants.jinja' import days_since %}{{ days_since('basilika') }}"
+        last_watered: "{{ states('input_datetime.plant_basilika_last_watered') }}"
+        relative_last_watered: "{% from 'plants.jinja' import relative_last_watered %}{{ relative_last_watered('basilika') }}"
+        light: "Full sol — 6+ timmar"
+        water: "Ofta — håll jämnt fuktig, aldrig blöt"
+        care: |
+          Älskar värme och full sol — trivs på västbalkongen i sommarvärmen.
+          Liten kruka torkar snabbt i eftermiddagssol — vattna ofta, helst på morgonen.
+          Håll jorden jämnt fuktig men aldrig blöt — basilika ruttnar lätt vid stillastående vatten.
+          Nyp toppskotten regelbundet för buskig planta och fler blad.
+          Nyp bort blomknoppar så fort de visar sig — när basilikan blommar slutar bladproduktionen.
+          Köldkänslig: ettårig i svenskt klimat, ta in före nattemperaturer under 10 °C.
+
     - name: "Plants Needing Water"
       unique_id: plants_needing_water
       icon: mdi:watering-can
@@ -231,7 +253,8 @@
         {% set entities = [
           'sensor.plant_dill', 'sensor.plant_persilja', 'sensor.plant_timjan',
           'sensor.plant_graslok', 'sensor.plant_dahlia', 'sensor.plant_pelargon',
-          'sensor.plant_lavandell', 'sensor.plant_murgrona_1', 'sensor.plant_murgrona_2'
+          'sensor.plant_lavandell', 'sensor.plant_murgrona_1', 'sensor.plant_murgrona_2',
+          'sensor.plant_basilika'
         ] %}
         {% set ns = namespace(count=0) %}
         {% for e in entities %}

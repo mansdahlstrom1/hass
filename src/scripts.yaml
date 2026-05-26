@@ -170,6 +170,21 @@ mark_murgrona_2_watered:
         source: card_tap
       continue_on_error: true
 
+mark_basilika_watered:
+  alias: Markera Basilika som vattnad
+  icon: mdi:watering-can
+  sequence:
+    - action: input_datetime.set_datetime
+      target:
+        entity_id: input_datetime.plant_basilika_last_watered
+      data:
+        datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+    - action: rest_command.log_watering
+      data:
+        slug: basilika
+        source: card_tap
+      continue_on_error: true
+
 mark_room_watered:
   alias: Markera hela rummets växter som vattnade
   icon: mdi:watering-can-outline

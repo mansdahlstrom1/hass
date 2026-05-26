@@ -42,3 +42,8 @@ plant_murgrona_2_last_watered:
   name: Murgröna 2 last watered
   has_date: true
   has_time: true
+
+plant_basilika_last_watered:
+  name: Basilika last watered
+  has_date: true
+  has_time: true

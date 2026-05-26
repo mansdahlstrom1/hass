@@ -177,6 +177,11 @@ views:
                 variables:
                   ulm_plant_slug: murgrona_2
                   ulm_plant_icon: mdi:leaf
+              - type: custom:button-card
+                template: custom_card_mans_plant
+                variables:
+                  ulm_plant_slug: basilika
+                  ulm_plant_icon: mdi:sprout
   # ─── Per-plant subviews ───
   # Each plant has its own subview reachable via /house-plants/plant-<slug>.
   # Tapping a plant card on the main view navigates here.
@@ -428,3 +433,29 @@ views:
             variables:
               ulm_plant_slug: murgrona_2
 
+  - title: Basilika
+    path: plant-basilika
+    icon: mdi:sprout
+    subview: true
+    type: sections
+    max_columns: 1
+    sections:
+      - type: grid
+        cards:
+          - type: custom:button-card
+            template: custom_card_mans_plant
+            variables:
+              ulm_plant_slug: basilika
+              ulm_plant_icon: mdi:sprout
+          - type: custom:button-card
+            template: custom_card_mans_plant_care
+            variables:
+              ulm_plant_slug: basilika
+          - type: custom:button-card
+            template: custom_card_mans_plant_history
+            variables:
+              ulm_plant_slug: basilika
+          - type: custom:button-card
+            template: custom_card_mans_plant_water_button
+            variables:
+              ulm_plant_slug: basilika
