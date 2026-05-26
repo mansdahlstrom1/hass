@@ -1,0 +1,80 @@
+---
+### Custom Card: Plant care (ULM extension) ###
+#
+# Skötselråd block used in per-plant subviews. Renders:
+#   🌱 Skötselråd
+#   <species>
+#   ─────────────────
+#   📅 Senast vattnad: YYYY-MM-DD kl HH:MM
+#   <care notes from sensor.plant_<slug>.attributes.care>
+#
+# Variables:
+#   ulm_plant_slug   (required)   e.g. "dill"
+
+custom_card_mans_plant_care:
+  triggers_update: "all"
+  show_name: true
+  show_label: true
+  show_icon: false
+  name: "🌱 Skötselråd"
+  label: >
+    [[[
+      var e = states['sensor.plant_' + variables.ulm_plant_slug];
+      return e ? (e.attributes.species || '') : '';
+    ]]]
+  tap_action:
+    action: "none"
+  styles:
+    grid:
+      - grid-template-areas: "'n' 'l' 'lw' 'care'"
+      - grid-template-columns: "1fr"
+      - row-gap: "8px"
+    card:
+      - border-radius: "12px"
+      - padding: "16px 14px"
+    name:
+      - justify-self: "start"
+      - font-weight: "bold"
+      - font-size: "1.5rem"
+    label:
+      - justify-self: "start"
+      - font-weight: "bold"
+      - font-size: "0.95rem"
+      - opacity: "0.55"
+      - margin-bottom: "6px"
+    custom_fields:
+      lw:
+        - justify-self: "start"
+        - text-align: "left"
+        - font-size: "13px"
+        - padding-top: "10px"
+        - border-top: "1px solid rgba(127,127,127,0.2)"
+        - width: "100%"
+      care:
+        - justify-self: "start"
+        - text-align: "left"
+        - font-size: "13px"
+        - line-height: "1.55"
+        - white-space: "pre-line"
+        - width: "100%"
+  custom_fields:
+    # 📅 Senast vattnad row
+    lw: >
+      [[[
+        var e = states['sensor.plant_' + variables.ulm_plant_slug];
+        if (!e || !e.attributes.last_watered) return '';
+        var raw = e.attributes.last_watered;
+        var d = new Date(raw.indexOf('T') >= 0 ? raw : raw.replace(' ', 'T'));
+        var p = function(n){ return n < 10 ? '0' + n : '' + n; };
+        var ok = !isNaN(d.getTime());
+        var s = ok ? (d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate()) +
+                     ' kl ' + p(d.getHours()) + ':' + p(d.getMinutes())) : raw;
+        return '<div style="text-align:left;width:100%;">📅 <b>Senast vattnad:</b> ' + s + '</div>';
+      ]]]
+    # Care notes (multiline; CSS preserves newlines)
+    care: >
+      [[[
+        var e = states['sensor.plant_' + variables.ulm_plant_slug];
+        var c = e && e.attributes.care ? e.attributes.care : '';
+        return '<div style="text-align:left;width:100%;white-space:pre-line;">' + c + '</div>';
+      ]]]

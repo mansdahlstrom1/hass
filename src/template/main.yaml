@@ -32,53 +32,26 @@
            or is_state('binary_sensor.agnes_home_wifi', 'on') }}
 
 - sensor:
+    # === Plant sensors ===
+    # All four template bodies (state / days_since / last_watered / relative_last_watered)
+    # are imported from /config/custom_templates/plants.jinja so each plant only
+    # has to specify its own metadata + care notes.
+    #
+    # Adding a plant: copy a sibling block and swap slug, display_name, room,
+    # species, interval, icon, light, water, and care. See .claude/skills/add-plant.md.
+
     - name: "Plant Dill"
       unique_id: plant_dill
       icon: mdi:sprout
-      state: >-
-        {% set ts = state_attr('input_datetime.plant_dill_last_watered', 'timestamp') %}
-        {% set interval = 2 %}
-        {% if ts in [none, 0] %}
-          overdue
-        {% else %}
-          {% set secs = now().timestamp() - ts %}
-          {% if secs < 300 %} nyvattnad
-          {% else %}
-            {% set days = secs / 86400 %}
-            {% if days < interval - 0.5 %} ok
-            {% elif days < interval + 0.5 %} due
-            {% else %} overdue
-            {% endif %}
-          {% endif %}
-        {% endif %}
+      state: "{% from 'plants.jinja' import plant_state %}{{ plant_state('dill', 2) }}"
       attributes:
         display_name: "Dill"
         room: balcony
         species: "Anethum graveolens"
         interval_days: 2
-        days_since: >-
-          {% set ts = state_attr('input_datetime.plant_dill_last_watered', 'timestamp') %}
-          {% if ts in [none, 0] %} none
-          {% else %} {{ ((now().timestamp() - ts) / 86400) | round(1) }}
-          {% endif %}
+        days_since: "{% from 'plants.jinja' import days_since %}{{ days_since('dill') }}"
         last_watered: "{{ states('input_datetime.plant_dill_last_watered') }}"
-        relative_last_watered: >-
-          {% set ts = state_attr('input_datetime.plant_dill_last_watered', 'timestamp') %}
-          {% if ts in [none, 0] %}aldrig
-          {% else %}
-            {% set secs = now().timestamp() - ts %}
-            {% set mins = (secs / 60) | int %}
-            {% set hours = (secs / 3600) | int %}
-            {% set cal_days = (now().date() - (ts | as_datetime | as_local).date()).days %}
-            {% if mins < 1 %}precis nu
-            {% elif mins < 60 %}{{ mins }} min sedan
-            {% elif cal_days == 0 %}{{ hours }} h sedan
-            {% elif cal_days == 1 %}igår
-            {% elif cal_days == 2 %}i förrgår
-            {% elif cal_days < 7 %}{{ cal_days }} dagar sedan
-            {% else %}{{ cal_days }} d sedan
-            {% endif %}
-          {% endif %}
+        relative_last_watered: "{% from 'plants.jinja' import relative_last_watered %}{{ relative_last_watered('dill') }}"
         light: "Full sol / halvskugga"
         water: "Ofta — håll jämnt fuktig"
         care: |
@@ -90,50 +63,15 @@
     - name: "Plant Persilja"
       unique_id: plant_persilja
       icon: mdi:sprout
-      state: >-
-        {% set ts = state_attr('input_datetime.plant_persilja_last_watered', 'timestamp') %}
-        {% set interval = 2 %}
-        {% if ts in [none, 0] %}
-          overdue
-        {% else %}
-          {% set secs = now().timestamp() - ts %}
-          {% if secs < 300 %} nyvattnad
-          {% else %}
-            {% set days = secs / 86400 %}
-            {% if days < interval - 0.5 %} ok
-            {% elif days < interval + 0.5 %} due
-            {% else %} overdue
-            {% endif %}
-          {% endif %}
-        {% endif %}
+      state: "{% from 'plants.jinja' import plant_state %}{{ plant_state('persilja', 2) }}"
       attributes:
         display_name: "Persilja"
         room: balcony
         species: "Petroselinum crispum"
         interval_days: 2
-        days_since: >-
-          {% set ts = state_attr('input_datetime.plant_persilja_last_watered', 'timestamp') %}
-          {% if ts in [none, 0] %} none
-          {% else %} {{ ((now().timestamp() - ts) / 86400) | round(1) }}
-          {% endif %}
+        days_since: "{% from 'plants.jinja' import days_since %}{{ days_since('persilja') }}"
         last_watered: "{{ states('input_datetime.plant_persilja_last_watered') }}"
-        relative_last_watered: >-
-          {% set ts = state_attr('input_datetime.plant_persilja_last_watered', 'timestamp') %}
-          {% if ts in [none, 0] %}aldrig
-          {% else %}
-            {% set secs = now().timestamp() - ts %}
-            {% set mins = (secs / 60) | int %}
-            {% set hours = (secs / 3600) | int %}
-            {% set cal_days = (now().date() - (ts | as_datetime | as_local).date()).days %}
-            {% if mins < 1 %}precis nu
-            {% elif mins < 60 %}{{ mins }} min sedan
-            {% elif cal_days == 0 %}{{ hours }} h sedan
-            {% elif cal_days == 1 %}igår
-            {% elif cal_days == 2 %}i förrgår
-            {% elif cal_days < 7 %}{{ cal_days }} dagar sedan
-            {% else %}{{ cal_days }} d sedan
-            {% endif %}
-          {% endif %}
+        relative_last_watered: "{% from 'plants.jinja' import relative_last_watered %}{{ relative_last_watered('persilja') }}"
         light: "Sol / halvskugga"
         water: "Ofta — håll jämnt fuktig"
         care: |
@@ -145,50 +83,15 @@
     - name: "Plant Timjan"
       unique_id: plant_timjan
       icon: mdi:sprout
-      state: >-
-        {% set ts = state_attr('input_datetime.plant_timjan_last_watered', 'timestamp') %}
-        {% set interval = 4 %}
-        {% if ts in [none, 0] %}
-          overdue
-        {% else %}
-          {% set secs = now().timestamp() - ts %}
-          {% if secs < 300 %} nyvattnad
-          {% else %}
-            {% set days = secs / 86400 %}
-            {% if days < interval - 0.5 %} ok
-            {% elif days < interval + 0.5 %} due
-            {% else %} overdue
-            {% endif %}
-          {% endif %}
-        {% endif %}
+      state: "{% from 'plants.jinja' import plant_state %}{{ plant_state('timjan', 4) }}"
       attributes:
         display_name: "Timjan"
         room: balcony
         species: "Thymus vulgaris"
         interval_days: 4
-        days_since: >-
-          {% set ts = state_attr('input_datetime.plant_timjan_last_watered', 'timestamp') %}
-          {% if ts in [none, 0] %} none
-          {% else %} {{ ((now().timestamp() - ts) / 86400) | round(1) }}
-          {% endif %}
+        days_since: "{% from 'plants.jinja' import days_since %}{{ days_since('timjan') }}"
         last_watered: "{{ states('input_datetime.plant_timjan_last_watered') }}"
-        relative_last_watered: >-
-          {% set ts = state_attr('input_datetime.plant_timjan_last_watered', 'timestamp') %}
-          {% if ts in [none, 0] %}aldrig
-          {% else %}
-            {% set secs = now().timestamp() - ts %}
-            {% set mins = (secs / 60) | int %}
-            {% set hours = (secs / 3600) | int %}
-            {% set cal_days = (now().date() - (ts | as_datetime | as_local).date()).days %}
-            {% if mins < 1 %}precis nu
-            {% elif mins < 60 %}{{ mins }} min sedan
-            {% elif cal_days == 0 %}{{ hours }} h sedan
-            {% elif cal_days == 1 %}igår
-            {% elif cal_days == 2 %}i förrgår
-            {% elif cal_days < 7 %}{{ cal_days }} dagar sedan
-            {% else %}{{ cal_days }} d sedan
-            {% endif %}
-          {% endif %}
+        relative_last_watered: "{% from 'plants.jinja' import relative_last_watered %}{{ relative_last_watered('timjan') }}"
         light: "Full sol"
         water: "Sparsamt — låt torka mellan"
         care: |
@@ -200,50 +103,15 @@
     - name: "Plant Gräslök"
       unique_id: plant_graslok
       icon: mdi:sprout
-      state: >-
-        {% set ts = state_attr('input_datetime.plant_graslok_last_watered', 'timestamp') %}
-        {% set interval = 2 %}
-        {% if ts in [none, 0] %}
-          overdue
-        {% else %}
-          {% set secs = now().timestamp() - ts %}
-          {% if secs < 300 %} nyvattnad
-          {% else %}
-            {% set days = secs / 86400 %}
-            {% if days < interval - 0.5 %} ok
-            {% elif days < interval + 0.5 %} due
-            {% else %} overdue
-            {% endif %}
-          {% endif %}
-        {% endif %}
+      state: "{% from 'plants.jinja' import plant_state %}{{ plant_state('graslok', 2) }}"
       attributes:
         display_name: "Gräslök"
         room: balcony
         species: "Allium schoenoprasum"
         interval_days: 2
-        days_since: >-
-          {% set ts = state_attr('input_datetime.plant_graslok_last_watered', 'timestamp') %}
-          {% if ts in [none, 0] %} none
-          {% else %} {{ ((now().timestamp() - ts) / 86400) | round(1) }}
-          {% endif %}
+        days_since: "{% from 'plants.jinja' import days_since %}{{ days_since('graslok') }}"
         last_watered: "{{ states('input_datetime.plant_graslok_last_watered') }}"
-        relative_last_watered: >-
-          {% set ts = state_attr('input_datetime.plant_graslok_last_watered', 'timestamp') %}
-          {% if ts in [none, 0] %}aldrig
-          {% else %}
-            {% set secs = now().timestamp() - ts %}
-            {% set mins = (secs / 60) | int %}
-            {% set hours = (secs / 3600) | int %}
-            {% set cal_days = (now().date() - (ts | as_datetime | as_local).date()).days %}
-            {% if mins < 1 %}precis nu
-            {% elif mins < 60 %}{{ mins }} min sedan
-            {% elif cal_days == 0 %}{{ hours }} h sedan
-            {% elif cal_days == 1 %}igår
-            {% elif cal_days == 2 %}i förrgår
-            {% elif cal_days < 7 %}{{ cal_days }} dagar sedan
-            {% else %}{{ cal_days }} d sedan
-            {% endif %}
-          {% endif %}
+        relative_last_watered: "{% from 'plants.jinja' import relative_last_watered %}{{ relative_last_watered('graslok') }}"
         light: "Sol / halvskugga"
         water: "Ofta — håll jämnt fuktig"
         care: |
@@ -255,50 +123,15 @@
     - name: "Plant Dahlia"
       unique_id: plant_dahlia
       icon: mdi:flower
-      state: >-
-        {% set ts = state_attr('input_datetime.plant_dahlia_last_watered', 'timestamp') %}
-        {% set interval = 2 %}
-        {% if ts in [none, 0] %}
-          overdue
-        {% else %}
-          {% set secs = now().timestamp() - ts %}
-          {% if secs < 300 %} nyvattnad
-          {% else %}
-            {% set days = secs / 86400 %}
-            {% if days < interval - 0.5 %} ok
-            {% elif days < interval + 0.5 %} due
-            {% else %} overdue
-            {% endif %}
-          {% endif %}
-        {% endif %}
+      state: "{% from 'plants.jinja' import plant_state %}{{ plant_state('dahlia', 2) }}"
       attributes:
         display_name: "Dahlia"
         room: balcony
         species: "Dahlia (15 cm kruka)"
         interval_days: 2
-        days_since: >-
-          {% set ts = state_attr('input_datetime.plant_dahlia_last_watered', 'timestamp') %}
-          {% if ts in [none, 0] %} none
-          {% else %} {{ ((now().timestamp() - ts) / 86400) | round(1) }}
-          {% endif %}
+        days_since: "{% from 'plants.jinja' import days_since %}{{ days_since('dahlia') }}"
         last_watered: "{{ states('input_datetime.plant_dahlia_last_watered') }}"
-        relative_last_watered: >-
-          {% set ts = state_attr('input_datetime.plant_dahlia_last_watered', 'timestamp') %}
-          {% if ts in [none, 0] %}aldrig
-          {% else %}
-            {% set secs = now().timestamp() - ts %}
-            {% set mins = (secs / 60) | int %}
-            {% set hours = (secs / 3600) | int %}
-            {% set cal_days = (now().date() - (ts | as_datetime | as_local).date()).days %}
-            {% if mins < 1 %}precis nu
-            {% elif mins < 60 %}{{ mins }} min sedan
-            {% elif cal_days == 0 %}{{ hours }} h sedan
-            {% elif cal_days == 1 %}igår
-            {% elif cal_days == 2 %}i förrgår
-            {% elif cal_days < 7 %}{{ cal_days }} dagar sedan
-            {% else %}{{ cal_days }} d sedan
-            {% endif %}
-          {% endif %}
+        relative_last_watered: "{% from 'plants.jinja' import relative_last_watered %}{{ relative_last_watered('dahlia') }}"
         light: "Full sol"
         water: "Ofta — regelbunden vattning"
         care: |
@@ -310,50 +143,15 @@
     - name: "Plant Pelargon"
       unique_id: plant_pelargon
       icon: mdi:flower
-      state: >-
-        {% set ts = state_attr('input_datetime.plant_pelargon_last_watered', 'timestamp') %}
-        {% set interval = 3 %}
-        {% if ts in [none, 0] %}
-          overdue
-        {% else %}
-          {% set secs = now().timestamp() - ts %}
-          {% if secs < 300 %} nyvattnad
-          {% else %}
-            {% set days = secs / 86400 %}
-            {% if days < interval - 0.5 %} ok
-            {% elif days < interval + 0.5 %} due
-            {% else %} overdue
-            {% endif %}
-          {% endif %}
-        {% endif %}
+      state: "{% from 'plants.jinja' import plant_state %}{{ plant_state('pelargon', 3) }}"
       attributes:
         display_name: "Pelargon"
         room: balcony
         species: "Pelargonium (15 cm kruka)"
         interval_days: 3
-        days_since: >-
-          {% set ts = state_attr('input_datetime.plant_pelargon_last_watered', 'timestamp') %}
-          {% if ts in [none, 0] %} none
-          {% else %} {{ ((now().timestamp() - ts) / 86400) | round(1) }}
-          {% endif %}
+        days_since: "{% from 'plants.jinja' import days_since %}{{ days_since('pelargon') }}"
         last_watered: "{{ states('input_datetime.plant_pelargon_last_watered') }}"
-        relative_last_watered: >-
-          {% set ts = state_attr('input_datetime.plant_pelargon_last_watered', 'timestamp') %}
-          {% if ts in [none, 0] %}aldrig
-          {% else %}
-            {% set secs = now().timestamp() - ts %}
-            {% set mins = (secs / 60) | int %}
-            {% set hours = (secs / 3600) | int %}
-            {% set cal_days = (now().date() - (ts | as_datetime | as_local).date()).days %}
-            {% if mins < 1 %}precis nu
-            {% elif mins < 60 %}{{ mins }} min sedan
-            {% elif cal_days == 0 %}{{ hours }} h sedan
-            {% elif cal_days == 1 %}igår
-            {% elif cal_days == 2 %}i förrgår
-            {% elif cal_days < 7 %}{{ cal_days }} dagar sedan
-            {% else %}{{ cal_days }} d sedan
-            {% endif %}
-          {% endif %}
+        relative_last_watered: "{% from 'plants.jinja' import relative_last_watered %}{{ relative_last_watered('pelargon') }}"
         light: "Full sol"
         water: "Måttligt — låt torka mellan"
         care: |
@@ -365,50 +163,15 @@
     - name: "Plant Lavendel"
       unique_id: plant_lavandell
       icon: mdi:flower
-      state: >-
-        {% set ts = state_attr('input_datetime.plant_lavandell_last_watered', 'timestamp') %}
-        {% set interval = 5 %}
-        {% if ts in [none, 0] %}
-          overdue
-        {% else %}
-          {% set secs = now().timestamp() - ts %}
-          {% if secs < 300 %} nyvattnad
-          {% else %}
-            {% set days = secs / 86400 %}
-            {% if days < interval - 0.5 %} ok
-            {% elif days < interval + 0.5 %} due
-            {% else %} overdue
-            {% endif %}
-          {% endif %}
-        {% endif %}
+      state: "{% from 'plants.jinja' import plant_state %}{{ plant_state('lavandell', 5) }}"
       attributes:
         display_name: "Lavendel"
         room: balcony
         species: "Lavandula"
         interval_days: 5
-        days_since: >-
-          {% set ts = state_attr('input_datetime.plant_lavandell_last_watered', 'timestamp') %}
-          {% if ts in [none, 0] %} none
-          {% else %} {{ ((now().timestamp() - ts) / 86400) | round(1) }}
-          {% endif %}
+        days_since: "{% from 'plants.jinja' import days_since %}{{ days_since('lavandell') }}"
         last_watered: "{{ states('input_datetime.plant_lavandell_last_watered') }}"
-        relative_last_watered: >-
-          {% set ts = state_attr('input_datetime.plant_lavandell_last_watered', 'timestamp') %}
-          {% if ts in [none, 0] %}aldrig
-          {% else %}
-            {% set secs = now().timestamp() - ts %}
-            {% set mins = (secs / 60) | int %}
-            {% set hours = (secs / 3600) | int %}
-            {% set cal_days = (now().date() - (ts | as_datetime | as_local).date()).days %}
-            {% if mins < 1 %}precis nu
-            {% elif mins < 60 %}{{ mins }} min sedan
-            {% elif cal_days == 0 %}{{ hours }} h sedan
-            {% elif cal_days == 1 %}igår
-            {% elif cal_days == 2 %}i förrgår
-            {% elif cal_days < 7 %}{{ cal_days }} dagar sedan
-            {% else %}{{ cal_days }} d sedan
-            {% endif %}
-          {% endif %}
+        relative_last_watered: "{% from 'plants.jinja' import relative_last_watered %}{{ relative_last_watered('lavandell') }}"
         light: "Full sol"
         water: "Sparsamt — vill torka ut"
         care: |
@@ -424,50 +187,15 @@
     - name: "Plant Murgröna 1"
       unique_id: plant_murgrona_1
       icon: mdi:leaf
-      state: >-
-        {% set ts = state_attr('input_datetime.plant_murgrona_1_last_watered', 'timestamp') %}
-        {% set interval = 3 %}
-        {% if ts in [none, 0] %}
-          overdue
-        {% else %}
-          {% set secs = now().timestamp() - ts %}
-          {% if secs < 300 %} nyvattnad
-          {% else %}
-            {% set days = secs / 86400 %}
-            {% if days < interval - 0.5 %} ok
-            {% elif days < interval + 0.5 %} due
-            {% else %} overdue
-            {% endif %}
-          {% endif %}
-        {% endif %}
+      state: "{% from 'plants.jinja' import plant_state %}{{ plant_state('murgrona_1', 3) }}"
       attributes:
         display_name: "Murgröna 1"
         room: balcony
         species: "Hedera helix"
         interval_days: 3
-        days_since: >-
-          {% set ts = state_attr('input_datetime.plant_murgrona_1_last_watered', 'timestamp') %}
-          {% if ts in [none, 0] %} none
-          {% else %} {{ ((now().timestamp() - ts) / 86400) | round(1) }}
-          {% endif %}
+        days_since: "{% from 'plants.jinja' import days_since %}{{ days_since('murgrona_1') }}"
         last_watered: "{{ states('input_datetime.plant_murgrona_1_last_watered') }}"
-        relative_last_watered: >-
-          {% set ts = state_attr('input_datetime.plant_murgrona_1_last_watered', 'timestamp') %}
-          {% if ts in [none, 0] %}aldrig
-          {% else %}
-            {% set secs = now().timestamp() - ts %}
-            {% set mins = (secs / 60) | int %}
-            {% set hours = (secs / 3600) | int %}
-            {% set cal_days = (now().date() - (ts | as_datetime | as_local).date()).days %}
-            {% if mins < 1 %}precis nu
-            {% elif mins < 60 %}{{ mins }} min sedan
-            {% elif cal_days == 0 %}{{ hours }} h sedan
-            {% elif cal_days == 1 %}igår
-            {% elif cal_days == 2 %}i förrgår
-            {% elif cal_days < 7 %}{{ cal_days }} dagar sedan
-            {% else %}{{ cal_days }} d sedan
-            {% endif %}
-          {% endif %}
+        relative_last_watered: "{% from 'plants.jinja' import relative_last_watered %}{{ relative_last_watered('murgrona_1') }}"
         light: "Halvskugga / sol"
         water: "Måttligt — tål kort torka"
         care: |
@@ -479,50 +207,15 @@
     - name: "Plant Murgröna 2"
       unique_id: plant_murgrona_2
       icon: mdi:leaf
-      state: >-
-        {% set ts = state_attr('input_datetime.plant_murgrona_2_last_watered', 'timestamp') %}
-        {% set interval = 3 %}
-        {% if ts in [none, 0] %}
-          overdue
-        {% else %}
-          {% set secs = now().timestamp() - ts %}
-          {% if secs < 300 %} nyvattnad
-          {% else %}
-            {% set days = secs / 86400 %}
-            {% if days < interval - 0.5 %} ok
-            {% elif days < interval + 0.5 %} due
-            {% else %} overdue
-            {% endif %}
-          {% endif %}
-        {% endif %}
+      state: "{% from 'plants.jinja' import plant_state %}{{ plant_state('murgrona_2', 3) }}"
       attributes:
         display_name: "Murgröna 2"
         room: balcony
         species: "Hedera helix"
         interval_days: 3
-        days_since: >-
-          {% set ts = state_attr('input_datetime.plant_murgrona_2_last_watered', 'timestamp') %}
-          {% if ts in [none, 0] %} none
-          {% else %} {{ ((now().timestamp() - ts) / 86400) | round(1) }}
-          {% endif %}
+        days_since: "{% from 'plants.jinja' import days_since %}{{ days_since('murgrona_2') }}"
         last_watered: "{{ states('input_datetime.plant_murgrona_2_last_watered') }}"
-        relative_last_watered: >-
-          {% set ts = state_attr('input_datetime.plant_murgrona_2_last_watered', 'timestamp') %}
-          {% if ts in [none, 0] %}aldrig
-          {% else %}
-            {% set secs = now().timestamp() - ts %}
-            {% set mins = (secs / 60) | int %}
-            {% set hours = (secs / 3600) | int %}
-            {% set cal_days = (now().date() - (ts | as_datetime | as_local).date()).days %}
-            {% if mins < 1 %}precis nu
-            {% elif mins < 60 %}{{ mins }} min sedan
-            {% elif cal_days == 0 %}{{ hours }} h sedan
-            {% elif cal_days == 1 %}igår
-            {% elif cal_days == 2 %}i förrgår
-            {% elif cal_days < 7 %}{{ cal_days }} dagar sedan
-            {% else %}{{ cal_days }} d sedan
-            {% endif %}
-          {% endif %}
+        relative_last_watered: "{% from 'plants.jinja' import relative_last_watered %}{{ relative_last_watered('murgrona_2') }}"
         light: "Halvskugga / sol"
         water: "Måttligt — tål kort torka"
         care: |

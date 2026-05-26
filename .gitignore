@@ -32,6 +32,10 @@
 !ui_lovelace_minimalist/custom_cards/
 !ui_lovelace_minimalist/custom_cards/**/
 
+# Plant tracker Jinja macros (imported by src/template/main.yaml sensors)
+!custom_templates/
+!custom_templates/*.jinja
+
 # Claude Code workspace (skills + specs)
 !.claude/
 !.claude/skills/

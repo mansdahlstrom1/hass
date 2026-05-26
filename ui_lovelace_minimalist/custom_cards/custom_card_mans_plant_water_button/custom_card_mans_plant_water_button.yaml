@@ -1,0 +1,43 @@
+---
+### Custom Card: Plant water button (ULM extension) ###
+#
+# Full-width "Markera som vattnad" button used at the bottom of every
+# per-plant subview. Calls script.mark_<slug>_watered.
+#
+# Variables:
+#   ulm_plant_slug   (required)   e.g. "dill"
+
+custom_card_mans_plant_water_button:
+  show_icon: true
+  show_name: true
+  show_label: false
+  name: "Markera som vattnad"
+  icon: "mdi:watering-can"
+  tap_action:
+    action: "call-service"
+    service: >
+      [[[ return 'script.mark_' + variables.ulm_plant_slug + '_watered'; ]]]
+    haptic: "light"
+  styles:
+    card:
+      - border-radius: "12px"
+      - padding: "14px"
+    icon:
+      - color: "rgba(var(--color-blue, 61,90,254), 1)"
+      - width: "22px"
+      - height: "22px"
+    img_cell:
+      - background-color: "rgba(var(--color-blue, 61,90,254), 0.2)"
+      - border-radius: "50%"
+      - width: "42px"
+      - height: "42px"
+      - place-self: "center"
+    name:
+      - justify-self: "start"
+      - font-weight: "bold"
+      - font-size: "14px"
+      - margin-left: "14px"
+    grid:
+      - grid-template-areas: "'i n'"
+      - grid-template-columns: "min-content auto"
+      - column-gap: "0px"

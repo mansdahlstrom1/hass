@@ -1,0 +1,58 @@
+{#
+  Plant macros — DRY helpers for src/template/main.yaml plant sensors.
+
+  Loaded by HA from /config/custom_templates/ at startup.
+  Reload: Developer Tools → "Reload custom Jinja2 templates", or restart.
+
+  Usage:
+    state: "{% from 'plants.jinja' import plant_state %}{{ plant_state('dill', 2) }}"
+
+  Every plant defines an input_datetime helper named
+  input_datetime.plant_<slug>_last_watered. All four macros key off that
+  convention — the slug is the only thing they need.
+#}
+
+{#- State: nyvattnad (<5 min) / ok / due / overdue -#}
+{% macro plant_state(slug, interval) -%}
+  {% set ts = state_attr('input_datetime.plant_' ~ slug ~ '_last_watered', 'timestamp') %}
+  {% if ts in [none, 0] %}overdue
+  {% else %}
+    {% set secs = now().timestamp() - ts %}
+    {% if secs < 300 %}nyvattnad
+    {% else %}
+      {% set days = secs / 86400 %}
+      {% if days < interval - 0.5 %}ok
+      {% elif days < interval + 0.5 %}due
+      {% else %}overdue
+      {% endif %}
+    {% endif %}
+  {% endif %}
+{%- endmacro %}
+
+{#- Days since last watered, rounded to 1 decimal. "none" if never watered. -#}
+{% macro days_since(slug) -%}
+  {% set ts = state_attr('input_datetime.plant_' ~ slug ~ '_last_watered', 'timestamp') %}
+  {% if ts in [none, 0] %}none
+  {% else %}{{ ((now().timestamp() - ts) / 86400) | round(1) }}
+  {% endif %}
+{%- endmacro %}
+
+{#- Swedish-friendly relative timestamp ("precis nu", "3 h sedan", "igår" …) -#}
+{% macro relative_last_watered(slug) -%}
+  {% set ts = state_attr('input_datetime.plant_' ~ slug ~ '_last_watered', 'timestamp') %}
+  {% if ts in [none, 0] %}aldrig
+  {% else %}
+    {% set secs = now().timestamp() - ts %}
+    {% set mins = (secs / 60) | int %}
+    {% set hours = (secs / 3600) | int %}
+    {% set cal_days = (now().date() - (ts | as_datetime | as_local).date()).days %}
+    {% if mins < 1 %}precis nu
+    {% elif mins < 60 %}{{ mins }} min sedan
+    {% elif cal_days == 0 %}{{ hours }} h sedan
+    {% elif cal_days == 1 %}igår
+    {% elif cal_days == 2 %}i förrgår
+    {% elif cal_days < 7 %}{{ cal_days }} dagar sedan
+    {% else %}{{ cal_days }} d sedan
+    {% endif %}
+  {% endif %}
+{%- endmacro %}

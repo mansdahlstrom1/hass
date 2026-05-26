@@ -254,7 +254,8 @@ User taps plant card → script.mark_<slug>_watered
 
 | File | Purpose |
 |---|---|
-| `src/template/main.yaml` | Plant template sensors (state + attrs) + `plants_needing_water` summary |
+| `src/template/main.yaml` | Plant template sensors (state + attrs) + `plants_needing_water` summary. Each plant's 4 Jinja bodies are imported from `custom_templates/plants.jinja` macros — the YAML only carries metadata. |
+| `custom_templates/plants.jinja` | Shared Jinja macros: `plant_state(slug, interval)`, `days_since(slug)`, `relative_last_watered(slug)`. Imported into each plant sensor with `{% from 'plants.jinja' import … %}`. Reload via Developer Tools → "Reload custom Jinja2 templates" or a full restart. |
 | `src/template/rooms.yaml` | Room metadata sensors (display_name, windows_direction, sun_hours, brightness, notes) |
 | `src/inputs/datetime.yaml` | One `input_datetime` per plant (last watered timestamp) |
 | `src/scripts.yaml` | One `mark_<slug>_watered` script per plant |
@@ -270,7 +271,7 @@ User taps plant card → script.mark_<slug>_watered
 - **Sidebar:** "Plants" (config: `lovelace.dashboards.house-plants.title`)
 - **Theme:** `minimalist-desktop` (set per-dashboard so ULM color tokens resolve)
 - **Main view** (`path: plants`): global summary card → one section per room. Each room is wrapped in a `custom:vertical-stack-in-card` (single rounded container with the room header on top and plants stacked beneath). Header row: `custom:button-card` using ULM's `card_title` template (room name + sun/light subtitle, pulled live from `sensor.room_<slug>` attributes) on the left, `mushroom-chips-card` "Vattna alla" chip on the right. Each plant is a `custom:button-card` using the **`custom_card_mans_plant`** ULM extension template — a single rectangular card showing state-colored circular icon, name, state line, ☀️ Ljus, 💧 Vattning, and a blue water-button on the right.
-- **Per-plant subviews** (`subview: true`, `path: plant-<slug>`): tapping a plant card navigates here. Contents: hero plant card (reuses the same `custom_card_mans_plant` template) → `vertical-stack-in-card` containing `card_title` ("🌱 Skötselråd" + species) + markdown care notes → full-width `custom:button-card` "Markera som vattnad".
+- **Per-plant subviews** (`subview: true`, `path: plant-<slug>`): tapping a plant card navigates here. Contents are four stacked ULM button-card templates, all parameterized by `ulm_plant_slug`: hero card (`custom_card_mans_plant`) → Skötselråd card (`custom_card_mans_plant_care`, title + species + senast-vattnad + care notes) → Vattningshistorik card (`custom_card_mans_plant_history`, drift stats + recent timestamps) → "Markera som vattnad" button (`custom_card_mans_plant_water_button`). A whole subview is ~25 lines of YAML — adding a plant requires copying one such block and swapping slug + icon.
 
 Tap targets:
 - Plant card body → navigate to `/house-plants/plant-<slug>`
@@ -278,7 +279,16 @@ Tap targets:
 - Room "Vattna alla" → `script.mark_room_watered` (data: `room: <slug>`)
 - Subview water button → `script.mark_<slug>_watered`
 
-Plant card template lives at `ui_lovelace_minimalist/custom_cards/custom_card_mans_plant/custom_card_mans_plant.yaml` and is auto-synced into `custom_components/ui_lovelace_minimalist/__ui_minimalist__/ulm_templates/custom_cards/` when the ULM integration loads. The dashboard pulls all ULM templates in via `button_card_templates: !include_dir_merge_named "../../custom_components/ui_lovelace_minimalist/__ui_minimalist__/ulm_templates/"` at the top of `plants.yaml`.
+Four ULM button-card templates live under `ui_lovelace_minimalist/custom_cards/` — one directory per template, each containing a single YAML file:
+
+| Template | Used in | Reads |
+|---|---|---|
+| `custom_card_mans_plant` | main view + subview hero | `sensor.plant_<slug>` (state, display_name, light, water, interval_days, relative_last_watered) |
+| `custom_card_mans_plant_care` | subview | `sensor.plant_<slug>` (species, last_watered, care) |
+| `custom_card_mans_plant_history` | subview | `sensor.plants_watering_stats` (avg_interval_days, count, recent[]) + interval_days |
+| `custom_card_mans_plant_water_button` | subview | calls `script.mark_<slug>_watered` |
+
+All four take a single variable `ulm_plant_slug` (the hero card additionally takes `ulm_plant_icon`). They're auto-synced into `custom_components/ui_lovelace_minimalist/__ui_minimalist__/ulm_templates/custom_cards/` when the ULM integration loads, and pulled into the dashboard via `button_card_templates: !include_dir_merge_named "../../custom_components/ui_lovelace_minimalist/__ui_minimalist__/ulm_templates/"` at the top of `plants.yaml`.
 
 Requires HACS frontend: `button-card`, `vertical-stack-in-card`, `mushroom`. Requires the **UI Lovelace Minimalist** integration (HA Settings → Devices & Services) — without it the `__ui_minimalist__` runtime templates dir doesn't exist and the include fails.
 
