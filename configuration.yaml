@@ -79,3 +79,9 @@ lovelace:
       title: Plants
       icon: mdi:sprout
       show_in_sidebar: true
+    home-yaml:
+      mode: yaml
+      filename: src/dashboards/home.yaml
+      title: Home (YAML)
+      icon: mdi:home-variant
+      show_in_sidebar: true

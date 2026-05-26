@@ -1,0 +1,190 @@
+# Home — Lovelace dashboard (YAML mode)
+#
+# Wired in configuration.yaml under lovelace.dashboards.home-yaml.
+# URL: /home-yaml/
+# Sidebar title: "Home (YAML)"
+#
+# 1:1 YAML replica of the storage-managed main dashboard
+# (.storage/lovelace.lovelace, "Home" view). Uses the default
+# masonry layout — cards auto-flow across columns.
+#
+# Requires HACS frontend: mushroom, vertical-stack-in-card, time-input-card.
+
+title: Home
+views:
+  - title: Home
+    path: home
+    icon: mdi:home
+    cards:
+      # === Persons strip ===
+      - type: horizontal-stack
+        cards:
+          - type: picture-entity
+            entity: person.agnes
+            image: https://ubuntu.mansdahlstrom.se/local/assets/agnes.jpg
+            show_state: true
+            show_name: true
+            camera_view: auto
+          - type: picture-entity
+            entity: person.mans
+            image: https://ubuntu.mansdahlstrom.se/local/assets/mans.jpg
+            show_state: true
+            show_name: true
+            camera_view: auto
+
+      # === Rum ===
+      - type: entities
+        title: Rum
+        entities:
+          - entity: group.living_room
+            name: Vardagsrum
+            icon: mdi:sofa
+          - entity: group.studio
+            name: Studio
+            icon: mdi:guitar-acoustic
+          - entity: group.kitchen
+            name: Kök
+            icon: mdi:countertop
+          - entity: group.bedroom
+            name: Sovrum
+            icon: mdi:bed-double
+
+      # === Sovrum stack ===
+      - type: vertical-stack
+        cards:
+          - type: entities
+            title: Sovrum
+            entities:
+              - entity: light.living_room_lamp_2
+              - entity: light.agnes_mushroom_lamp
+              - entity: light.mans_mushroom_lamp
+
+          - type: custom:mushroom-light-card
+            entity: light.bedroom_lights
+            show_brightness_control: true
+            use_light_color: true
+            show_color_temp_control: true
+            show_color_control: true
+            fill_container: false
+            collapsible_controls: false
+            primary_info: name
+            secondary_info: state
+            icon_type: none
+
+          - type: custom:time-input-card
+            title: 🎶 The Moment I Wake Up 🎶
+            entity_id: input_text.alarm_time
+            presets:
+              - "06:30"
+              - "07:00"
+              - "07:30"
+              - "08:00"
+              - "08:30"
+
+      # === Vardagsrum stack ===
+      - type: vertical-stack
+        cards:
+          - type: entities
+            title: Vardagsrum
+            state_color: true
+            entities:
+              - entity: light.living_room_lamp_1
+              - entity: switch.basket_lamp
+                icon: mdi:dome-light
+              - entity: light.marble_lamp
+              - entity: light.hm_home
+
+          - type: custom:mushroom-light-card
+            entity: light.living_room_lights
+            show_brightness_control: true
+            show_color_control: false
+            use_light_color: true
+            show_color_temp_control: true
+            collapsible_controls: true
+            fill_container: true
+
+          - type: custom:mushroom-vacuum-card
+            entity: vacuum.dusty
+            name: Dusty
+            icon: mdi:robot-vacuum
+            icon_animation: true
+            primary_info: name
+            secondary_info: state
+            commands:
+              - start_pause
+              - stop
+              - locate
+              - clean_spot
+              - return_home
+
+          - type: custom:mushroom-media-player-card
+            entity: media_player.living_room
+            name: Apple TV Vardagsrum
+            use_media_info: true
+            show_volume_level: false
+
+      # === Kök stack ===
+      - type: vertical-stack
+        cards:
+          - type: entities
+            title: Kök
+            show_header_toggle: true
+            entities:
+              - entity: light.worktop_lights
+
+      # === Studio stack ===
+      - type: vertical-stack
+        cards:
+          - type: entities
+            title: Studio
+            show_header_toggle: true
+            entities:
+              - entity: switch.blob_light
+              - entity: light.studio_ceiling
+
+          - type: sensor
+            entity: sensor.studio_temp
+            graph: line
+            detail: 2
+            hours_to_show: 24
+            name: Temperature last 24 Hours
+
+          - type: custom:mushroom-light-card
+            entity: light.studio_lights
+            use_light_color: true
+            show_color_temp_control: true
+            show_brightness_control: true
+            collapsible_controls: true
+            show_color_control: false
+            fill_container: true
+            primary_info: name
+
+      # === Bathroom ===
+      - type: custom:vertical-stack-in-card
+        title: Bathroom
+        cards:
+          - type: custom:mushroom-media-player-card
+            entity: media_player.play
+            name: Bathroom
+            fill_container: true
+            primary_info: name
+            secondary_info: name
+            icon_type: icon
+            use_media_info: true
+            show_volume_level: true
+            collapsible_controls: true
+            media_controls:
+              - play_pause_stop
+              - on_off
+            volume_controls:
+              - volume_set
+              - volume_buttons
+
+          - type: tile
+            entity: script.wake_and_play_ambient
+            vertical: false
+            features_position: bottom
+            tap_action:
+              action: perform-action
+              perform_action: script.wake_and_play_ambient
+              target: {}

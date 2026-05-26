@@ -1,0 +1,16 @@
+new_script:
+  sequence:
+  - alias: Bathroom Music - Wake and Play
+    sequence:
+    - action: wake_on_lan.send_magic_packet
+      data:
+        mac: 80:4a:f2:b1:da:9c
+    - delay: 00:00:05
+    - action: media_player.play_media
+      target:
+        entity_id: media_player.bathroom_sonos
+      data:
+        media_content_id: Your Ambient Favorite
+        media_content_type: favorite
+  alias: New Script
+  description: ''
