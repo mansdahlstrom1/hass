@@ -40,6 +40,7 @@ custom_card_mans_plant:
       overflow: visible !important;
       text-overflow: clip !important;
       line-height: 1.3 !important;
+      text-align: left !important;
     }
   icon: "[[[ return variables.ulm_plant_icon || 'mdi:flower'; ]]]"
   name: >
@@ -118,6 +119,7 @@ custom_card_mans_plant:
       light:
         - justify-self: "start"
         - align-self: "center"
+        - text-align: "left"
         - font-size: "11px"
         - line-height: "1.3"
         - margin-left: "14px"
@@ -129,6 +131,7 @@ custom_card_mans_plant:
       water:
         - justify-self: "start"
         - align-self: "center"
+        - text-align: "left"
         - font-size: "11px"
         - line-height: "1.3"
         - margin-left: "14px"
