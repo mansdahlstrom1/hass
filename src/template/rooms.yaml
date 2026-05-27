@@ -24,7 +24,11 @@
         brightness: high
         temperature_range: "outdoor (Malmö, ~−5 to +28 °C across year)"
         humidity_hint: "outdoor, rain-exposed"
-        notes: "Direkt eftermiddagssol från ~16:00. Vindutsatt. Vinter kräver skydd för icke-härdiga växter."
+        notes: |
+          ☀️ Stark eftermiddagssol från ~16:00 — soltåliga arter trivs här.
+          🌤️ Halvskuggetåliga växter passar bättre vid sidan av räcket.
+          💨 Vindutsatt — förankra större krukor.
+          ❄️ Vinter: bara härdiga växter klarar utomhus året om, andra tas in.
 
     - name: "Room Living Room"
       unique_id: room_living_room
@@ -39,7 +43,11 @@
         brightness: high
         temperature_range: "indoor (~20–28 °C, blir mycket varmt under sommardagar)"
         humidity_hint: "indoor, torr — torrt på vintern, varmt på sommaren"
-        notes: "Stort rum med 4 fönster (1 öster, 1 sydöst, 2 söder). Riklig sol större delen av dagen. Sommarvärmen torkar ut krukor snabbt — känsliga växter behöver gardin eller en bit in i rummet."
+        notes: |
+          🌞 4 fönster (1 öster, 1 sydöst, 2 söder), 7+h ljus, varmt på sommaren.
+          🌤️ Söderfönstren får stark direkt sol — använd tunn gardin under sommardagar.
+          🌱 Östra fönstret är skonsammare — bra för känsliga eller variegerade växter.
+          ☀️ Sommarvärme torkar små krukor på timmar — gruppera dem för luftfuktighet.
 
     - name: "Room Studio"
       unique_id: room_studio
@@ -54,7 +62,10 @@
         brightness: high
         temperature_range: "indoor (~20 °C, varmare vid söderfönstret i sommarsolen)"
         humidity_hint: "indoor, dry — söderfönster ger torrare luft i värmen"
-        notes: "Ett söderfönster. Stark direkt sol i mitten av dagen — känsliga växter behöver gardin eller placering en bit in."
+        notes: |
+          🌞 Söderfönster med stark direkt middagssol.
+          🌤️ Soltåliga arter trivs nära glaset; känsliga arter en bit in eller bakom tunn gardin.
+          🌿 Sidoplacering ger ljust läge utan brännande direktsol.
 
     - name: "Room Kitchen"
       unique_id: room_kitchen

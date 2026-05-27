@@ -1,0 +1,109 @@
+---
+### Custom Card: Room header (ULM extension) ###
+#
+# Header row for a room block on the Plants dashboard. Renders:
+#
+#   <emoji> <Room display_name>                              [💧 Vattna alla]
+#   <Direction>fönster|läge · ~Nh sol
+#   ───────────────────────────────────────────────────────────────────────
+#   <multi-line placement advice from sensor.room_<slug>.attributes.notes>
+#
+# Variables:
+#   ulm_room_slug    (required)   e.g. "balcony"
+#   ulm_room_emoji   (required)   e.g. "🌿"
+#
+# Reads attributes off sensor.room_<slug>:
+#   display_name, windows_direction, sun_hours, location, notes
+
+custom_card_mans_room_header:
+  triggers_update: "all"
+  show_name: true
+  show_label: true
+  show_icon: false
+  name: >
+    [[[
+      var a = states['sensor.room_' + variables.ulm_room_slug].attributes;
+      return (variables.ulm_room_emoji || '🪴') + ' ' + (a.display_name || variables.ulm_room_slug);
+    ]]]
+  label: >
+    [[[
+      var a = states['sensor.room_' + variables.ulm_room_slug].attributes;
+      var dirNames = {north:'Norr',south:'Söder',east:'Öster',west:'Väster'};
+      var dir = dirNames[a.windows_direction] || a.windows_direction;
+      var suffix = a.location === 'outdoor' ? 'läge' : 'fönster';
+      return dir + suffix + ' · ~' + a.sun_hours + 'h sol';
+    ]]]
+  tap_action:
+    action: "none"
+  styles:
+    grid:
+      - grid-template-areas: "'n c' 'l c' 'notes notes'"
+      - grid-template-columns: "1fr min-content"
+      - grid-template-rows: "min-content min-content min-content"
+    card:
+      - background-color: "rgba(0,0,0,0)"
+      - box-shadow: "none"
+      - padding: "12px 14px 10px 14px"
+    name:
+      - justify-self: "start"
+      - font-weight: "bold"
+      - font-size: "1.5rem"
+    label:
+      - justify-self: "start"
+      - font-weight: "bold"
+      - font-size: "0.95rem"
+      - opacity: "0.55"
+    custom_fields:
+      notes:
+        - justify-self: "start"
+        - text-align: "left"
+        - white-space: "pre-line"
+        - font-size: "12px"
+        - line-height: "1.5"
+        - opacity: "0.65"
+        - padding-top: "10px"
+        - margin-top: "6px"
+        - border-top: "1px solid rgba(127,127,127,0.18)"
+        - width: "100%"
+  custom_fields:
+    # Multi-line placement advice from the room sensor's `notes` attribute.
+    # CSS `white-space: pre-line` preserves the YAML literal-block newlines.
+    notes: >
+      [[[
+        var n = states['sensor.room_' + variables.ulm_room_slug].attributes.notes;
+        return n || '';
+      ]]]
+    # Right-aligned "Vattna alla" chip (calls script.mark_room_watered).
+    c:
+      card:
+        type: "custom:button-card"
+        show_icon: true
+        show_name: true
+        show_label: false
+        icon: "mdi:watering-can-outline"
+        name: "Vattna alla"
+        size: "16px"
+        tap_action:
+          action: "call-service"
+          service: "script.mark_room_watered"
+          data:
+            room: "[[[ return variables.ulm_room_slug; ]]]"
+          haptic: "light"
+        styles:
+          grid:
+            - grid-template-areas: "'i n'"
+            - grid-template-columns: "min-content auto"
+            - column-gap: "6px"
+          card:
+            - background-color: "rgba(var(--color-blue, 61,90,254), 0.18)"
+            - border-radius: "16px"
+            - padding: "6px 12px"
+            - box-shadow: "none"
+            - place-self: "center end"
+          icon:
+            - color: "rgba(var(--color-blue, 61,90,254), 1)"
+            - width: "18px"
+            - height: "18px"
+          name:
+            - font-size: "13px"
+            - font-weight: "bold"
