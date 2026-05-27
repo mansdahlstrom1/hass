@@ -71,6 +71,11 @@ rest:
           - monstera
           - citronfikus
           - palettblad
+          - banddracena
+          - fonsterfikus_belize
+          - ficus_robusta
+          - rosenstank_pink
+          - monstera_adansonii
 
 frontend:
   themes: !include_dir_merge_named themes

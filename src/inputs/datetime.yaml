@@ -67,3 +67,28 @@ plant_palettblad_last_watered:
   name: Palettblad last watered
   has_date: true
   has_time: true
+
+plant_banddracena_last_watered:
+  name: Banddracena last watered
+  has_date: true
+  has_time: true
+
+plant_fonsterfikus_belize_last_watered:
+  name: Fönsterfikus Belize last watered
+  has_date: true
+  has_time: true
+
+plant_ficus_robusta_last_watered:
+  name: Ficus Robusta last watered
+  has_date: true
+  has_time: true
+
+plant_rosenstank_pink_last_watered:
+  name: Rosenstänk Pink last watered
+  has_date: true
+  has_time: true
+
+plant_monstera_adansonii_last_watered:
+  name: Monstera adansonii last watered
+  has_date: true
+  has_time: true

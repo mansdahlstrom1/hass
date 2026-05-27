@@ -278,6 +278,104 @@ views:
                 variables:
                   ulm_plant_slug: palettblad
                   ulm_plant_icon: mdi:leaf
+
+      # === ROOM: Vardagsrum ===
+      - type: grid
+        cards:
+          - type: custom:vertical-stack-in-card
+            cards:
+              - type: custom:button-card
+                show_name: true
+                show_label: true
+                show_icon: false
+                name: "[[[ return '🛋️ ' + states['sensor.room_living_room'].attributes.display_name ]]]"
+                label: >
+                  [[[
+                    var a = states['sensor.room_living_room'].attributes;
+                    var dirNames = {north:'Norr',south:'Söder',east:'Öster',west:'Väster'};
+                    var dir = dirNames[a.windows_direction] || a.windows_direction;
+                    var suffix = a.location === 'outdoor' ? 'läge' : 'fönster';
+                    return dir + suffix + ' · ~' + a.sun_hours + 'h sol';
+                  ]]]
+                tap_action: { action: none }
+                styles:
+                  grid:
+                    - grid-template-areas: "'n c' 'l c'"
+                    - grid-template-columns: "1fr min-content"
+                    - grid-template-rows: "min-content min-content"
+                  card:
+                    - background-color: "rgba(0,0,0,0)"
+                    - box-shadow: "none"
+                    - padding: "12px 14px 8px 14px"
+                  name:
+                    - justify-self: "start"
+                    - font-weight: "bold"
+                    - font-size: "1.5rem"
+                  label:
+                    - justify-self: "start"
+                    - font-weight: "bold"
+                    - font-size: "0.95rem"
+                    - opacity: "0.55"
+                custom_fields:
+                  c:
+                    card:
+                      type: custom:button-card
+                      show_icon: true
+                      show_name: true
+                      show_label: false
+                      icon: mdi:watering-can-outline
+                      name: Vattna alla
+                      size: "16px"
+                      tap_action:
+                        action: call-service
+                        service: script.mark_room_watered
+                        data:
+                          room: living_room
+                        haptic: light
+                      styles:
+                        grid:
+                          - grid-template-areas: "'i n'"
+                          - grid-template-columns: "min-content auto"
+                          - column-gap: "6px"
+                        card:
+                          - background-color: "rgba(var(--color-blue, 61,90,254), 0.18)"
+                          - border-radius: "16px"
+                          - padding: "6px 12px"
+                          - box-shadow: "none"
+                          - place-self: "center end"
+                        icon:
+                          - color: "rgba(var(--color-blue, 61,90,254), 1)"
+                          - width: "18px"
+                          - height: "18px"
+                        name:
+                          - font-size: "13px"
+                          - font-weight: "bold"
+
+              - type: custom:button-card
+                template: custom_card_mans_plant
+                variables:
+                  ulm_plant_slug: banddracena
+                  ulm_plant_icon: mdi:leaf
+              - type: custom:button-card
+                template: custom_card_mans_plant
+                variables:
+                  ulm_plant_slug: fonsterfikus_belize
+                  ulm_plant_icon: mdi:tree
+              - type: custom:button-card
+                template: custom_card_mans_plant
+                variables:
+                  ulm_plant_slug: ficus_robusta
+                  ulm_plant_icon: mdi:tree
+              - type: custom:button-card
+                template: custom_card_mans_plant
+                variables:
+                  ulm_plant_slug: rosenstank_pink
+                  ulm_plant_icon: mdi:flower
+              - type: custom:button-card
+                template: custom_card_mans_plant
+                variables:
+                  ulm_plant_slug: monstera_adansonii
+                  ulm_plant_icon: mdi:leaf
   # ─── Per-plant subviews ───
   # Each plant has its own subview reachable via /house-plants/plant-<slug>.
   # Tapping a plant card on the main view navigates here.
@@ -663,3 +761,138 @@ views:
             template: custom_card_mans_plant_water_button
             variables:
               ulm_plant_slug: palettblad
+
+  - title: Banddracena
+    path: plant-banddracena
+    icon: mdi:leaf
+    subview: true
+    type: sections
+    max_columns: 1
+    sections:
+      - type: grid
+        cards:
+          - type: custom:button-card
+            template: custom_card_mans_plant
+            variables:
+              ulm_plant_slug: banddracena
+              ulm_plant_icon: mdi:leaf
+          - type: custom:button-card
+            template: custom_card_mans_plant_care
+            variables:
+              ulm_plant_slug: banddracena
+          - type: custom:button-card
+            template: custom_card_mans_plant_history
+            variables:
+              ulm_plant_slug: banddracena
+          - type: custom:button-card
+            template: custom_card_mans_plant_water_button
+            variables:
+              ulm_plant_slug: banddracena
+
+  - title: Fönsterfikus Belize
+    path: plant-fonsterfikus_belize
+    icon: mdi:tree
+    subview: true
+    type: sections
+    max_columns: 1
+    sections:
+      - type: grid
+        cards:
+          - type: custom:button-card
+            template: custom_card_mans_plant
+            variables:
+              ulm_plant_slug: fonsterfikus_belize
+              ulm_plant_icon: mdi:tree
+          - type: custom:button-card
+            template: custom_card_mans_plant_care
+            variables:
+              ulm_plant_slug: fonsterfikus_belize
+          - type: custom:button-card
+            template: custom_card_mans_plant_history
+            variables:
+              ulm_plant_slug: fonsterfikus_belize
+          - type: custom:button-card
+            template: custom_card_mans_plant_water_button
+            variables:
+              ulm_plant_slug: fonsterfikus_belize
+
+  - title: Ficus Robusta
+    path: plant-ficus_robusta
+    icon: mdi:tree
+    subview: true
+    type: sections
+    max_columns: 1
+    sections:
+      - type: grid
+        cards:
+          - type: custom:button-card
+            template: custom_card_mans_plant
+            variables:
+              ulm_plant_slug: ficus_robusta
+              ulm_plant_icon: mdi:tree
+          - type: custom:button-card
+            template: custom_card_mans_plant_care
+            variables:
+              ulm_plant_slug: ficus_robusta
+          - type: custom:button-card
+            template: custom_card_mans_plant_history
+            variables:
+              ulm_plant_slug: ficus_robusta
+          - type: custom:button-card
+            template: custom_card_mans_plant_water_button
+            variables:
+              ulm_plant_slug: ficus_robusta
+
+  - title: Rosenstänk Pink
+    path: plant-rosenstank_pink
+    icon: mdi:flower
+    subview: true
+    type: sections
+    max_columns: 1
+    sections:
+      - type: grid
+        cards:
+          - type: custom:button-card
+            template: custom_card_mans_plant
+            variables:
+              ulm_plant_slug: rosenstank_pink
+              ulm_plant_icon: mdi:flower
+          - type: custom:button-card
+            template: custom_card_mans_plant_care
+            variables:
+              ulm_plant_slug: rosenstank_pink
+          - type: custom:button-card
+            template: custom_card_mans_plant_history
+            variables:
+              ulm_plant_slug: rosenstank_pink
+          - type: custom:button-card
+            template: custom_card_mans_plant_water_button
+            variables:
+              ulm_plant_slug: rosenstank_pink
+
+  - title: Monstera adansonii
+    path: plant-monstera_adansonii
+    icon: mdi:leaf
+    subview: true
+    type: sections
+    max_columns: 1
+    sections:
+      - type: grid
+        cards:
+          - type: custom:button-card
+            template: custom_card_mans_plant
+            variables:
+              ulm_plant_slug: monstera_adansonii
+              ulm_plant_icon: mdi:leaf
+          - type: custom:button-card
+            template: custom_card_mans_plant_care
+            variables:
+              ulm_plant_slug: monstera_adansonii
+          - type: custom:button-card
+            template: custom_card_mans_plant_history
+            variables:
+              ulm_plant_slug: monstera_adansonii
+          - type: custom:button-card
+            template: custom_card_mans_plant_water_button
+            variables:
+              ulm_plant_slug: monstera_adansonii

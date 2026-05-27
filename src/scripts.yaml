@@ -245,6 +245,81 @@ mark_palettblad_watered:
         source: card_tap
       continue_on_error: true
 
+mark_banddracena_watered:
+  alias: Markera Banddracena som vattnad
+  icon: mdi:watering-can
+  sequence:
+    - action: input_datetime.set_datetime
+      target:
+        entity_id: input_datetime.plant_banddracena_last_watered
+      data:
+        datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+    - action: rest_command.log_watering
+      data:
+        slug: banddracena
+        source: card_tap
+      continue_on_error: true
+
+mark_fonsterfikus_belize_watered:
+  alias: Markera Fönsterfikus Belize som vattnad
+  icon: mdi:watering-can
+  sequence:
+    - action: input_datetime.set_datetime
+      target:
+        entity_id: input_datetime.plant_fonsterfikus_belize_last_watered
+      data:
+        datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+    - action: rest_command.log_watering
+      data:
+        slug: fonsterfikus_belize
+        source: card_tap
+      continue_on_error: true
+
+mark_ficus_robusta_watered:
+  alias: Markera Ficus Robusta som vattnad
+  icon: mdi:watering-can
+  sequence:
+    - action: input_datetime.set_datetime
+      target:
+        entity_id: input_datetime.plant_ficus_robusta_last_watered
+      data:
+        datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+    - action: rest_command.log_watering
+      data:
+        slug: ficus_robusta
+        source: card_tap
+      continue_on_error: true
+
+mark_rosenstank_pink_watered:
+  alias: Markera Rosenstänk Pink som vattnad
+  icon: mdi:watering-can
+  sequence:
+    - action: input_datetime.set_datetime
+      target:
+        entity_id: input_datetime.plant_rosenstank_pink_last_watered
+      data:
+        datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+    - action: rest_command.log_watering
+      data:
+        slug: rosenstank_pink
+        source: card_tap
+      continue_on_error: true
+
+mark_monstera_adansonii_watered:
+  alias: Markera Monstera adansonii som vattnad
+  icon: mdi:watering-can
+  sequence:
+    - action: input_datetime.set_datetime
+      target:
+        entity_id: input_datetime.plant_monstera_adansonii_last_watered
+      data:
+        datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+    - action: rest_command.log_watering
+      data:
+        slug: monstera_adansonii
+        source: card_tap
+      continue_on_error: true
+
 mark_room_watered:
   alias: Markera hela rummets växter som vattnade
   icon: mdi:watering-can-outline

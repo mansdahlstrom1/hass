@@ -343,6 +343,127 @@
           Kan hållas som flerårig inomhus, men växer snabbt och kan behöva
           beskäras eller bytas ut.
 
+    - name: "Plant Banddracena"
+      unique_id: plant_banddracena
+      icon: mdi:leaf
+      state: "{% from 'plants.jinja' import plant_state %}{{ plant_state('banddracena', 10) }}"
+      attributes:
+        display_name: "Banddracena 'Janet Lind'"
+        room: living_room
+        species: "Dracaena fragrans 'Janet Lind' (20 cm kruka, äldre exemplar)"
+        interval_days: 10
+        days_since: "{% from 'plants.jinja' import days_since %}{{ days_since('banddracena') }}"
+        last_watered: "{{ states('input_datetime.plant_banddracena_last_watered') }}"
+        relative_last_watered: "{% from 'plants.jinja' import relative_last_watered %}{{ relative_last_watered('banddracena') }}"
+        light: "Ljust indirekt ljus, undvik direkt sol"
+        water: "Sparsamt — låt översta 5 cm torka mellan"
+        care: |
+          Trivs bäst i ljust indirekt ljus — direkt sol bränner bladen.
+          Placera en bit in i rummet, inte rakt i söderfönstret.
+          Vattna när översta 5 cm jord är torr; större kruka håller fukten
+          länge. Hellre för lite än för mycket — rötterna ruttnar lätt.
+          Känslig för klor/fluorid i kranvattnet — låt vattnet stå framme
+          över natten eller använd regnvatten om bladspetsar blir bruna.
+          Tål torr inomhusluft. Torka av bladen då och då.
+          Hardig och förlåtande — etablerade exemplar tål en del missskötsel.
+
+    - name: "Plant Fönsterfikus Belize"
+      unique_id: plant_fonsterfikus_belize
+      icon: mdi:tree
+      state: "{% from 'plants.jinja' import plant_state %}{{ plant_state('fonsterfikus_belize', 7) }}"
+      attributes:
+        display_name: "Fönsterfikus 'Belize'"
+        room: living_room
+        species: "Ficus elastica 'Belize' (15 cm kruka)"
+        interval_days: 7
+        days_since: "{% from 'plants.jinja' import days_since %}{{ days_since('fonsterfikus_belize') }}"
+        last_watered: "{{ states('input_datetime.plant_fonsterfikus_belize_last_watered') }}"
+        relative_last_watered: "{% from 'plants.jinja' import relative_last_watered %}{{ relative_last_watered('fonsterfikus_belize') }}"
+        light: "Ljust indirekt ljus, tål filtrerad sol"
+        water: "Måttligt — låt översta 2–3 cm torka mellan"
+        care: |
+          Trivs i ljust läge med filtrerad sol — den rosa/krämfärgade
+          variegeringen kräver bra ljus för att hålla färgen.
+          Undvik stark direkt middagssol som kan bränna de ljusare bladen.
+          Vattna när översta 2–3 cm är torr; gillar inte blöta rötter.
+          Tappar gärna blad vid stressbyte (flytt, drag, för mycket vatten) —
+          växer tillbaka.
+          Torka av bladen för att hålla dem rena och fotosyntesen igång.
+          Mister gärna då och då för luftfuktighet, särskilt på vintern.
+
+    - name: "Plant Ficus Robusta"
+      unique_id: plant_ficus_robusta
+      icon: mdi:tree
+      state: "{% from 'plants.jinja' import plant_state %}{{ plant_state('ficus_robusta', 7) }}"
+      attributes:
+        display_name: "Ficus elastica 'Robusta'"
+        room: living_room
+        species: "Ficus elastica 'Robusta' (15 cm kruka)"
+        interval_days: 7
+        days_since: "{% from 'plants.jinja' import days_since %}{{ days_since('ficus_robusta') }}"
+        last_watered: "{{ states('input_datetime.plant_ficus_robusta_last_watered') }}"
+        relative_last_watered: "{% from 'plants.jinja' import relative_last_watered %}{{ relative_last_watered('ficus_robusta') }}"
+        light: "Ljust indirekt, tål både skugga och filtrerad sol"
+        water: "Måttligt — låt översta 2–3 cm torka mellan"
+        care: |
+          Hardig gummifikus med mörkgröna, glansiga blad.
+          Tål både ljusa och något skuggigare lägen — saknar variegering
+          så ljuskraven är lägre än Belize-varianten.
+          Vattna när översta 2–3 cm jord är torr; för mycket vatten ger
+          gula blad som faller av.
+          Torka av bladen regelbundet — de samlar damm.
+          Ogillar drag och kalla fönsterbrädor under vintern.
+          Långlivad och förlåtande inomhusväxt.
+
+    - name: "Plant Rosenstänk Pink"
+      unique_id: plant_rosenstank_pink
+      icon: mdi:flower
+      state: "{% from 'plants.jinja' import plant_state %}{{ plant_state('rosenstank_pink', 2) }}"
+      attributes:
+        display_name: "Rosenstänk 'Pink'"
+        room: living_room
+        species: "Hypoestes phyllostachya 'Pink' (5 cm minikruka)"
+        interval_days: 2
+        days_since: "{% from 'plants.jinja' import days_since %}{{ days_since('rosenstank_pink') }}"
+        last_watered: "{{ states('input_datetime.plant_rosenstank_pink_last_watered') }}"
+        relative_last_watered: "{% from 'plants.jinja' import relative_last_watered %}{{ relative_last_watered('rosenstank_pink') }}"
+        light: "Ljust indirekt — direkt sol bleker pricken"
+        water: "Ofta — liten kruka, vill inte torka ut"
+        care: |
+          Ljust läge utan stark direkt sol — för mycket sol bleker de rosa
+          prickarna och bladen kan brännas.
+          Minikrukan torkar snabbt; håll jorden lätt fuktig. Plantan vissnar
+          dramatiskt när den är törstig men piggnar oftast till vid vattning.
+          Nyp av toppskotten regelbundet för buskig form — annars blir den
+          snabbt lång och gänglig.
+          Kortlivad inomhusväxt (~1–2 år). Ta sticklingar i tid för att
+          ersätta — de rotar lätt i vatten.
+
+    - name: "Plant Monstera adansonii"
+      unique_id: plant_monstera_adansonii
+      icon: mdi:leaf
+      state: "{% from 'plants.jinja' import plant_state %}{{ plant_state('monstera_adansonii', 3) }}"
+      attributes:
+        display_name: "Liten Monstera (adansonii)"
+        room: living_room
+        species: "Monstera adansonii (5 cm minikruka)"
+        interval_days: 3
+        days_since: "{% from 'plants.jinja' import days_since %}{{ days_since('monstera_adansonii') }}"
+        last_watered: "{{ states('input_datetime.plant_monstera_adansonii_last_watered') }}"
+        relative_last_watered: "{% from 'plants.jinja' import relative_last_watered %}{{ relative_last_watered('monstera_adansonii') }}"
+        light: "Ljust indirekt, ingen direkt sol"
+        water: "Måttligt — låt översta torka något mellan"
+        care: |
+          Mindre släkting till Monstera deliciosa, känd för hålen i bladen
+          ("swiss cheese plant").
+          Vill ha ljust indirekt ljus — direkt sol bränner de tunnare bladen.
+          Liten kruka torkar snabbt i varma vardagsrummet; vattna när
+          översta jorden är torr men låt inte plantan torka helt ut.
+          Älskar luftfuktighet — mista eller ställ på ett fat med lecakulor
+          och vatten.
+          Klätterväxt — kommer behöva en pinne eller mosspinne så småningom.
+          Omplantera när rötterna fyller minikrukan, troligen inom ett år.
+
     - name: "Plants Needing Water"
       unique_id: plants_needing_water
       icon: mdi:watering-can
@@ -353,7 +474,10 @@
           'sensor.plant_lavandell', 'sensor.plant_murgrona_1', 'sensor.plant_murgrona_2',
           'sensor.plant_basilika',
           'sensor.plant_orkide', 'sensor.plant_monstera',
-          'sensor.plant_citronfikus', 'sensor.plant_palettblad'
+          'sensor.plant_citronfikus', 'sensor.plant_palettblad',
+          'sensor.plant_banddracena', 'sensor.plant_fonsterfikus_belize',
+          'sensor.plant_ficus_robusta', 'sensor.plant_rosenstank_pink',
+          'sensor.plant_monstera_adansonii'
         ] %}
         {% set ns = namespace(count=0) %}
         {% for e in entities %}

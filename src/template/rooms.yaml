@@ -34,12 +34,12 @@
         slug: living_room
         display_name: "Vardagsrum"
         location: indoor
-        windows_direction: unknown
-        sun_hours: "unknown"
-        brightness: unknown
-        temperature_range: "indoor (~20 °C)"
-        humidity_hint: "indoor, dry"
-        notes: "Fyll i fönsterriktning och ljus när första växten läggs till."
+        windows_direction: south
+        sun_hours: 7
+        brightness: high
+        temperature_range: "indoor (~20–28 °C, blir mycket varmt under sommardagar)"
+        humidity_hint: "indoor, torr — torrt på vintern, varmt på sommaren"
+        notes: "Stort rum med 4 fönster (1 öster, 1 sydöst, 2 söder). Riklig sol större delen av dagen. Sommarvärmen torkar ut krukor snabbt — känsliga växter behöver gardin eller en bit in i rummet."
 
     - name: "Room Studio"
       unique_id: room_studio
