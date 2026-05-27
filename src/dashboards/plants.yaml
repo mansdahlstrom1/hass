@@ -44,7 +44,11 @@ views:
     max_columns: 3
     sections:
       # === Översikt ===
+      # Spans full width as a banner so the three room sections fill
+      # the columns below it (otherwise the short summary card occupies
+      # one whole column slot and pushes Vardagsrum off the top row).
       - type: grid
+        column_span: 3
         cards:
           - type: custom:mushroom-template-card
             primary: 🪴 Alla växter
