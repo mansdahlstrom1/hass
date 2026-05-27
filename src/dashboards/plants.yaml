@@ -5,9 +5,10 @@
 # Sidebar title: "Plants"
 #
 # Structure (Plant UI v2 + ULM):
-#   Main view  (type: sections, one section per room)
-#     • Översikt section: summary card
-#     • Per-room section: markdown header + "Vattna alla" chip-row +
+#   Main view  (type: masonry, one top-level card per room so they pack
+#               by height — short rooms share a column instead of leaving gaps)
+#     • Översikt: mushroom summary card
+#     • Per-room: vertical-stack-in-card with header + "Vattna alla" chip +
 #       one custom_card_mans_plant card per plant
 #   Per-plant subview (subview: true, path: plant-<slug>)
 #     • Header card (name + species)
@@ -40,346 +41,333 @@ views:
   - title: Plants
     path: plants
     icon: mdi:sprout
-    type: sections
-    max_columns: 3
-    sections:
+    type: masonry
+    cards:
       # === Översikt ===
-      # Spans full width as a banner so the three room sections fill
-      # the columns below it (otherwise the short summary card occupies
-      # one whole column slot and pushes Vardagsrum off the top row).
-      - type: grid
-        column_span: 3
-        cards:
-          - type: custom:mushroom-template-card
-            primary: 🪴 Alla växter
-            secondary: |-
-              {% set n = states('sensor.plants_needing_water') | int(0) %}
-              {% set due = state_attr('sensor.plants_needing_water', 'due_now') %}
-              {% if n == 0 %}Alla växter mår bra 🎉
-              {% else %}Behöver vatten: {{ due | join(', ') }}
-              {% endif %}
-            icon: mdi:flower-tulip
-            icon_color: |-
-              {% set n = states('sensor.plants_needing_water') | int(0) %}
-              {% if n == 0 %}green
-              {% else %}orange
-              {% endif %}
-            multiline_secondary: true
-            tap_action: { action: none }
+      - type: custom:mushroom-template-card
+        primary: 🪴 Alla växter
+        secondary: |-
+          {% set n = states('sensor.plants_needing_water') | int(0) %}
+          {% set due = state_attr('sensor.plants_needing_water', 'due_now') %}
+          {% if n == 0 %}Alla växter mår bra 🎉
+          {% else %}Behöver vatten: {{ due | join(', ') }}
+          {% endif %}
+        icon: mdi:flower-tulip
+        icon_color: |-
+          {% set n = states('sensor.plants_needing_water') | int(0) %}
+          {% if n == 0 %}green
+          {% else %}orange
+          {% endif %}
+        multiline_secondary: true
+        tap_action: { action: none }
 
       # === ROOM: Balkong ===
-      - type: grid
+      - type: custom:vertical-stack-in-card
         cards:
-          - type: custom:vertical-stack-in-card
-            cards:
-              - type: custom:button-card
-                show_name: true
-                show_label: true
-                show_icon: false
-                name: "[[[ return '🌿 ' + states['sensor.room_balcony'].attributes.display_name ]]]"
-                label: >
-                  [[[
-                    var a = states['sensor.room_balcony'].attributes;
-                    var dirNames = {north:'Norr',south:'Söder',east:'Öster',west:'Väster'};
-                    var dir = dirNames[a.windows_direction] || a.windows_direction;
-                    var suffix = a.location === 'outdoor' ? 'läge' : 'fönster';
-                    return dir + suffix + ' · ~' + a.sun_hours + 'h sol';
-                  ]]]
-                tap_action: { action: none }
-                styles:
-                  grid:
-                    - grid-template-areas: "'n c' 'l c'"
-                    - grid-template-columns: "1fr min-content"
-                    - grid-template-rows: "min-content min-content"
-                  card:
-                    - background-color: "rgba(0,0,0,0)"
-                    - box-shadow: "none"
-                    - padding: "12px 14px 8px 14px"
-                  name:
-                    - justify-self: "start"
-                    - font-weight: "bold"
-                    - font-size: "1.5rem"
-                  label:
-                    - justify-self: "start"
-                    - font-weight: "bold"
-                    - font-size: "0.95rem"
-                    - opacity: "0.55"
-                custom_fields:
-                  c:
+          - type: custom:button-card
+            show_name: true
+            show_label: true
+            show_icon: false
+            name: "[[[ return '🌿 ' + states['sensor.room_balcony'].attributes.display_name ]]]"
+            label: >
+              [[[
+                var a = states['sensor.room_balcony'].attributes;
+                var dirNames = {north:'Norr',south:'Söder',east:'Öster',west:'Väster'};
+                var dir = dirNames[a.windows_direction] || a.windows_direction;
+                var suffix = a.location === 'outdoor' ? 'läge' : 'fönster';
+                return dir + suffix + ' · ~' + a.sun_hours + 'h sol';
+              ]]]
+            tap_action: { action: none }
+            styles:
+              grid:
+                - grid-template-areas: "'n c' 'l c'"
+                - grid-template-columns: "1fr min-content"
+                - grid-template-rows: "min-content min-content"
+              card:
+                - background-color: "rgba(0,0,0,0)"
+                - box-shadow: "none"
+                - padding: "12px 14px 8px 14px"
+              name:
+                - justify-self: "start"
+                - font-weight: "bold"
+                - font-size: "1.5rem"
+              label:
+                - justify-self: "start"
+                - font-weight: "bold"
+                - font-size: "0.95rem"
+                - opacity: "0.55"
+            custom_fields:
+              c:
+                card:
+                  type: custom:button-card
+                  show_icon: true
+                  show_name: true
+                  show_label: false
+                  icon: mdi:watering-can-outline
+                  name: Vattna alla
+                  size: "16px"
+                  tap_action:
+                    action: call-service
+                    service: script.mark_room_watered
+                    data:
+                      room: balcony
+                    haptic: light
+                  styles:
+                    grid:
+                      - grid-template-areas: "'i n'"
+                      - grid-template-columns: "min-content auto"
+                      - column-gap: "6px"
                     card:
-                      type: custom:button-card
-                      show_icon: true
-                      show_name: true
-                      show_label: false
-                      icon: mdi:watering-can-outline
-                      name: Vattna alla
-                      size: "16px"
-                      tap_action:
-                        action: call-service
-                        service: script.mark_room_watered
-                        data:
-                          room: balcony
-                        haptic: light
-                      styles:
-                        grid:
-                          - grid-template-areas: "'i n'"
-                          - grid-template-columns: "min-content auto"
-                          - column-gap: "6px"
-                        card:
-                          - background-color: "rgba(var(--color-blue, 61,90,254), 0.18)"
-                          - border-radius: "16px"
-                          - padding: "6px 12px"
-                          - box-shadow: "none"
-                          - place-self: "center end"
-                        icon:
-                          - color: "rgba(var(--color-blue, 61,90,254), 1)"
-                          - width: "18px"
-                          - height: "18px"
-                        name:
-                          - font-size: "13px"
-                          - font-weight: "bold"
+                      - background-color: "rgba(var(--color-blue, 61,90,254), 0.18)"
+                      - border-radius: "16px"
+                      - padding: "6px 12px"
+                      - box-shadow: "none"
+                      - place-self: "center end"
+                    icon:
+                      - color: "rgba(var(--color-blue, 61,90,254), 1)"
+                      - width: "18px"
+                      - height: "18px"
+                    name:
+                      - font-size: "13px"
+                      - font-weight: "bold"
 
-              - type: custom:button-card
-                template: custom_card_mans_plant
-                variables:
-                  ulm_plant_slug: dill
-                  ulm_plant_icon: mdi:sprout
-              - type: custom:button-card
-                template: custom_card_mans_plant
-                variables:
-                  ulm_plant_slug: persilja
-                  ulm_plant_icon: mdi:sprout
-              - type: custom:button-card
-                template: custom_card_mans_plant
-                variables:
-                  ulm_plant_slug: timjan
-                  ulm_plant_icon: mdi:sprout
-              - type: custom:button-card
-                template: custom_card_mans_plant
-                variables:
-                  ulm_plant_slug: graslok
-                  ulm_plant_icon: mdi:sprout
-              - type: custom:button-card
-                template: custom_card_mans_plant
-                variables:
-                  ulm_plant_slug: dahlia
-                  ulm_plant_icon: mdi:flower
-              - type: custom:button-card
-                template: custom_card_mans_plant
-                variables:
-                  ulm_plant_slug: pelargon
-                  ulm_plant_icon: mdi:flower
-              - type: custom:button-card
-                template: custom_card_mans_plant
-                variables:
-                  ulm_plant_slug: lavandell
-                  ulm_plant_icon: mdi:flower
-              - type: custom:button-card
-                template: custom_card_mans_plant
-                variables:
-                  ulm_plant_slug: murgrona_1
-                  ulm_plant_icon: mdi:leaf
-              - type: custom:button-card
-                template: custom_card_mans_plant
-                variables:
-                  ulm_plant_slug: murgrona_2
-                  ulm_plant_icon: mdi:leaf
-              - type: custom:button-card
-                template: custom_card_mans_plant
-                variables:
-                  ulm_plant_slug: basilika
-                  ulm_plant_icon: mdi:sprout
+          - type: custom:button-card
+            template: custom_card_mans_plant
+            variables:
+              ulm_plant_slug: dill
+              ulm_plant_icon: mdi:sprout
+          - type: custom:button-card
+            template: custom_card_mans_plant
+            variables:
+              ulm_plant_slug: persilja
+              ulm_plant_icon: mdi:sprout
+          - type: custom:button-card
+            template: custom_card_mans_plant
+            variables:
+              ulm_plant_slug: timjan
+              ulm_plant_icon: mdi:sprout
+          - type: custom:button-card
+            template: custom_card_mans_plant
+            variables:
+              ulm_plant_slug: graslok
+              ulm_plant_icon: mdi:sprout
+          - type: custom:button-card
+            template: custom_card_mans_plant
+            variables:
+              ulm_plant_slug: dahlia
+              ulm_plant_icon: mdi:flower
+          - type: custom:button-card
+            template: custom_card_mans_plant
+            variables:
+              ulm_plant_slug: pelargon
+              ulm_plant_icon: mdi:flower
+          - type: custom:button-card
+            template: custom_card_mans_plant
+            variables:
+              ulm_plant_slug: lavandell
+              ulm_plant_icon: mdi:flower
+          - type: custom:button-card
+            template: custom_card_mans_plant
+            variables:
+              ulm_plant_slug: murgrona_1
+              ulm_plant_icon: mdi:leaf
+          - type: custom:button-card
+            template: custom_card_mans_plant
+            variables:
+              ulm_plant_slug: murgrona_2
+              ulm_plant_icon: mdi:leaf
+          - type: custom:button-card
+            template: custom_card_mans_plant
+            variables:
+              ulm_plant_slug: basilika
+              ulm_plant_icon: mdi:sprout
 
       # === ROOM: Studio ===
-      - type: grid
+      - type: custom:vertical-stack-in-card
         cards:
-          - type: custom:vertical-stack-in-card
-            cards:
-              - type: custom:button-card
-                show_name: true
-                show_label: true
-                show_icon: false
-                name: "[[[ return '🎨 ' + states['sensor.room_studio'].attributes.display_name ]]]"
-                label: >
-                  [[[
-                    var a = states['sensor.room_studio'].attributes;
-                    var dirNames = {north:'Norr',south:'Söder',east:'Öster',west:'Väster'};
-                    var dir = dirNames[a.windows_direction] || a.windows_direction;
-                    var suffix = a.location === 'outdoor' ? 'läge' : 'fönster';
-                    return dir + suffix + ' · ~' + a.sun_hours + 'h sol';
-                  ]]]
-                tap_action: { action: none }
-                styles:
-                  grid:
-                    - grid-template-areas: "'n c' 'l c'"
-                    - grid-template-columns: "1fr min-content"
-                    - grid-template-rows: "min-content min-content"
-                  card:
-                    - background-color: "rgba(0,0,0,0)"
-                    - box-shadow: "none"
-                    - padding: "12px 14px 8px 14px"
-                  name:
-                    - justify-self: "start"
-                    - font-weight: "bold"
-                    - font-size: "1.5rem"
-                  label:
-                    - justify-self: "start"
-                    - font-weight: "bold"
-                    - font-size: "0.95rem"
-                    - opacity: "0.55"
-                custom_fields:
-                  c:
+          - type: custom:button-card
+            show_name: true
+            show_label: true
+            show_icon: false
+            name: "[[[ return '🎨 ' + states['sensor.room_studio'].attributes.display_name ]]]"
+            label: >
+              [[[
+                var a = states['sensor.room_studio'].attributes;
+                var dirNames = {north:'Norr',south:'Söder',east:'Öster',west:'Väster'};
+                var dir = dirNames[a.windows_direction] || a.windows_direction;
+                var suffix = a.location === 'outdoor' ? 'läge' : 'fönster';
+                return dir + suffix + ' · ~' + a.sun_hours + 'h sol';
+              ]]]
+            tap_action: { action: none }
+            styles:
+              grid:
+                - grid-template-areas: "'n c' 'l c'"
+                - grid-template-columns: "1fr min-content"
+                - grid-template-rows: "min-content min-content"
+              card:
+                - background-color: "rgba(0,0,0,0)"
+                - box-shadow: "none"
+                - padding: "12px 14px 8px 14px"
+              name:
+                - justify-self: "start"
+                - font-weight: "bold"
+                - font-size: "1.5rem"
+              label:
+                - justify-self: "start"
+                - font-weight: "bold"
+                - font-size: "0.95rem"
+                - opacity: "0.55"
+            custom_fields:
+              c:
+                card:
+                  type: custom:button-card
+                  show_icon: true
+                  show_name: true
+                  show_label: false
+                  icon: mdi:watering-can-outline
+                  name: Vattna alla
+                  size: "16px"
+                  tap_action:
+                    action: call-service
+                    service: script.mark_room_watered
+                    data:
+                      room: studio
+                    haptic: light
+                  styles:
+                    grid:
+                      - grid-template-areas: "'i n'"
+                      - grid-template-columns: "min-content auto"
+                      - column-gap: "6px"
                     card:
-                      type: custom:button-card
-                      show_icon: true
-                      show_name: true
-                      show_label: false
-                      icon: mdi:watering-can-outline
-                      name: Vattna alla
-                      size: "16px"
-                      tap_action:
-                        action: call-service
-                        service: script.mark_room_watered
-                        data:
-                          room: studio
-                        haptic: light
-                      styles:
-                        grid:
-                          - grid-template-areas: "'i n'"
-                          - grid-template-columns: "min-content auto"
-                          - column-gap: "6px"
-                        card:
-                          - background-color: "rgba(var(--color-blue, 61,90,254), 0.18)"
-                          - border-radius: "16px"
-                          - padding: "6px 12px"
-                          - box-shadow: "none"
-                          - place-self: "center end"
-                        icon:
-                          - color: "rgba(var(--color-blue, 61,90,254), 1)"
-                          - width: "18px"
-                          - height: "18px"
-                        name:
-                          - font-size: "13px"
-                          - font-weight: "bold"
+                      - background-color: "rgba(var(--color-blue, 61,90,254), 0.18)"
+                      - border-radius: "16px"
+                      - padding: "6px 12px"
+                      - box-shadow: "none"
+                      - place-self: "center end"
+                    icon:
+                      - color: "rgba(var(--color-blue, 61,90,254), 1)"
+                      - width: "18px"
+                      - height: "18px"
+                    name:
+                      - font-size: "13px"
+                      - font-weight: "bold"
 
-              - type: custom:button-card
-                template: custom_card_mans_plant
-                variables:
-                  ulm_plant_slug: orkide
-                  ulm_plant_icon: mdi:flower
-              - type: custom:button-card
-                template: custom_card_mans_plant
-                variables:
-                  ulm_plant_slug: monstera
-                  ulm_plant_icon: mdi:leaf
-              - type: custom:button-card
-                template: custom_card_mans_plant
-                variables:
-                  ulm_plant_slug: citronfikus
-                  ulm_plant_icon: mdi:tree
-              - type: custom:button-card
-                template: custom_card_mans_plant
-                variables:
-                  ulm_plant_slug: palettblad
-                  ulm_plant_icon: mdi:leaf
+          - type: custom:button-card
+            template: custom_card_mans_plant
+            variables:
+              ulm_plant_slug: orkide
+              ulm_plant_icon: mdi:flower
+          - type: custom:button-card
+            template: custom_card_mans_plant
+            variables:
+              ulm_plant_slug: monstera
+              ulm_plant_icon: mdi:leaf
+          - type: custom:button-card
+            template: custom_card_mans_plant
+            variables:
+              ulm_plant_slug: citronfikus
+              ulm_plant_icon: mdi:tree
+          - type: custom:button-card
+            template: custom_card_mans_plant
+            variables:
+              ulm_plant_slug: palettblad
+              ulm_plant_icon: mdi:leaf
 
       # === ROOM: Vardagsrum ===
-      - type: grid
+      - type: custom:vertical-stack-in-card
         cards:
-          - type: custom:vertical-stack-in-card
-            cards:
-              - type: custom:button-card
-                show_name: true
-                show_label: true
-                show_icon: false
-                name: "[[[ return '🛋️ ' + states['sensor.room_living_room'].attributes.display_name ]]]"
-                label: >
-                  [[[
-                    var a = states['sensor.room_living_room'].attributes;
-                    var dirNames = {north:'Norr',south:'Söder',east:'Öster',west:'Väster'};
-                    var dir = dirNames[a.windows_direction] || a.windows_direction;
-                    var suffix = a.location === 'outdoor' ? 'läge' : 'fönster';
-                    return dir + suffix + ' · ~' + a.sun_hours + 'h sol';
-                  ]]]
-                tap_action: { action: none }
-                styles:
-                  grid:
-                    - grid-template-areas: "'n c' 'l c'"
-                    - grid-template-columns: "1fr min-content"
-                    - grid-template-rows: "min-content min-content"
-                  card:
-                    - background-color: "rgba(0,0,0,0)"
-                    - box-shadow: "none"
-                    - padding: "12px 14px 8px 14px"
-                  name:
-                    - justify-self: "start"
-                    - font-weight: "bold"
-                    - font-size: "1.5rem"
-                  label:
-                    - justify-self: "start"
-                    - font-weight: "bold"
-                    - font-size: "0.95rem"
-                    - opacity: "0.55"
-                custom_fields:
-                  c:
+          - type: custom:button-card
+            show_name: true
+            show_label: true
+            show_icon: false
+            name: "[[[ return '🛋️ ' + states['sensor.room_living_room'].attributes.display_name ]]]"
+            label: >
+              [[[
+                var a = states['sensor.room_living_room'].attributes;
+                var dirNames = {north:'Norr',south:'Söder',east:'Öster',west:'Väster'};
+                var dir = dirNames[a.windows_direction] || a.windows_direction;
+                var suffix = a.location === 'outdoor' ? 'läge' : 'fönster';
+                return dir + suffix + ' · ~' + a.sun_hours + 'h sol';
+              ]]]
+            tap_action: { action: none }
+            styles:
+              grid:
+                - grid-template-areas: "'n c' 'l c'"
+                - grid-template-columns: "1fr min-content"
+                - grid-template-rows: "min-content min-content"
+              card:
+                - background-color: "rgba(0,0,0,0)"
+                - box-shadow: "none"
+                - padding: "12px 14px 8px 14px"
+              name:
+                - justify-self: "start"
+                - font-weight: "bold"
+                - font-size: "1.5rem"
+              label:
+                - justify-self: "start"
+                - font-weight: "bold"
+                - font-size: "0.95rem"
+                - opacity: "0.55"
+            custom_fields:
+              c:
+                card:
+                  type: custom:button-card
+                  show_icon: true
+                  show_name: true
+                  show_label: false
+                  icon: mdi:watering-can-outline
+                  name: Vattna alla
+                  size: "16px"
+                  tap_action:
+                    action: call-service
+                    service: script.mark_room_watered
+                    data:
+                      room: living_room
+                    haptic: light
+                  styles:
+                    grid:
+                      - grid-template-areas: "'i n'"
+                      - grid-template-columns: "min-content auto"
+                      - column-gap: "6px"
                     card:
-                      type: custom:button-card
-                      show_icon: true
-                      show_name: true
-                      show_label: false
-                      icon: mdi:watering-can-outline
-                      name: Vattna alla
-                      size: "16px"
-                      tap_action:
-                        action: call-service
-                        service: script.mark_room_watered
-                        data:
-                          room: living_room
-                        haptic: light
-                      styles:
-                        grid:
-                          - grid-template-areas: "'i n'"
-                          - grid-template-columns: "min-content auto"
-                          - column-gap: "6px"
-                        card:
-                          - background-color: "rgba(var(--color-blue, 61,90,254), 0.18)"
-                          - border-radius: "16px"
-                          - padding: "6px 12px"
-                          - box-shadow: "none"
-                          - place-self: "center end"
-                        icon:
-                          - color: "rgba(var(--color-blue, 61,90,254), 1)"
-                          - width: "18px"
-                          - height: "18px"
-                        name:
-                          - font-size: "13px"
-                          - font-weight: "bold"
+                      - background-color: "rgba(var(--color-blue, 61,90,254), 0.18)"
+                      - border-radius: "16px"
+                      - padding: "6px 12px"
+                      - box-shadow: "none"
+                      - place-self: "center end"
+                    icon:
+                      - color: "rgba(var(--color-blue, 61,90,254), 1)"
+                      - width: "18px"
+                      - height: "18px"
+                    name:
+                      - font-size: "13px"
+                      - font-weight: "bold"
 
-              - type: custom:button-card
-                template: custom_card_mans_plant
-                variables:
-                  ulm_plant_slug: banddracena
-                  ulm_plant_icon: mdi:leaf
-              - type: custom:button-card
-                template: custom_card_mans_plant
-                variables:
-                  ulm_plant_slug: fonsterfikus_belize
-                  ulm_plant_icon: mdi:tree
-              - type: custom:button-card
-                template: custom_card_mans_plant
-                variables:
-                  ulm_plant_slug: ficus_robusta
-                  ulm_plant_icon: mdi:tree
-              - type: custom:button-card
-                template: custom_card_mans_plant
-                variables:
-                  ulm_plant_slug: rosenstank_pink
-                  ulm_plant_icon: mdi:flower
-              - type: custom:button-card
-                template: custom_card_mans_plant
-                variables:
-                  ulm_plant_slug: monstera_adansonii
-                  ulm_plant_icon: mdi:leaf
+          - type: custom:button-card
+            template: custom_card_mans_plant
+            variables:
+              ulm_plant_slug: banddracena
+              ulm_plant_icon: mdi:leaf
+          - type: custom:button-card
+            template: custom_card_mans_plant
+            variables:
+              ulm_plant_slug: fonsterfikus_belize
+              ulm_plant_icon: mdi:tree
+          - type: custom:button-card
+            template: custom_card_mans_plant
+            variables:
+              ulm_plant_slug: ficus_robusta
+              ulm_plant_icon: mdi:tree
+          - type: custom:button-card
+            template: custom_card_mans_plant
+            variables:
+              ulm_plant_slug: rosenstank_pink
+              ulm_plant_icon: mdi:flower
+          - type: custom:button-card
+            template: custom_card_mans_plant
+            variables:
+              ulm_plant_slug: monstera_adansonii
+              ulm_plant_icon: mdi:leaf
   # ─── Per-plant subviews ───
   # Each plant has its own subview reachable via /house-plants/plant-<slug>.
   # Tapping a plant card on the main view navigates here.
@@ -392,511 +380,473 @@ views:
     path: plant-dill
     icon: mdi:sprout
     subview: true
-    type: sections
+    type: masonry
     max_columns: 1
-    sections:
-      - type: grid
-        cards:
-          - type: custom:button-card
-            template: custom_card_mans_plant
-            variables:
-              ulm_plant_slug: dill
-              ulm_plant_icon: mdi:sprout
-          - type: custom:button-card
-            template: custom_card_mans_plant_care
-            variables:
-              ulm_plant_slug: dill
-          - type: custom:button-card
-            template: custom_card_mans_plant_history
-            variables:
-              ulm_plant_slug: dill
-          - type: custom:button-card
-            template: custom_card_mans_plant_water_button
-            variables:
-              ulm_plant_slug: dill
+    cards:
+      - type: custom:button-card
+        template: custom_card_mans_plant
+        variables:
+          ulm_plant_slug: dill
+          ulm_plant_icon: mdi:sprout
+      - type: custom:button-card
+        template: custom_card_mans_plant_care
+        variables:
+          ulm_plant_slug: dill
+      - type: custom:button-card
+        template: custom_card_mans_plant_history
+        variables:
+          ulm_plant_slug: dill
+      - type: custom:button-card
+        template: custom_card_mans_plant_water_button
+        variables:
+          ulm_plant_slug: dill
 
   - title: Persilja
     path: plant-persilja
     icon: mdi:sprout
     subview: true
-    type: sections
+    type: masonry
     max_columns: 1
-    sections:
-      - type: grid
-        cards:
-          - type: custom:button-card
-            template: custom_card_mans_plant
-            variables:
-              ulm_plant_slug: persilja
-              ulm_plant_icon: mdi:sprout
-          - type: custom:button-card
-            template: custom_card_mans_plant_care
-            variables:
-              ulm_plant_slug: persilja
-          - type: custom:button-card
-            template: custom_card_mans_plant_history
-            variables:
-              ulm_plant_slug: persilja
-          - type: custom:button-card
-            template: custom_card_mans_plant_water_button
-            variables:
-              ulm_plant_slug: persilja
+    cards:
+      - type: custom:button-card
+        template: custom_card_mans_plant
+        variables:
+          ulm_plant_slug: persilja
+          ulm_plant_icon: mdi:sprout
+      - type: custom:button-card
+        template: custom_card_mans_plant_care
+        variables:
+          ulm_plant_slug: persilja
+      - type: custom:button-card
+        template: custom_card_mans_plant_history
+        variables:
+          ulm_plant_slug: persilja
+      - type: custom:button-card
+        template: custom_card_mans_plant_water_button
+        variables:
+          ulm_plant_slug: persilja
 
   - title: Timjan
     path: plant-timjan
     icon: mdi:sprout
     subview: true
-    type: sections
+    type: masonry
     max_columns: 1
-    sections:
-      - type: grid
-        cards:
-          - type: custom:button-card
-            template: custom_card_mans_plant
-            variables:
-              ulm_plant_slug: timjan
-              ulm_plant_icon: mdi:sprout
-          - type: custom:button-card
-            template: custom_card_mans_plant_care
-            variables:
-              ulm_plant_slug: timjan
-          - type: custom:button-card
-            template: custom_card_mans_plant_history
-            variables:
-              ulm_plant_slug: timjan
-          - type: custom:button-card
-            template: custom_card_mans_plant_water_button
-            variables:
-              ulm_plant_slug: timjan
+    cards:
+      - type: custom:button-card
+        template: custom_card_mans_plant
+        variables:
+          ulm_plant_slug: timjan
+          ulm_plant_icon: mdi:sprout
+      - type: custom:button-card
+        template: custom_card_mans_plant_care
+        variables:
+          ulm_plant_slug: timjan
+      - type: custom:button-card
+        template: custom_card_mans_plant_history
+        variables:
+          ulm_plant_slug: timjan
+      - type: custom:button-card
+        template: custom_card_mans_plant_water_button
+        variables:
+          ulm_plant_slug: timjan
 
   - title: Gräslök
     path: plant-graslok
     icon: mdi:sprout
     subview: true
-    type: sections
+    type: masonry
     max_columns: 1
-    sections:
-      - type: grid
-        cards:
-          - type: custom:button-card
-            template: custom_card_mans_plant
-            variables:
-              ulm_plant_slug: graslok
-              ulm_plant_icon: mdi:sprout
-          - type: custom:button-card
-            template: custom_card_mans_plant_care
-            variables:
-              ulm_plant_slug: graslok
-          - type: custom:button-card
-            template: custom_card_mans_plant_history
-            variables:
-              ulm_plant_slug: graslok
-          - type: custom:button-card
-            template: custom_card_mans_plant_water_button
-            variables:
-              ulm_plant_slug: graslok
+    cards:
+      - type: custom:button-card
+        template: custom_card_mans_plant
+        variables:
+          ulm_plant_slug: graslok
+          ulm_plant_icon: mdi:sprout
+      - type: custom:button-card
+        template: custom_card_mans_plant_care
+        variables:
+          ulm_plant_slug: graslok
+      - type: custom:button-card
+        template: custom_card_mans_plant_history
+        variables:
+          ulm_plant_slug: graslok
+      - type: custom:button-card
+        template: custom_card_mans_plant_water_button
+        variables:
+          ulm_plant_slug: graslok
 
   - title: Dahlia
     path: plant-dahlia
     icon: mdi:flower
     subview: true
-    type: sections
+    type: masonry
     max_columns: 1
-    sections:
-      - type: grid
-        cards:
-          - type: custom:button-card
-            template: custom_card_mans_plant
-            variables:
-              ulm_plant_slug: dahlia
-              ulm_plant_icon: mdi:flower
-          - type: custom:button-card
-            template: custom_card_mans_plant_care
-            variables:
-              ulm_plant_slug: dahlia
-          - type: custom:button-card
-            template: custom_card_mans_plant_history
-            variables:
-              ulm_plant_slug: dahlia
-          - type: custom:button-card
-            template: custom_card_mans_plant_water_button
-            variables:
-              ulm_plant_slug: dahlia
+    cards:
+      - type: custom:button-card
+        template: custom_card_mans_plant
+        variables:
+          ulm_plant_slug: dahlia
+          ulm_plant_icon: mdi:flower
+      - type: custom:button-card
+        template: custom_card_mans_plant_care
+        variables:
+          ulm_plant_slug: dahlia
+      - type: custom:button-card
+        template: custom_card_mans_plant_history
+        variables:
+          ulm_plant_slug: dahlia
+      - type: custom:button-card
+        template: custom_card_mans_plant_water_button
+        variables:
+          ulm_plant_slug: dahlia
 
   - title: Pelargon
     path: plant-pelargon
     icon: mdi:flower
     subview: true
-    type: sections
+    type: masonry
     max_columns: 1
-    sections:
-      - type: grid
-        cards:
-          - type: custom:button-card
-            template: custom_card_mans_plant
-            variables:
-              ulm_plant_slug: pelargon
-              ulm_plant_icon: mdi:flower
-          - type: custom:button-card
-            template: custom_card_mans_plant_care
-            variables:
-              ulm_plant_slug: pelargon
-          - type: custom:button-card
-            template: custom_card_mans_plant_history
-            variables:
-              ulm_plant_slug: pelargon
-          - type: custom:button-card
-            template: custom_card_mans_plant_water_button
-            variables:
-              ulm_plant_slug: pelargon
+    cards:
+      - type: custom:button-card
+        template: custom_card_mans_plant
+        variables:
+          ulm_plant_slug: pelargon
+          ulm_plant_icon: mdi:flower
+      - type: custom:button-card
+        template: custom_card_mans_plant_care
+        variables:
+          ulm_plant_slug: pelargon
+      - type: custom:button-card
+        template: custom_card_mans_plant_history
+        variables:
+          ulm_plant_slug: pelargon
+      - type: custom:button-card
+        template: custom_card_mans_plant_water_button
+        variables:
+          ulm_plant_slug: pelargon
 
   - title: Lavendel
     path: plant-lavandell
     icon: mdi:flower
     subview: true
-    type: sections
+    type: masonry
     max_columns: 1
-    sections:
-      - type: grid
-        cards:
-          - type: custom:button-card
-            template: custom_card_mans_plant
-            variables:
-              ulm_plant_slug: lavandell
-              ulm_plant_icon: mdi:flower
-          - type: custom:button-card
-            template: custom_card_mans_plant_care
-            variables:
-              ulm_plant_slug: lavandell
-          - type: custom:button-card
-            template: custom_card_mans_plant_history
-            variables:
-              ulm_plant_slug: lavandell
-          - type: custom:button-card
-            template: custom_card_mans_plant_water_button
-            variables:
-              ulm_plant_slug: lavandell
+    cards:
+      - type: custom:button-card
+        template: custom_card_mans_plant
+        variables:
+          ulm_plant_slug: lavandell
+          ulm_plant_icon: mdi:flower
+      - type: custom:button-card
+        template: custom_card_mans_plant_care
+        variables:
+          ulm_plant_slug: lavandell
+      - type: custom:button-card
+        template: custom_card_mans_plant_history
+        variables:
+          ulm_plant_slug: lavandell
+      - type: custom:button-card
+        template: custom_card_mans_plant_water_button
+        variables:
+          ulm_plant_slug: lavandell
 
   - title: Murgröna 1
     path: plant-murgrona_1
     icon: mdi:leaf
     subview: true
-    type: sections
+    type: masonry
     max_columns: 1
-    sections:
-      - type: grid
-        cards:
-          - type: custom:button-card
-            template: custom_card_mans_plant
-            variables:
-              ulm_plant_slug: murgrona_1
-              ulm_plant_icon: mdi:leaf
-          - type: custom:button-card
-            template: custom_card_mans_plant_care
-            variables:
-              ulm_plant_slug: murgrona_1
-          - type: custom:button-card
-            template: custom_card_mans_plant_history
-            variables:
-              ulm_plant_slug: murgrona_1
-          - type: custom:button-card
-            template: custom_card_mans_plant_water_button
-            variables:
-              ulm_plant_slug: murgrona_1
+    cards:
+      - type: custom:button-card
+        template: custom_card_mans_plant
+        variables:
+          ulm_plant_slug: murgrona_1
+          ulm_plant_icon: mdi:leaf
+      - type: custom:button-card
+        template: custom_card_mans_plant_care
+        variables:
+          ulm_plant_slug: murgrona_1
+      - type: custom:button-card
+        template: custom_card_mans_plant_history
+        variables:
+          ulm_plant_slug: murgrona_1
+      - type: custom:button-card
+        template: custom_card_mans_plant_water_button
+        variables:
+          ulm_plant_slug: murgrona_1
 
   - title: Murgröna 2
     path: plant-murgrona_2
     icon: mdi:leaf
     subview: true
-    type: sections
+    type: masonry
     max_columns: 1
-    sections:
-      - type: grid
-        cards:
-          - type: custom:button-card
-            template: custom_card_mans_plant
-            variables:
-              ulm_plant_slug: murgrona_2
-              ulm_plant_icon: mdi:leaf
-          - type: custom:button-card
-            template: custom_card_mans_plant_care
-            variables:
-              ulm_plant_slug: murgrona_2
-          - type: custom:button-card
-            template: custom_card_mans_plant_history
-            variables:
-              ulm_plant_slug: murgrona_2
-          - type: custom:button-card
-            template: custom_card_mans_plant_water_button
-            variables:
-              ulm_plant_slug: murgrona_2
+    cards:
+      - type: custom:button-card
+        template: custom_card_mans_plant
+        variables:
+          ulm_plant_slug: murgrona_2
+          ulm_plant_icon: mdi:leaf
+      - type: custom:button-card
+        template: custom_card_mans_plant_care
+        variables:
+          ulm_plant_slug: murgrona_2
+      - type: custom:button-card
+        template: custom_card_mans_plant_history
+        variables:
+          ulm_plant_slug: murgrona_2
+      - type: custom:button-card
+        template: custom_card_mans_plant_water_button
+        variables:
+          ulm_plant_slug: murgrona_2
 
   - title: Basilika
     path: plant-basilika
     icon: mdi:sprout
     subview: true
-    type: sections
+    type: masonry
     max_columns: 1
-    sections:
-      - type: grid
-        cards:
-          - type: custom:button-card
-            template: custom_card_mans_plant
-            variables:
-              ulm_plant_slug: basilika
-              ulm_plant_icon: mdi:sprout
-          - type: custom:button-card
-            template: custom_card_mans_plant_care
-            variables:
-              ulm_plant_slug: basilika
-          - type: custom:button-card
-            template: custom_card_mans_plant_history
-            variables:
-              ulm_plant_slug: basilika
-          - type: custom:button-card
-            template: custom_card_mans_plant_water_button
-            variables:
-              ulm_plant_slug: basilika
+    cards:
+      - type: custom:button-card
+        template: custom_card_mans_plant
+        variables:
+          ulm_plant_slug: basilika
+          ulm_plant_icon: mdi:sprout
+      - type: custom:button-card
+        template: custom_card_mans_plant_care
+        variables:
+          ulm_plant_slug: basilika
+      - type: custom:button-card
+        template: custom_card_mans_plant_history
+        variables:
+          ulm_plant_slug: basilika
+      - type: custom:button-card
+        template: custom_card_mans_plant_water_button
+        variables:
+          ulm_plant_slug: basilika
 
   - title: Orkidé
     path: plant-orkide
     icon: mdi:flower
     subview: true
-    type: sections
+    type: masonry
     max_columns: 1
-    sections:
-      - type: grid
-        cards:
-          - type: custom:button-card
-            template: custom_card_mans_plant
-            variables:
-              ulm_plant_slug: orkide
-              ulm_plant_icon: mdi:flower
-          - type: custom:button-card
-            template: custom_card_mans_plant_care
-            variables:
-              ulm_plant_slug: orkide
-          - type: custom:button-card
-            template: custom_card_mans_plant_history
-            variables:
-              ulm_plant_slug: orkide
-          - type: custom:button-card
-            template: custom_card_mans_plant_water_button
-            variables:
-              ulm_plant_slug: orkide
+    cards:
+      - type: custom:button-card
+        template: custom_card_mans_plant
+        variables:
+          ulm_plant_slug: orkide
+          ulm_plant_icon: mdi:flower
+      - type: custom:button-card
+        template: custom_card_mans_plant_care
+        variables:
+          ulm_plant_slug: orkide
+      - type: custom:button-card
+        template: custom_card_mans_plant_history
+        variables:
+          ulm_plant_slug: orkide
+      - type: custom:button-card
+        template: custom_card_mans_plant_water_button
+        variables:
+          ulm_plant_slug: orkide
 
   - title: Monstera
     path: plant-monstera
     icon: mdi:leaf
     subview: true
-    type: sections
+    type: masonry
     max_columns: 1
-    sections:
-      - type: grid
-        cards:
-          - type: custom:button-card
-            template: custom_card_mans_plant
-            variables:
-              ulm_plant_slug: monstera
-              ulm_plant_icon: mdi:leaf
-          - type: custom:button-card
-            template: custom_card_mans_plant_care
-            variables:
-              ulm_plant_slug: monstera
-          - type: custom:button-card
-            template: custom_card_mans_plant_history
-            variables:
-              ulm_plant_slug: monstera
-          - type: custom:button-card
-            template: custom_card_mans_plant_water_button
-            variables:
-              ulm_plant_slug: monstera
+    cards:
+      - type: custom:button-card
+        template: custom_card_mans_plant
+        variables:
+          ulm_plant_slug: monstera
+          ulm_plant_icon: mdi:leaf
+      - type: custom:button-card
+        template: custom_card_mans_plant_care
+        variables:
+          ulm_plant_slug: monstera
+      - type: custom:button-card
+        template: custom_card_mans_plant_history
+        variables:
+          ulm_plant_slug: monstera
+      - type: custom:button-card
+        template: custom_card_mans_plant_water_button
+        variables:
+          ulm_plant_slug: monstera
 
   - title: Citronfikus
     path: plant-citronfikus
     icon: mdi:tree
     subview: true
-    type: sections
+    type: masonry
     max_columns: 1
-    sections:
-      - type: grid
-        cards:
-          - type: custom:button-card
-            template: custom_card_mans_plant
-            variables:
-              ulm_plant_slug: citronfikus
-              ulm_plant_icon: mdi:tree
-          - type: custom:button-card
-            template: custom_card_mans_plant_care
-            variables:
-              ulm_plant_slug: citronfikus
-          - type: custom:button-card
-            template: custom_card_mans_plant_history
-            variables:
-              ulm_plant_slug: citronfikus
-          - type: custom:button-card
-            template: custom_card_mans_plant_water_button
-            variables:
-              ulm_plant_slug: citronfikus
+    cards:
+      - type: custom:button-card
+        template: custom_card_mans_plant
+        variables:
+          ulm_plant_slug: citronfikus
+          ulm_plant_icon: mdi:tree
+      - type: custom:button-card
+        template: custom_card_mans_plant_care
+        variables:
+          ulm_plant_slug: citronfikus
+      - type: custom:button-card
+        template: custom_card_mans_plant_history
+        variables:
+          ulm_plant_slug: citronfikus
+      - type: custom:button-card
+        template: custom_card_mans_plant_water_button
+        variables:
+          ulm_plant_slug: citronfikus
 
   - title: Palettblad
     path: plant-palettblad
     icon: mdi:leaf
     subview: true
-    type: sections
+    type: masonry
     max_columns: 1
-    sections:
-      - type: grid
-        cards:
-          - type: custom:button-card
-            template: custom_card_mans_plant
-            variables:
-              ulm_plant_slug: palettblad
-              ulm_plant_icon: mdi:leaf
-          - type: custom:button-card
-            template: custom_card_mans_plant_care
-            variables:
-              ulm_plant_slug: palettblad
-          - type: custom:button-card
-            template: custom_card_mans_plant_history
-            variables:
-              ulm_plant_slug: palettblad
-          - type: custom:button-card
-            template: custom_card_mans_plant_water_button
-            variables:
-              ulm_plant_slug: palettblad
+    cards:
+      - type: custom:button-card
+        template: custom_card_mans_plant
+        variables:
+          ulm_plant_slug: palettblad
+          ulm_plant_icon: mdi:leaf
+      - type: custom:button-card
+        template: custom_card_mans_plant_care
+        variables:
+          ulm_plant_slug: palettblad
+      - type: custom:button-card
+        template: custom_card_mans_plant_history
+        variables:
+          ulm_plant_slug: palettblad
+      - type: custom:button-card
+        template: custom_card_mans_plant_water_button
+        variables:
+          ulm_plant_slug: palettblad
 
   - title: Banddracena
     path: plant-banddracena
     icon: mdi:leaf
     subview: true
-    type: sections
+    type: masonry
     max_columns: 1
-    sections:
-      - type: grid
-        cards:
-          - type: custom:button-card
-            template: custom_card_mans_plant
-            variables:
-              ulm_plant_slug: banddracena
-              ulm_plant_icon: mdi:leaf
-          - type: custom:button-card
-            template: custom_card_mans_plant_care
-            variables:
-              ulm_plant_slug: banddracena
-          - type: custom:button-card
-            template: custom_card_mans_plant_history
-            variables:
-              ulm_plant_slug: banddracena
-          - type: custom:button-card
-            template: custom_card_mans_plant_water_button
-            variables:
-              ulm_plant_slug: banddracena
+    cards:
+      - type: custom:button-card
+        template: custom_card_mans_plant
+        variables:
+          ulm_plant_slug: banddracena
+          ulm_plant_icon: mdi:leaf
+      - type: custom:button-card
+        template: custom_card_mans_plant_care
+        variables:
+          ulm_plant_slug: banddracena
+      - type: custom:button-card
+        template: custom_card_mans_plant_history
+        variables:
+          ulm_plant_slug: banddracena
+      - type: custom:button-card
+        template: custom_card_mans_plant_water_button
+        variables:
+          ulm_plant_slug: banddracena
 
   - title: Fönsterfikus Belize
     path: plant-fonsterfikus_belize
     icon: mdi:tree
     subview: true
-    type: sections
+    type: masonry
     max_columns: 1
-    sections:
-      - type: grid
-        cards:
-          - type: custom:button-card
-            template: custom_card_mans_plant
-            variables:
-              ulm_plant_slug: fonsterfikus_belize
-              ulm_plant_icon: mdi:tree
-          - type: custom:button-card
-            template: custom_card_mans_plant_care
-            variables:
-              ulm_plant_slug: fonsterfikus_belize
-          - type: custom:button-card
-            template: custom_card_mans_plant_history
-            variables:
-              ulm_plant_slug: fonsterfikus_belize
-          - type: custom:button-card
-            template: custom_card_mans_plant_water_button
-            variables:
-              ulm_plant_slug: fonsterfikus_belize
+    cards:
+      - type: custom:button-card
+        template: custom_card_mans_plant
+        variables:
+          ulm_plant_slug: fonsterfikus_belize
+          ulm_plant_icon: mdi:tree
+      - type: custom:button-card
+        template: custom_card_mans_plant_care
+        variables:
+          ulm_plant_slug: fonsterfikus_belize
+      - type: custom:button-card
+        template: custom_card_mans_plant_history
+        variables:
+          ulm_plant_slug: fonsterfikus_belize
+      - type: custom:button-card
+        template: custom_card_mans_plant_water_button
+        variables:
+          ulm_plant_slug: fonsterfikus_belize
 
   - title: Ficus Robusta
     path: plant-ficus_robusta
     icon: mdi:tree
     subview: true
-    type: sections
+    type: masonry
     max_columns: 1
-    sections:
-      - type: grid
-        cards:
-          - type: custom:button-card
-            template: custom_card_mans_plant
-            variables:
-              ulm_plant_slug: ficus_robusta
-              ulm_plant_icon: mdi:tree
-          - type: custom:button-card
-            template: custom_card_mans_plant_care
-            variables:
-              ulm_plant_slug: ficus_robusta
-          - type: custom:button-card
-            template: custom_card_mans_plant_history
-            variables:
-              ulm_plant_slug: ficus_robusta
-          - type: custom:button-card
-            template: custom_card_mans_plant_water_button
-            variables:
-              ulm_plant_slug: ficus_robusta
+    cards:
+      - type: custom:button-card
+        template: custom_card_mans_plant
+        variables:
+          ulm_plant_slug: ficus_robusta
+          ulm_plant_icon: mdi:tree
+      - type: custom:button-card
+        template: custom_card_mans_plant_care
+        variables:
+          ulm_plant_slug: ficus_robusta
+      - type: custom:button-card
+        template: custom_card_mans_plant_history
+        variables:
+          ulm_plant_slug: ficus_robusta
+      - type: custom:button-card
+        template: custom_card_mans_plant_water_button
+        variables:
+          ulm_plant_slug: ficus_robusta
 
   - title: Rosenstänk Pink
     path: plant-rosenstank_pink
     icon: mdi:flower
     subview: true
-    type: sections
+    type: masonry
     max_columns: 1
-    sections:
-      - type: grid
-        cards:
-          - type: custom:button-card
-            template: custom_card_mans_plant
-            variables:
-              ulm_plant_slug: rosenstank_pink
-              ulm_plant_icon: mdi:flower
-          - type: custom:button-card
-            template: custom_card_mans_plant_care
-            variables:
-              ulm_plant_slug: rosenstank_pink
-          - type: custom:button-card
-            template: custom_card_mans_plant_history
-            variables:
-              ulm_plant_slug: rosenstank_pink
-          - type: custom:button-card
-            template: custom_card_mans_plant_water_button
-            variables:
-              ulm_plant_slug: rosenstank_pink
+    cards:
+      - type: custom:button-card
+        template: custom_card_mans_plant
+        variables:
+          ulm_plant_slug: rosenstank_pink
+          ulm_plant_icon: mdi:flower
+      - type: custom:button-card
+        template: custom_card_mans_plant_care
+        variables:
+          ulm_plant_slug: rosenstank_pink
+      - type: custom:button-card
+        template: custom_card_mans_plant_history
+        variables:
+          ulm_plant_slug: rosenstank_pink
+      - type: custom:button-card
+        template: custom_card_mans_plant_water_button
+        variables:
+          ulm_plant_slug: rosenstank_pink
 
   - title: Monstera adansonii
     path: plant-monstera_adansonii
     icon: mdi:leaf
     subview: true
-    type: sections
+    type: masonry
     max_columns: 1
-    sections:
-      - type: grid
-        cards:
-          - type: custom:button-card
-            template: custom_card_mans_plant
-            variables:
-              ulm_plant_slug: monstera_adansonii
-              ulm_plant_icon: mdi:leaf
-          - type: custom:button-card
-            template: custom_card_mans_plant_care
-            variables:
-              ulm_plant_slug: monstera_adansonii
-          - type: custom:button-card
-            template: custom_card_mans_plant_history
-            variables:
-              ulm_plant_slug: monstera_adansonii
-          - type: custom:button-card
-            template: custom_card_mans_plant_water_button
-            variables:
-              ulm_plant_slug: monstera_adansonii
+    cards:
+      - type: custom:button-card
+        template: custom_card_mans_plant
+        variables:
+          ulm_plant_slug: monstera_adansonii
+          ulm_plant_icon: mdi:leaf
+      - type: custom:button-card
+        template: custom_card_mans_plant_care
+        variables:
+          ulm_plant_slug: monstera_adansonii
+      - type: custom:button-card
+        template: custom_card_mans_plant_history
+        variables:
+          ulm_plant_slug: monstera_adansonii
+      - type: custom:button-card
+        template: custom_card_mans_plant_water_button
+        variables:
+          ulm_plant_slug: monstera_adansonii
