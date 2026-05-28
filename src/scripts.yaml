@@ -320,6 +320,36 @@ mark_monstera_adansonii_watered:
         source: card_tap
       continue_on_error: true
 
+mark_vit_orkide_watered:
+  alias: Markera Vit Orkidé som vattnad
+  icon: mdi:watering-can
+  sequence:
+    - action: input_datetime.set_datetime
+      target:
+        entity_id: input_datetime.plant_vit_orkide_last_watered
+      data:
+        datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+    - action: rest_command.log_watering
+      data:
+        slug: vit_orkide
+        source: card_tap
+      continue_on_error: true
+
+mark_hortensia_watered:
+  alias: Markera Hortensia som vattnad
+  icon: mdi:watering-can
+  sequence:
+    - action: input_datetime.set_datetime
+      target:
+        entity_id: input_datetime.plant_hortensia_last_watered
+      data:
+        datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+    - action: rest_command.log_watering
+      data:
+        slug: hortensia
+        source: card_tap
+      continue_on_error: true
+
 mark_room_watered:
   alias: Markera hela rummets växter som vattnade
   icon: mdi:watering-can-outline

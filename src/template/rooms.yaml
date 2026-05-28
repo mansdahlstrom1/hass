@@ -90,9 +90,13 @@
         slug: bedroom
         display_name: "Sovrum"
         location: indoor
-        windows_direction: unknown
-        sun_hours: "unknown"
-        brightness: unknown
-        temperature_range: "indoor (~18 °C, svalare)"
-        humidity_hint: "indoor, dry"
-        notes: "Fyll i fönsterriktning och ljus när första växten läggs till."
+        windows_direction: east
+        sun_hours: 3
+        brightness: medium
+        temperature_range: "indoor (~20 °C, kan bli ganska varmt särskilt sommartid)"
+        humidity_hint: "indoor, dry — torrare på vintern, kan bli varmt på sommaren"
+        notes: |
+          🌅 Östra fönster ger mild morgonsol fram till ~middag.
+          🌤️ Gardiner är fördragna fram till ~9 förmiddagen — ljuset är ytterligare filtrerat.
+          🌡️ Kan bli ganska varmt sommartid — vattna oftare och vädra.
+          💧 Sen eftermiddag är skuggig — håll inte jorden för blöt på vintern.

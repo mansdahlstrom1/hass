@@ -464,6 +464,56 @@
           Klätterväxt — kommer behöva en pinne eller mosspinne så småningom.
           Omplantera när rötterna fyller minikrukan, troligen inom ett år.
 
+    - name: "Plant Vit Orkidé"
+      unique_id: plant_vit_orkide
+      icon: mdi:flower
+      state: "{% from 'plants.jinja' import plant_state %}{{ plant_state('vit_orkide', 7) }}"
+      attributes:
+        display_name: "Vit Orkidé"
+        room: bedroom
+        species: "Phalaenopsis (vit)"
+        interval_days: 7
+        days_since: "{% from 'plants.jinja' import days_since %}{{ days_since('vit_orkide') }}"
+        last_watered: "{{ states('input_datetime.plant_vit_orkide_last_watered') }}"
+        relative_last_watered: "{% from 'plants.jinja' import relative_last_watered %}{{ relative_last_watered('vit_orkide') }}"
+        light: "Ljust läge, mild morgonsol OK"
+        water: "Sparsamt — låt barkmediet torka mellan vattningar"
+        care: |
+          Östfönstret är idealt — mild morgonsol utan risk för brännskador.
+          Vattna genom att doppa krukan i ljummet vatten ~10 min, låt rinna av
+          helt. Inget stillastående vatten i innerkrukan — rötterna ruttnar.
+          Använd orkidéjord (bark), inte vanlig krukjord.
+          Gödsla svagt under tillväxt (var 3:e vattning).
+          Klipp av blomstängeln över en nod efter blomning för chans till
+          nyblomning. Svalare nattemperatur (vanligt i sovrum) stimulerar
+          nya blomstänglar.
+
+    - name: "Plant Hortensia"
+      unique_id: plant_hortensia
+      icon: mdi:flower
+      state: "{% from 'plants.jinja' import plant_state %}{{ plant_state('hortensia', 3) }}"
+      attributes:
+        display_name: "Hortensia"
+        room: bedroom
+        species: "Hydrangea macrophylla (blå, 26 cm kruka)"
+        interval_days: 3
+        days_since: "{% from 'plants.jinja' import days_since %}{{ days_since('hortensia') }}"
+        last_watered: "{{ states('input_datetime.plant_hortensia_last_watered') }}"
+        relative_last_watered: "{% from 'plants.jinja' import relative_last_watered %}{{ relative_last_watered('hortensia') }}"
+        light: "Ljust indirekt — undvik direkt sol"
+        water: "Ofta och rikligt — stora blad förbrukar mycket vatten"
+        care: |
+          Mycket törstig växt — namnet kommer från grekiska 'hydor' (vatten).
+          Stora blad förångar mycket; även 26 cm kruka torkar snabbt.
+          Vattna när översta jorden är torr, gärna med regnvatten eller
+          avhärdat vatten — Hortensia är känslig för kalk och klor.
+          Den blå färgen kräver sur jord (pH ~5). Använd rhododendronjord
+          eller surgör med specialgödsel — annars blir blommorna rosa.
+          Trivs i ljust indirekt ljus; direkt sol bränner och torkar ut.
+          Tappar gärna blad i värme — flytta gärna till svalare plats sommartid.
+          Kan flyttas ut på balkongen under sommaren när det är skuggigt — uppskattar utomhusluften.
+          Beskär efter blomning.
+
     - name: "Plants Needing Water"
       unique_id: plants_needing_water
       icon: mdi:watering-can
@@ -477,7 +527,8 @@
           'sensor.plant_citronfikus', 'sensor.plant_palettblad',
           'sensor.plant_banddracena', 'sensor.plant_fonsterfikus_belize',
           'sensor.plant_ficus_robusta', 'sensor.plant_rosenstank_pink',
-          'sensor.plant_monstera_adansonii'
+          'sensor.plant_monstera_adansonii',
+          'sensor.plant_vit_orkide', 'sensor.plant_hortensia'
         ] %}
         {% set ns = namespace(count=0) %}
         {% for e in entities %}

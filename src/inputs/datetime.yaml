@@ -92,3 +92,13 @@ plant_monstera_adansonii_last_watered:
   name: Monstera adansonii last watered
   has_date: true
   has_time: true
+
+plant_vit_orkide_last_watered:
+  name: Vit Orkidé last watered
+  has_date: true
+  has_time: true
+
+plant_hortensia_last_watered:
+  name: Hortensia last watered
+  has_date: true
+  has_time: true

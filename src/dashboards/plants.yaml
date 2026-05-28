@@ -185,6 +185,26 @@ views:
             variables:
               ulm_plant_slug: monstera_adansonii
               ulm_plant_icon: mdi:leaf
+
+      # === ROOM: Sovrum ===
+      - type: custom:vertical-stack-in-card
+        cards:
+          - type: custom:button-card
+            template: custom_card_mans_room_header
+            variables:
+              ulm_room_slug: bedroom
+              ulm_room_emoji: "🛏️"
+
+          - type: custom:button-card
+            template: custom_card_mans_plant
+            variables:
+              ulm_plant_slug: vit_orkide
+              ulm_plant_icon: mdi:flower
+          - type: custom:button-card
+            template: custom_card_mans_plant
+            variables:
+              ulm_plant_slug: hortensia
+              ulm_plant_icon: mdi:flower
   # ─── Per-plant subviews ───
   # Each plant has its own subview reachable via /house-plants/plant-<slug>.
   # Tapping a plant card on the main view navigates here.
@@ -667,3 +687,53 @@ views:
         template: custom_card_mans_plant_water_button
         variables:
           ulm_plant_slug: monstera_adansonii
+
+  - title: Vit Orkidé
+    path: plant-vit_orkide
+    icon: mdi:flower
+    subview: true
+    type: masonry
+    max_columns: 1
+    cards:
+      - type: custom:button-card
+        template: custom_card_mans_plant
+        variables:
+          ulm_plant_slug: vit_orkide
+          ulm_plant_icon: mdi:flower
+      - type: custom:button-card
+        template: custom_card_mans_plant_care
+        variables:
+          ulm_plant_slug: vit_orkide
+      - type: custom:button-card
+        template: custom_card_mans_plant_history
+        variables:
+          ulm_plant_slug: vit_orkide
+      - type: custom:button-card
+        template: custom_card_mans_plant_water_button
+        variables:
+          ulm_plant_slug: vit_orkide
+
+  - title: Hortensia
+    path: plant-hortensia
+    icon: mdi:flower
+    subview: true
+    type: masonry
+    max_columns: 1
+    cards:
+      - type: custom:button-card
+        template: custom_card_mans_plant
+        variables:
+          ulm_plant_slug: hortensia
+          ulm_plant_icon: mdi:flower
+      - type: custom:button-card
+        template: custom_card_mans_plant_care
+        variables:
+          ulm_plant_slug: hortensia
+      - type: custom:button-card
+        template: custom_card_mans_plant_history
+        variables:
+          ulm_plant_slug: hortensia
+      - type: custom:button-card
+        template: custom_card_mans_plant_water_button
+        variables:
+          ulm_plant_slug: hortensia
