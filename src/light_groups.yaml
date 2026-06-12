@@ -6,6 +6,7 @@
     - light.studio_lights
     - light.bedroom_lights
     - light.kitchen_lights
+    - light.balcony_lights
 
 ## Living room
 - platform: group
@@ -38,3 +39,13 @@
   name: "Kitchen Lights"
   entities:
     - light.worktop_lights
+    - light.taklampa
+
+## Balcony
+- platform: group
+  name: "Balcony Lights"
+  entities:
+    # Wall light
+    - light.lampa
+    # Plejd relay outlet feeding the railing string lights
+    - light.vagguttag

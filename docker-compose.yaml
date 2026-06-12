@@ -6,6 +6,12 @@ services:
       - /home/mans/hass_config:/config
       - /etc/localtime:/etc/localtime:ro
       - /etc/letsencrypt/:/etc/letsencrypt/
+      - /run/dbus:/run/dbus:ro
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    security_opt:
+      - apparmor:unconfined
     restart: always
     network_mode: host
 

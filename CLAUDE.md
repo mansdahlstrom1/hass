@@ -152,12 +152,23 @@ Also at root level:
 | Alexa | Amazon smart home (EU endpoint, exposes switches/lights/groups) |
 | HomeKit | Bridge "Hass Bridge", advertise_ip 192.168.1.36 (exposes lights/sensors/switches) |
 | Philips Hue | Bridge 00212EFFFF022E39 (config file exists, not documented elsewhere) |
+| Plejd | BLE mesh (kitchen + balcony lights) via HACS `thomasloven/hass-plejd`. See "Plejd" section below |
 | Mobile App | Mans iPhone, Agnes iPhone (see Persons note below) |
 | Sonos | Auto-discovered speakers |
 | Nord Pool | Electricity prices (area SE4, SEK) |
 | Cast | Google Cast devices |
 | HACS | Community store (custom components + frontend cards) |
 | Time/Date | Sensor platform (time, date, various formats) |
+
+## Plejd (added 2026-06-12)
+
+BLE mesh lighting. Devices: `light.taklampa` (Kök ceiling, dimmer), `light.lampa` (Balkong wall light), `light.vagguttag` (Balkong outlet relay feeding railing string lights), plus an unnamed input-only device = wall dimmer (WPH/WRT type, hidden in the Plejd app's room list). Integration: HACS `thomasloven/hass-plejd` v0.21.2, logged in with Plejd app credentials (site "Föreningsgatan 39B - Lgh 203").
+
+Infra requirements (all in `docker-compose.yaml`): `/run/dbus:/run/dbus:ro` mount, `cap_add: NET_ADMIN, NET_RAW`, and `security_opt: apparmor:unconfined` (Ubuntu's docker-default AppArmor profile blocks D-Bus → BlueZ otherwise). HA Bluetooth integration uses the host's Intel adapter (`hci0`).
+
+**Local patch:** `custom_components/plejd/__init__.py` is replaced with a community-patched version (from hass-plejd issue #157) that backfills missing `title` fields before pydantic validation — Plejd's cloud stopped returning titles for input-only devices ~2026-06-08, which crashes stock pyplejd 0.21.2 (`ValidationError: devices.N.title Field required`). Original file backed up at `/tmp/plejd_init_orig_0.21.2.py`. Remove the patch when hass-plejd ships a release containing pyplejd PR #21 (then update via HACS normally; a HACS update overwrites the patch, which is fine once upstream is fixed). Track: https://github.com/thomasloven/hass-plejd/issues/158
+
+**RESOLVED (2026-06-12) — antennas were unplugged:** Plejd entities were initially `unavailable` because the server's Intel 8265 combo card (WiFi+BT share the same MAIN/AUX antenna connectors; BT uses AUX) had **no antennas attached** — every BLE device read -82..-92 dBm and zero Plejd advertisements were heard. After screwing the antennas onto the back of the machine, the Plejd mesh ("P mesh", service UUID `31ba0001-…`) is visible at ~-85 dBm and all entities work (verified by toggling `light.taklampa` via the API). Note -85 is still edge-of-range; if Plejd gets flaky, reposition antennas or fall back to an ESPHome Bluetooth proxy (active connections enabled; Shelly proxies do NOT work with Plejd). More mains-powered Plejd devices (planned ceiling lights) will also strengthen the mesh path.
 
 ## Custom Components (in custom_components/)
 

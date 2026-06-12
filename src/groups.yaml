@@ -36,6 +36,14 @@ kitchen:
   name: Kitchen
   entities:
     - light.worktop_lights
+    - light.taklampa
+
+## Balcony
+balcony:
+  name: Balcony
+  entities:
+    - light.lampa
+    - light.vagguttag
 
 all_persons:
   name: All Persons
