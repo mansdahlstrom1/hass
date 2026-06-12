@@ -2,9 +2,8 @@ id: coming_home
 alias: Coming Home
 trigger:
   platform: state
-  entity_id: binary_sensor.anyone_home
-  from: "off"
-  to: "on"
+  entity_id: group.all_persons
+  to: "home"
 
 action:
   - service: homeassistant.turn_on
