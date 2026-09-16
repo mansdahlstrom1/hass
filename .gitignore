@@ -72,3 +72,6 @@
 ip_bans.yaml
 secrets.yaml
 known_devices.yaml
+
+# Operational docs / runbooks
+!docs/
