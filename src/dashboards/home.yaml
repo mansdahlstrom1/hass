@@ -8,8 +8,21 @@
 # (.storage/lovelace.lovelace, "Home" view). Uses the default
 # masonry layout — cards auto-flow across columns.
 #
-# Requires HACS frontend: mushroom, mini-graph-card.
+# Requires HACS frontend: mushroom, mini-graph-card, vertical-stack-in-card.
 # (time-input-card only if the commented-out alarm card is re-enabled.)
+#
+# Each room is ONE card: the room stacks use custom:vertical-stack-in-card so
+# the room reads as a single bounded group instead of N separate floating
+# cards. Same pattern as the room containers on the Plants dashboard.
+#
+# Because vertical-stack-in-card flattens its children onto one surface, the
+# inner sections would otherwise run together. Separation is done with the
+# built-in `type: divider` card (no custom resource needed) between sections,
+# styled uniformly across all five room stacks: a 1px line in the theme's
+# --divider-color, 12px breathing room above/below and inset 16px so it lines
+# up with the card content instead of running edge-to-edge. Cards that form one
+# logical control unit are NOT split (e.g. the AC tile + its power/sleep/tank
+# chips in Sovrum).
 
 title: Home
 views:
@@ -54,7 +67,7 @@ views:
             icon: mdi:balcony
 
       # === Sovrum stack ===
-      - type: vertical-stack
+      - type: custom:vertical-stack-in-card
         cards:
           # Room temperature (Wood's AC built-in sensor), last 24h
           - type: custom:mini-graph-card
@@ -68,6 +81,11 @@ views:
             line_width: 3
             line_color: "#ff9800"
             animate: true
+          - type: divider
+            style:
+              height: 1px
+              margin: 12px 16px
+              background: var(--divider-color)
 
           - type: entities
             title: Belysning
@@ -76,6 +94,11 @@ views:
               - entity: light.hm_home
               - entity: light.agnes_mushroom_lamp
               - entity: light.mans_mushroom_lamp
+          - type: divider
+            style:
+              height: 1px
+              margin: 12px 16px
+              background: var(--divider-color)
 
           - type: custom:mushroom-light-card
             entity: light.bedroom_lights
@@ -99,6 +122,11 @@ views:
           #     - "07:30"
           #     - "08:00"
           #     - "08:30"
+          - type: divider
+            style:
+              height: 1px
+              margin: 12px 16px
+              background: var(--divider-color)
 
           # Wood's Cortina 12K portable AC (tuya-local). "dry" = avfuktning.
           # Power is a SEPARATE switch (chip below): the climate entity is
@@ -134,7 +162,7 @@ views:
                 content_info: name
 
       # === Vardagsrum stack ===
-      - type: vertical-stack
+      - type: custom:vertical-stack-in-card
         cards:
           - type: entities
             title: Vardagsrum
@@ -144,6 +172,11 @@ views:
               - entity: switch.basket_lamp
                 icon: mdi:dome-light
               - entity: light.marble_lamp
+          - type: divider
+            style:
+              height: 1px
+              margin: 12px 16px
+              background: var(--divider-color)
 
           - type: custom:mushroom-light-card
             entity: light.living_room_lights
@@ -153,6 +186,11 @@ views:
             show_color_temp_control: true
             collapsible_controls: true
             fill_container: true
+          - type: divider
+            style:
+              height: 1px
+              margin: 12px 16px
+              background: var(--divider-color)
 
           - type: custom:mushroom-vacuum-card
             entity: vacuum.dusty
@@ -167,12 +205,22 @@ views:
               - locate
               - clean_spot
               - return_home
+          - type: divider
+            style:
+              height: 1px
+              margin: 12px 16px
+              background: var(--divider-color)
 
           - type: custom:mushroom-media-player-card
             entity: media_player.living_room
             name: Apple TV Vardagsrum
             use_media_info: true
             show_volume_level: false
+          - type: divider
+            style:
+              height: 1px
+              margin: 12px 16px
+              background: var(--divider-color)
 
           - type: custom:mushroom-media-player-card
             entity: media_player.vardagsrum
@@ -190,7 +238,7 @@ views:
               - volume_buttons
 
       # === Kök stack ===
-      - type: vertical-stack
+      - type: custom:vertical-stack-in-card
         cards:
           - type: entities
             title: Kök
@@ -200,6 +248,11 @@ views:
               - entity: light.taklampa
                 name: Taklampa
                 icon: mdi:ceiling-light
+          - type: divider
+            style:
+              height: 1px
+              margin: 12px 16px
+              background: var(--divider-color)
 
           - type: custom:mushroom-light-card
             entity: light.kitchen_lights
@@ -208,6 +261,11 @@ views:
             collapsible_controls: true
             fill_container: true
             primary_info: name
+          - type: divider
+            style:
+              height: 1px
+              margin: 12px 16px
+              background: var(--divider-color)
 
           - type: custom:mushroom-media-player-card
             entity: media_player.kok
@@ -225,7 +283,7 @@ views:
               - volume_buttons
 
       # === Balkong stack (Plejd) ===
-      - type: vertical-stack
+      - type: custom:vertical-stack-in-card
         cards:
           - type: entities
             title: Balkong
@@ -238,6 +296,11 @@ views:
               - entity: light.vagguttag
                 name: Balkongslinga
                 icon: mdi:string-lights
+          - type: divider
+            style:
+              height: 1px
+              margin: 12px 16px
+              background: var(--divider-color)
 
           - type: custom:mushroom-light-card
             entity: light.balcony_lights
@@ -248,7 +311,7 @@ views:
             primary_info: name
 
       # === Studio stack ===
-      - type: vertical-stack
+      - type: custom:vertical-stack-in-card
         cards:
           - type: entities
             title: Studio
@@ -256,6 +319,11 @@ views:
             entities:
               - entity: switch.blob_light
               - entity: light.studio_ceiling
+          - type: divider
+            style:
+              height: 1px
+              margin: 12px 16px
+              background: var(--divider-color)
 
           - type: sensor
             entity: sensor.studio_temp
@@ -263,6 +331,11 @@ views:
             detail: 2
             hours_to_show: 24
             name: Temperature last 24 Hours
+          - type: divider
+            style:
+              height: 1px
+              margin: 12px 16px
+              background: var(--divider-color)
 
           - type: custom:mushroom-light-card
             entity: light.studio_lights
@@ -273,6 +346,11 @@ views:
             show_color_control: false
             fill_container: true
             primary_info: name
+          - type: divider
+            style:
+              height: 1px
+              margin: 12px 16px
+              background: var(--divider-color)
 
           # Sonos Play — a MOVABLE speaker; its base/home is the Studio, so it
           # lives in this stack (it used to sit under a "Bathroom" section).
@@ -294,6 +372,11 @@ views:
             volume_controls:
               - volume_set
               - volume_buttons
+          - type: divider
+            style:
+              height: 1px
+              margin: 12px 16px
+              background: var(--divider-color)
 
           - type: tile
             entity: script.wake_and_play_ambient
