@@ -210,7 +210,7 @@ Note: Device tracker entity names may not reflect current phone models (entity n
 |---|---|
 | Living Room | living_room_lamp_1, basket_lamp, christmas_star, christmas_tree, marble_lamp, **echo (MISSING entity)** |
 | Studio | studio_temp, studio_humidity, studio_air_pressure, studio_battery, raspotify, blob_light |
-| Bedroom | living_room_lamp_2 (confusing name - physically in bedroom), agnes_mushroom_lamp, mans_mushroom_lamp |
+| Bedroom | living_room_lamp_2 (confusing name - physically in bedroom), **hm_home (moved here from Living Room 2026-09-16)**, agnes_mushroom_lamp, mans_mushroom_lamp |
 | Kitchen | worktop_lights |
 | All Persons | person.mans, person.agnes |
 | My Switches | blob_light, basket_lamp, raspotify |
@@ -220,9 +220,9 @@ Note: Device tracker entity names may not reflect current phone models (entity n
 | Group | Entities |
 |---|---|
 | Dimmable Lights | All room light groups combined |
-| Living Room Lights | living_room_lamp_1, marble_lamp, silver_lamp, **marble_lamp (DUPLICATE - bug)** |
+| Living Room Lights | living_room_lamp_1, marble_lamp, **marble_lamp (DUPLICATE - bug)** |
 | Studio Lights | studio_lamp |
-| Bedroom Lights | living_room_lamp_2, agnes_mushroom_lamp, mans_mushroom_lamp |
+| Bedroom Lights | living_room_lamp_2, hm_home, agnes_mushroom_lamp, mans_mushroom_lamp |
 | Kitchen Lights | worktop_lights |
 
 Note: `light.marble_lamp` appears twice in Living Room Lights - one entry should likely be removed or replaced. Bedside lamps (`mans_bedside_lamp`, `agnes_bedside_lamp`) are commented out as "Not plugged in right now".

@@ -7,7 +7,6 @@ living_room:
     - switch.christmas_star
     - switch.christmas_tree
     - light.marble_lamp
-    - light.hm_home
     - media_player.echo
 
 ## Studio
@@ -28,6 +27,7 @@ bedroom:
   name: Bedroom
   entities:
     - light.living_room_lamp_2
+    - light.hm_home
     - light.agnes_mushroom_lamp
     - light.mans_mushroom_lamp
 

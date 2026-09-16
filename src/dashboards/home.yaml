@@ -72,6 +72,7 @@ views:
             title: Belysning
             entities:
               - entity: light.living_room_lamp_2
+              - entity: light.hm_home
               - entity: light.agnes_mushroom_lamp
               - entity: light.mans_mushroom_lamp
 
@@ -142,7 +143,6 @@ views:
               - entity: switch.basket_lamp
                 icon: mdi:dome-light
               - entity: light.marble_lamp
-              - entity: light.hm_home
 
           - type: custom:mushroom-light-card
             entity: light.living_room_lights
