@@ -1,0 +1,14 @@
+# Climate-derived template sensors.
+# Exposes the Wood's Cortina AC's built-in room-temperature reading
+# (climate.* current_temperature attribute) as a first-class sensor so the
+# recorder keeps history and Lovelace graph cards can plot it.
+- sensor:
+    - name: "Sovrum Temperatur"
+      unique_id: sovrum_temperatur
+      unit_of_measurement: "°C"
+      device_class: temperature
+      state_class: measurement
+      availability: >-
+        {{ state_attr('climate.wood_s_cortina_silent_12k_smart_home', 'current_temperature') is not none }}
+      state: >-
+        {{ state_attr('climate.wood_s_cortina_silent_12k_smart_home', 'current_temperature') }}

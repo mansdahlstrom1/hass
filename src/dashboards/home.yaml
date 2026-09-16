@@ -48,12 +48,28 @@ views:
           - entity: group.bedroom
             name: Sovrum
             icon: mdi:bed-double
+          - entity: group.balcony
+            name: Balkong
+            icon: mdi:balcony
 
       # === Sovrum stack ===
       - type: vertical-stack
         cards:
+          # Room temperature (Wood's AC built-in sensor), last 24h
+          - type: custom:mini-graph-card
+            name: Sovrum
+            icon: mdi:bed-double
+            entities:
+              - entity: sensor.sovrum_temperatur
+                name: Temperatur
+            hours_to_show: 24
+            points_per_hour: 2
+            line_width: 3
+            line_color: "#ff9800"
+            animate: true
+
           - type: entities
-            title: Sovrum
+            title: Belysning
             entities:
               - entity: light.living_room_lamp_2
               - entity: light.agnes_mushroom_lamp
@@ -71,15 +87,49 @@ views:
             secondary_info: state
             icon_type: none
 
-          - type: custom:time-input-card
-            title: 🎶 The Moment I Wake Up 🎶
-            entity_id: input_text.alarm_time
-            presets:
-              - "06:30"
-              - "07:00"
-              - "07:30"
-              - "08:00"
-              - "08:30"
+          # Retired from the dashboard 2026-06-25 — kept for easy re-enable.
+          # - type: custom:time-input-card
+          #   title: 🎶 The Moment I Wake Up 🎶
+          #   entity_id: input_text.alarm_time
+          #   presets:
+          #     - "06:30"
+          #     - "07:00"
+          #     - "07:30"
+          #     - "08:00"
+          #     - "08:30"
+
+          # Wood's Cortina 12K portable AC (tuya-local). "dry" = avfuktning.
+          # Power is a SEPARATE switch (chip below): the climate entity is
+          # mode-only because the AC drops a mode change sent in the same frame
+          # as the power DP. See custom_components/tuya_local/devices/
+          # woods_cortina_airconditioner.yaml header + discussion #1843.
+          - type: tile
+            entity: climate.wood_s_cortina_silent_12k_smart_home
+            name: Luftkonditionering
+            features:
+              - type: climate-hvac-modes
+                hvac_modes:
+                  - cool
+                  - dry
+                  - fan_only
+              - type: target-temperature
+              - type: climate-fan-modes
+          - type: custom:mushroom-chips-card
+            alignment: center
+            chips:
+              - type: entity
+                entity: switch.wood_s_cortina_silent_12k_smart_home_power
+                icon: mdi:power
+                content_info: name
+              - type: entity
+                entity: switch.wood_s_cortina_silent_12k_smart_home_sleep
+                icon: mdi:power-sleep
+                content_info: name
+              - type: entity
+                entity: binary_sensor.wood_s_cortina_silent_12k_smart_home_tank
+                icon: mdi:cup-water
+                icon_color: red
+                content_info: name
 
       # === Vardagsrum stack ===
       - type: vertical-stack
@@ -131,6 +181,40 @@ views:
             show_header_toggle: true
             entities:
               - entity: light.worktop_lights
+              - entity: light.taklampa
+                name: Taklampa
+                icon: mdi:ceiling-light
+
+          - type: custom:mushroom-light-card
+            entity: light.kitchen_lights
+            show_brightness_control: true
+            use_light_color: true
+            collapsible_controls: true
+            fill_container: true
+            primary_info: name
+
+      # === Balkong stack (Plejd) ===
+      - type: vertical-stack
+        cards:
+          - type: entities
+            title: Balkong
+            show_header_toggle: true
+            state_color: true
+            entities:
+              - entity: light.lampa
+                name: Vägglampa
+                icon: mdi:wall-sconce
+              - entity: light.vagguttag
+                name: Balkongslinga
+                icon: mdi:string-lights
+
+          - type: custom:mushroom-light-card
+            entity: light.balcony_lights
+            show_brightness_control: true
+            use_light_color: true
+            collapsible_controls: true
+            fill_container: true
+            primary_info: name
 
       # === Studio stack ===
       - type: vertical-stack

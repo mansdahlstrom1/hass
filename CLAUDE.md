@@ -4,7 +4,7 @@ Expert reference for managing the Home Assistant instance on this server.
 
 ## Deployment
 
-- **HA Version:** 2025.2.4 (check `.HA_VERSION` for current) -- **~1 year old, should be updated**
+- **HA Version:** 2026.4.4 (check `.HA_VERSION` for current). Note: `tuya_local` is pinned to 2026.4.3 and blocks taking its 2026.6.x HACS update until HA itself moves to ≥ 2026.6 — see "Woods Cortina AC".
 - **Container:** `home-assistant` (Docker, `homeassistant/home-assistant:latest`)
 - **Network mode:** host (port 8123 directly on host)
 - **Restart policy:** always (auto-starts on reboot)
@@ -153,6 +153,7 @@ Also at root level:
 | HomeKit | Bridge "Hass Bridge", advertise_ip 192.168.1.36 (exposes lights/sensors/switches) |
 | Philips Hue | Bridge 00212EFFFF022E39 (config file exists, not documented elsewhere) |
 | Plejd | BLE mesh (kitchen + balcony lights) via HACS `thomasloven/hass-plejd`. See "Plejd" section below |
+| Tuya Local | Wood's Cortina 12K portable AC, fully local over LAN via HACS `make-all/tuya-local`. See "Woods Cortina AC" section below |
 | Mobile App | Mans iPhone, Agnes iPhone (see Persons note below) |
 | Sonos | Auto-discovered speakers |
 | Nord Pool | Electricity prices (area SE4, SEK) |
@@ -169,6 +170,21 @@ Infra requirements (all in `docker-compose.yaml`): `/run/dbus:/run/dbus:ro` moun
 **Local patch:** `custom_components/plejd/__init__.py` is replaced with a community-patched version (from hass-plejd issue #157) that backfills missing `title` fields before pydantic validation — Plejd's cloud stopped returning titles for input-only devices ~2026-06-08, which crashes stock pyplejd 0.21.2 (`ValidationError: devices.N.title Field required`). Original file backed up at `/tmp/plejd_init_orig_0.21.2.py`. Remove the patch when hass-plejd ships a release containing pyplejd PR #21 (then update via HACS normally; a HACS update overwrites the patch, which is fine once upstream is fixed). Track: https://github.com/thomasloven/hass-plejd/issues/158
 
 **RESOLVED (2026-06-12) — antennas were unplugged:** Plejd entities were initially `unavailable` because the server's Intel 8265 combo card (WiFi+BT share the same MAIN/AUX antenna connectors; BT uses AUX) had **no antennas attached** — every BLE device read -82..-92 dBm and zero Plejd advertisements were heard. After screwing the antennas onto the back of the machine, the Plejd mesh ("P mesh", service UUID `31ba0001-…`) is visible at ~-85 dBm and all entities work (verified by toggling `light.taklampa` via the API). Note -85 is still edge-of-range; if Plejd gets flaky, reposition antennas or fall back to an ESPHome Bluetooth proxy (active connections enabled; Shelly proxies do NOT work with Plejd). More mains-powered Plejd devices (planned ceiling lights) will also strengthen the mesh path.
+
+## Woods Cortina AC (added 2026-06-25)
+
+Wood's Cortina Silent 12K Smart Home (model WAC1202G) — a **portable air conditioner** with a dehumidify mode, **not** a standalone dehumidifier. Wood's is a Swedish brand but the WiFi/app is white-labeled **Tuya** ("Wood's Connect" = reskinned Smart Life). Integrated **fully locally over the LAN** (no cloud after setup) via the HACS custom integration `make-all/tuya-local`.
+
+- **Entities:** `climate.wood_s_cortina_silent_12k_smart_home` (mode/temp/fan), `switch.*_power` (on/off), `switch.*_sleep`, `binary_sensor.*_tank` (tank-full), `binary_sensor.*_problem`. Device profile = `woods_cortina_airconditioner.yaml` ("Woods Cortina Silent 12k"). Climate HVAC modes cool/dry/fan_only/heat_cool (**no `off`** — see split below), fan low/med/high, target 17–30 °C.
+- **Dehumidify = the `dry` HVAC mode.** There is **no humidity setpoint / current-humidity datapoint** — to hold an RH target you'd pair a separate hygrometer + an automation that flips the AC to `dry`.
+- **Room temp IS exposed** via the climate `current_temperature` attribute (DP3). Surfaced as `sensor.sovrum_temperatur` (template, `src/template/climate.yaml`) so the recorder graphs it; shown as a 24h mini-graph in the Sovrum stack.
+- **Dashboard:** tile card (mode/temp/fan) + Power/Sleep/Tank chips in the Sovrum section of `src/dashboards/home.yaml`.
+
+**⚠️ Local profile patch — power is split from the climate (2026-06-26).** `woods_cortina_airconditioner.yaml` is locally edited so **power lives on its own `switch` entity (DP1)** and the **climate is mode-only (DP4, no `off`/turn_on/turn_off)**. Reason: this unit's firmware **silently drops a mode change (DP4) whenever it shares a command frame with the power DP (DP1)** — and the stock profile (hvac_mode on DP1 with a DP4 *constraint*) makes HA send both together, so selecting **cool always reverted to fan** (`DP4` stayed `"3"`). The Tuya/Smart Life app works because it sends power and mode as *separate* frames. With the split, HA's mode buttons write only `{"4": "<n>"}` and it sticks. tuya-local treats this as a profile design choice, **not** a code bug it will fix (maintainer: "no plans to introduce stateful command sequencing") — see [discussion #1843](https://github.com/make-all/tuya-local/discussions/1843). DP4 mode values: `0`=cool, `2`=dry, `3`=fan_only, `4`=eco(heat_cool). **A HACS update of tuya_local overwrites this file — re-apply the split after any update** (orig stock profile backed up in the 2026-06-26 chat scratchpad; same pattern as the Plejd `__init__.py` patch). To debug the device live, temporarily add `logger: {logs: {custom_components.tuya_local: debug}}` and watch `sending dps update` / `received` lines in `home-assistant.log`.
+
+**Setup that worked (for re-pairing):** The AC must live in the genuine **Smart Life** app, **not Wood's Connect** — tuya-local's cloud-assisted login (QR scan, **region = Central Europe**) only talks to Smart Life/Tuya Smart and rejects white-label apps. Pair in **AP mode** (EZ is flaky; expect power-cycles). Cloud-assisted then auto-fills device id + local key; control runs local thereafter. Re-pairing rotates the local key, so don't re-pair after adding to HA. Give the AC a static DHCP lease.
+
+**⚠️ Version pin — do NOT blindly update in HACS.** `tuya_local` is pinned at **2026.4.3** because newer releases (2026.5.4+, 2026.6.x) require HA ≥ 2026.5/2026.6 and this instance runs **2026.4.4**. HACS will keep offering 2026.6.2, which **won't load** (`requires Home Assistant 2026.6.0 or newer`). Only take the tuya_local update *after* HA itself is updated to ≥ 2026.6. (The newest tuya_local that still runs on 2026.4.x is 2026.5.0, which requires 2026.4.0 — but 2026.4.3 is what's installed and fine.)
 
 ## Custom Components (in custom_components/)
 

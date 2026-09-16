@@ -94,6 +94,6 @@ lovelace:
     home-yaml:
       mode: yaml
       filename: src/dashboards/home.yaml
-      title: Home (YAML)
+      title: Home
       icon: mdi:home-variant
       show_in_sidebar: true
