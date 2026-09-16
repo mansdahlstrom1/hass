@@ -8,7 +8,8 @@
 # (.storage/lovelace.lovelace, "Home" view). Uses the default
 # masonry layout — cards auto-flow across columns.
 #
-# Requires HACS frontend: mushroom, vertical-stack-in-card, time-input-card.
+# Requires HACS frontend: mushroom, mini-graph-card.
+# (time-input-card only if the commented-out alarm card is re-enabled.)
 
 title: Home
 views:
@@ -273,16 +274,16 @@ views:
             fill_container: true
             primary_info: name
 
-      # === Bathroom ===
-      - type: custom:vertical-stack-in-card
-        title: Bathroom
-        cards:
+          # Sonos Play — a MOVABLE speaker; its base/home is the Studio, so it
+          # lives in this stack (it used to sit under a "Bathroom" section).
+          # script.wake_and_play_ambient drives this same speaker, so it moved
+          # with it. Note the WoL secret is still named `bathroom_sonos_mac`.
           - type: custom:mushroom-media-player-card
             entity: media_player.play
-            name: Bathroom
+            name: Sonos Play
             fill_container: true
             primary_info: name
-            secondary_info: name
+            secondary_info: state
             icon_type: icon
             use_media_info: true
             show_volume_level: true

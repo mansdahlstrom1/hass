@@ -155,7 +155,7 @@ Also at root level:
 | Plejd | BLE mesh (kitchen + balcony lights) via HACS `thomasloven/hass-plejd`. See "Plejd" section below |
 | Tuya Local | Wood's Cortina 12K portable AC, fully local over LAN via HACS `make-all/tuya-local`. See "Woods Cortina AC" section below |
 | Mobile App | Mans iPhone, Agnes iPhone (see Persons note below) |
-| Sonos | Auto-discovered speakers |
+| Sonos | Auto-discovered. 3 speakers: `media_player.vardagsrum` (Vardagsrum), `media_player.kok` (Kök), `media_player.play` (**movable** — base is the Studio; `script.wake_and_play_ambient` drives it) |
 | Nord Pool | Electricity prices (area SE4, SEK) |
 | Cast | Google Cast devices |
 | HACS | Community store (custom components + frontend cards) |
