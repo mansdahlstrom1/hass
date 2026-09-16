@@ -1,6 +1,13 @@
+# DISABLED 2026-09-16 — the plant tracker is no longer in day-to-day use, so the
+# daily push was just noise. `initial_state: false` forces the automation off at
+# every HA start; the automation itself is kept intact.
+# To re-enable: delete the `initial_state` line (or flip it on in the UI for the
+# rest of the current run) — the sensors, scripts and dashboard still work.
 id: plant_water_reminder
 alias: Plant Water Reminder
-description: Daily 09:00 push if any balcony plant needs water
+description: >-
+  DISABLED — daily 09:00 push if any plant needs water.
+initial_state: false
 trigger:
   platform: time
   at: "09:00:00"

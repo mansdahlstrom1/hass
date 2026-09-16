@@ -85,12 +85,15 @@ frontend:
 
 lovelace:
   dashboards:
+    # Hidden from the sidebar 2026-09-16 — the plant tracker is not in active
+    # use. The dashboard is still fully defined and reachable directly at
+    # /house-plants/; flip show_in_sidebar back to true to bring it back.
     house-plants:
       mode: yaml
       filename: src/dashboards/plants.yaml
       title: Plants
       icon: mdi:sprout
-      show_in_sidebar: true
+      show_in_sidebar: false
     home-yaml:
       mode: yaml
       filename: src/dashboards/home.yaml

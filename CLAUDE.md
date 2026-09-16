@@ -244,6 +244,12 @@ Note: `light.marble_lamp` appears twice in Living Room Lights - one entry should
 
 ## Plant Tracking System
 
+> **⚠️ DISABLED 2026-09-16 — no longer in day-to-day use** (last watering logged 2026-07-08). Two changes, both one-line reverts:
+> - `src/automations/plants/water_reminder.yaml` has `initial_state: false` → the 09:00 push never fires.
+> - `configuration.yaml` → `lovelace.dashboards.house-plants.show_in_sidebar: false` → dashboard hidden from the sidebar but **still live at `/house-plants/`**.
+>
+> Everything else is untouched and still running: the 21 plant template sensors, 22 `mark_*_watered` scripts, the `input_datetime` helpers, and the `rest:` sensor polling `localhost:13338/stats` every 300 s (served by the **`plants-history`** container, `restart: always`, defined in `docker-compose.yaml`, data in `plants_history_data/`). Nothing has lost history. The rest of this section describes the system as built.
+
 Hand-rolled plant watering tracker. Manual marking (tap card → script stamps datetime), per-plant intervals, status states, daily reminder notifications. No moisture-sensor hardware.
 
 ### Architecture
